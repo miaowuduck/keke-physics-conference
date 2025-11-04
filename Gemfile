@@ -26,4 +26,5 @@ end
 gem "wdm", "~> 0.1.1", :platforms => [:mingw, :x64_mingw, :mswin]
 
 # 锁定 Ruby 版本（可选）
-ruby "3.1.0"
+# 放宽为最低兼容版本，避免在使用稍新补丁版本的 runner/主机上出现因精确版本不匹配导致的 bundler 失败。
+ruby ">= 3.1.0"
