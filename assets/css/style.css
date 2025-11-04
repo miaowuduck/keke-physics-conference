@@ -6,16 +6,17 @@
 }
 
 :root {
-    --primary-color: #2c3e50;
-    --secondary-color: #3498db;
-    --accent-color: #e74c3c;
-    --success-color: #27ae60;
-    --light-bg: #ecf0f1;
-    --text-color: #2c3e50;
-    --text-light: #7f8c8d;
-    --border-color: #bdc3c7;
-    --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.15);
+    /* 扁平化配色与更细腻的高光/边框 */
+    --primary-color: #0f1724; /* 深色基色 */
+    --secondary-color: #2563eb; /* 扁平蓝 */
+    --accent-color: #ef4444; /* 明亮点缀 */
+    --success-color: #10b981;
+    --light-bg: #f8fafc; /* 更干净的背景 */
+    --text-color: #0f1724;
+    --text-light: #6b7280;
+    --border-color: #e6e9ee; /* 细线分隔 */
+    --shadow: 0 1px 0 rgba(15, 23, 36, 0.04); /* 极轻微深度，用于区分层级 */
+    --shadow-lg: 0 6px 20px rgba(15, 23, 36, 0.06);
 }
 
 html {
@@ -31,11 +32,13 @@ body {
 
 /* ===== 头部样式 ===== */
 .site-header {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    background: var(--primary-color);
     color: white;
     padding: 3rem 1rem;
     text-align: center;
-    box-shadow: var(--shadow-lg);
+    /* 扁平化：去掉明显投影，改用细微分隔线 */
+    box-shadow: none;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
 }
 
 .header-content .site-title {
@@ -54,7 +57,8 @@ body {
 /* ===== 导航栏样式 ===== */
 .site-nav {
     background-color: white;
-    box-shadow: var(--shadow);
+    /* 只使用细线分隔，保持扁平风格 */
+    border-bottom: 1px solid var(--border-color);
     position: sticky;
     top: 0;
     z-index: 100;
@@ -85,6 +89,7 @@ body {
 
 .nav-link:hover {
     color: var(--secondary-color);
+    /* 扁平风格：使用颜色变化，不依赖重描边 */
     border-bottom-color: var(--secondary-color);
 }
 
@@ -138,17 +143,16 @@ h4 {
 /* ===== 信息卡片 ===== */
 .info-card {
     background-color: white;
-    border-left: 4px solid var(--secondary-color);
     padding: 1.5rem;
     margin-bottom: 1.5rem;
-    border-radius: 4px;
-    box-shadow: var(--shadow);
-    transition: all 0.3s ease;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
 
 .info-card:hover {
     box-shadow: var(--shadow-lg);
-    transform: translateY(-2px);
+    transform: translateY(-4px);
 }
 
 .info-card h3 {
@@ -184,13 +188,13 @@ h4 {
     width: 100%;
     border-collapse: collapse;
     background-color: white;
-    box-shadow: var(--shadow);
-    border-radius: 4px;
+    border-radius: 8px;
     overflow: hidden;
+    border: 1px solid var(--border-color);
 }
 
 .agenda-table thead {
-    background-color: var(--primary-color);
+    background-color: var(--secondary-color);
     color: white;
 }
 
@@ -203,7 +207,7 @@ h4 {
 
 .agenda-table td {
     padding: 0.8rem 1rem;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid rgba(15,23,36,0.04);
 }
 
 .agenda-table tbody tr:hover {
@@ -225,15 +229,15 @@ h4 {
 .organizer-card {
     background-color: white;
     padding: 1.5rem;
-    border-radius: 8px;
-    box-shadow: var(--shadow);
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
     text-align: center;
-    transition: all 0.3s ease;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
 
 .organizer-card:hover {
     box-shadow: var(--shadow-lg);
-    transform: translateY(-4px);
+    transform: translateY(-6px);
 }
 
 .organizer-card h4 {
@@ -249,11 +253,10 @@ h4 {
 /* ===== 往届事件样式 ===== */
 .past-event {
     background-color: white;
-    border-radius: 8px;
-    padding: 2rem;
+    border-radius: 10px;
+    padding: 1.5rem;
     margin-bottom: 2rem;
-    box-shadow: var(--shadow);
-    border-left: 5px solid var(--success-color);
+    border: 1px solid var(--border-color);
 }
 
 .event-header {
@@ -262,7 +265,7 @@ h4 {
     align-items: center;
     margin-bottom: 1.5rem;
     padding-bottom: 1rem;
-    border-bottom: 2px solid var(--light-bg);
+    border-bottom: 1px solid var(--border-color);
 }
 
 .event-header h3 {
@@ -274,9 +277,9 @@ h4 {
 .event-badge {
     background-color: var(--success-color);
     color: white;
-    padding: 0.3rem 0.8rem;
-    border-radius: 20px;
-    font-size: 0.9rem;
+    padding: 0.35rem 0.8rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
     font-weight: 600;
 }
 
