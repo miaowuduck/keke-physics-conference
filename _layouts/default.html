@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: 'zh-CN' }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
+    <meta name="description" content="{{ page.excerpt | default: site.description | strip_html | truncatewords: 20 }}">
+    
+    <!-- SEO 标签 -->
+    {% seo %}
+    
+    <!-- 样式表 -->
+    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+    
+    <!-- 字体 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-content">
+            <h1 class="site-title">🎓 {{ site.title }}</h1>
+            <p class="site-subtitle">{{ site.description | strip_html | truncatewords: 15 }}</p>
+        </div>
+    </header>
+
+    <nav class="site-nav">
+        <ul class="nav-menu">
+            <li><a href="{{ '/' | relative_url }}" class="nav-link {% if page.url == '/' %}active{% endif %}">首页</a></li>
+            <li><a href="{{ '/agenda/' | relative_url }}" class="nav-link {% if page.url contains 'agenda' %}active{% endif %}">会议议程</a></li>
+            <li><a href="{{ '/organizers/' | relative_url }}" class="nav-link {% if page.url contains 'organizers' %}active{% endif %}">组织人员</a></li>
+            <li><a href="{{ '/contact/' | relative_url }}" class="nav-link {% if page.url contains 'contact' %}active{% endif %}">联系方式</a></li>
+            <li><a href="{{ '/past-events/' | relative_url }}" class="nav-link {% if page.url contains 'past-events' %}active{% endif %}">往届回顾</a></li>
+        </ul>
+    </nav>
+
+    <main class="site-main">
+        <div class="container">
+            {{ content }}
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <p>&copy; 2024-2025 "咯咯物理奇妙夜" 学术交流会 | 上海交通大学物理学院致远物理系</p>
+        <p style="font-size: 0.9em; margin-top: 0.5em;">
+            <a href="https://github.com" target="_blank">GitHub</a> | 
+            <a href="https://www.sjtu.edu.cn" target="_blank">上海交通大学</a>
+        </p>
+    </footer>
+
+    <script src="{{ '/assets/js/script.js' | relative_url }}"></script>
+</body>
+</html>

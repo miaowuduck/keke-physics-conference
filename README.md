@@ -1,77 +1,83 @@
-# 咯咯物理奇妙夜 - 学术交流会网站
+# 咯咯物理奇妙夜 - 学术交流会网站（Jekyll + GitHub Pages）
 
 欢迎使用"咯咯物理奇妙夜"学术交流会官方网站项目！本项目是由上海交通大学物理学院致远物理系同学自发组织的学术交流会的官方网站。
 
 ## 📋 项目概述
 
-本网站采用**多页面结构**，每个功能模块独立为一个HTML文件，便于后期管理和维护。网站包含以下主要页面：
+本网站采用 **Jekyll 静态网站生成器** 和 **GitHub Pages** 托管，配合 **GitHub Actions** 自动部署。这种方案具有以下优势：
 
-- **首页 (index.html)** - 今年会议的基本信息
-- **会议议程 (pages/agenda.html)** - 详细的会议日程安排
-- **组织人员 (pages/organizers.html)** - 组织团队成员信息
-- **联系方式 (pages/contact.html)** - 联系邮箱、微信等信息
-- **往届回顾 (pages/past-events.html)** - 历届会议的详细记录
+- ✅ **无需服务器**：完全由 GitHub Pages 免费托管
+- ✅ **自动部署**：每次 push 到 GitHub 时自动构建和部署
+- ✅ **版本控制**：使用 Git 管理所有内容和配置
+- ✅ **Markdown 编写**：使用 Markdown 格式编写内容，易于维护
+- ✅ **响应式设计**：支持桌面、平板和手机设备
 
 ## 📁 项目结构
 
 ```
 keke-physics-conference/
-├── index.html                 # 首页
-├── style.css                  # 全局样式文件
-├── script.js                  # 全局JavaScript脚本
-├── .gitignore                 # Git忽略文件
-├── README.md                  # 项目说明（本文件）
-└── pages/                     # 其他页面目录
-    ├── agenda.html            # 会议议程页面
-    ├── organizers.html        # 组织人员页面
-    ├── contact.html           # 联系方式页面
-    └── past-events.html       # 往届回顾页面
+├── _config.yml                    # Jekyll 配置文件
+├── Gemfile                        # Ruby 依赖文件
+├── .gitignore                     # Git 忽略文件
+├── .nojekyll                      # 告诉 GitHub 使用 Jekyll 处理
+├── README.md                      # 项目说明（本文件）
+│
+├── index.md                       # 首页
+├── agenda.md                      # 会议议程页面
+├── organizers.md                  # 组织人员页面
+├── contact.md                     # 联系方式页面
+├── past-events.md                 # 往届回顾页面
+│
+├── _layouts/                      # Jekyll 布局模板
+│   └── default.html               # 默认页面布局
+│
+├── assets/                        # 静态资源
+│   ├── css/
+│   │   └── style.css              # 全局样式文件
+│   └── js/
+│       └── script.js              # 全局 JavaScript 脚本
+│
+└── .github/
+    └── workflows/
+        └── jekyll.yml             # GitHub Actions 工作流配置
 ```
 
 ## 🚀 快速开始
 
 ### 1. 本地预览
 
-#### 方法一：使用Python内置服务器（推荐）
+#### 前置要求
 
-如果您的计算机已安装Python，可以在项目根目录执行：
+- 安装 Ruby 3.1 或更高版本
+- 安装 Bundler
 
-```bash
-# Python 3
-python3 -m http.server 8000
+#### 本地运行
 
-# Python 2
-python -m SimpleHTTPServer 8000
-```
-
-然后在浏览器中访问：`http://localhost:8000`
-
-#### 方法二：使用Node.js
-
-如果您已安装Node.js和npm，可以使用`http-server`：
+在项目根目录执行以下命令：
 
 ```bash
-npm install -g http-server
-http-server
+# 安装依赖
+bundle install
+
+# 启动本地服务器
+bundle exec jekyll serve
 ```
 
-#### 方法三：直接打开
-
-也可以直接在浏览器中打开`index.html`文件（某些功能可能受限）。
+然后在浏览器中访问：`http://localhost:4000`
 
 ### 2. 编辑网站内容
 
-所有HTML文件都使用标准的HTML5格式，您可以使用任何文本编辑器（如VS Code、Sublime Text等）进行编辑：
+所有页面都使用 Markdown 格式，您可以使用任何文本编辑器（如 VS Code、Sublime Text 等）进行编辑：
 
-- **更新首页信息**：编辑 `index.html` 中的会议时间、地点等
-- **更新会议议程**：编辑 `pages/agenda.html` 中的议程表格
-- **更新组织人员**：编辑 `pages/organizers.html` 中的人员信息
-- **更新联系方式**：编辑 `pages/contact.html` 中的联系信息
-- **添加往届信息**：编辑 `pages/past-events.html` 中的历届会议记录
+- **更新首页信息**：编辑 `index.md`
+- **更新会议议程**：编辑 `agenda.md`
+- **更新组织人员**：编辑 `organizers.md`
+- **更新联系方式**：编辑 `contact.md`
+- **添加往届信息**：编辑 `past-events.md`
 
 ### 3. 修改样式
 
-所有样式都在 `style.css` 文件中定义，您可以修改颜色、字体、布局等。主要的颜色变量定义在文件开头的`:root`选择器中：
+所有样式都在 `assets/css/style.css` 文件中定义，您可以修改颜色、字体、布局等。主要的颜色变量定义在文件开头的 `:root` 选择器中：
 
 ```css
 :root {
@@ -83,9 +89,20 @@ http-server
 }
 ```
 
-## 📤 部署到GitHub Pages
+### 4. 修改 Jekyll 配置
 
-### 第一步：创建GitHub仓库
+编辑 `_config.yml` 文件来自定义网站设置：
+
+```yaml
+title: 咯咯物理奇妙夜
+email: contact@example.com
+baseurl: "/keke-physics-conference"  # 如果部署在子目录
+url: "https://username.github.io"    # 您的 GitHub Pages URL
+```
+
+## 📤 部署到 GitHub Pages
+
+### 第一步：创建 GitHub 仓库
 
 1. 访问 [GitHub](https://github.com) 并登录您的账户
 2. 点击右上角的 **+** 按钮，选择 **New repository**
@@ -96,12 +113,12 @@ http-server
    - **Initialize this repository with**：不勾选（因为我们已有本地代码）
 4. 点击 **Create repository**
 
-### 第二步：初始化本地Git仓库
+### 第二步：初始化本地 Git 仓库
 
 在项目根目录打开终端，执行以下命令：
 
 ```bash
-# 初始化Git仓库
+# 初始化 Git 仓库
 git init
 
 # 添加所有文件
@@ -110,39 +127,51 @@ git add .
 # 创建初始提交
 git commit -m "初始化咯咯物理奇妙夜网站项目"
 
-# 添加远程仓库（将YOUR_USERNAME替换为您的GitHub用户名，仓库名替换为实际名称）
+# 添加远程仓库
+# 将 YOUR_USERNAME 替换为您的 GitHub 用户名
+# 将 keke-physics-conference 替换为您的仓库名
 git remote add origin https://github.com/YOUR_USERNAME/keke-physics-conference.git
 
-# 推送到GitHub
+# 推送到 GitHub
 git branch -M main
 git push -u origin main
 ```
 
-### 第三步：启用GitHub Pages
+### 第三步：启用 GitHub Pages 和 GitHub Actions
 
-1. 在GitHub仓库页面，点击 **Settings** 选项卡
+1. 在 GitHub 仓库页面，点击 **Settings** 选项卡
 2. 在左侧菜单中找到 **Pages** 选项
 3. 在 **Source** 部分，选择：
+   - **Deploy from a branch**：选择此项
    - **Branch**：`main`
    - **Folder**：`/ (root)`
 4. 点击 **Save**
 
-GitHub会自动生成您的网站URL，通常格式为：`https://YOUR_USERNAME.github.io/keke-physics-conference`
+**GitHub Actions 会自动配置**：
+- 项目中已包含 `.github/workflows/jekyll.yml` 文件
+- 每次您 push 代码到 `main` 分支时，GitHub Actions 会自动构建和部署网站
+- 您可以在 **Actions** 选项卡中查看构建状态
 
 ### 第四步：验证部署
 
-等待几分钟后，访问上述URL，您应该能看到您的网站已成功部署。
+1. 等待 GitHub Actions 完成构建（通常需要 1-2 分钟）
+2. 在 **Settings > Pages** 中查看您的网站 URL
+3. 访问该 URL，您应该能看到您的网站已成功部署
+
+您的网站地址通常格式为：`https://YOUR_USERNAME.github.io/keke-physics-conference`
 
 ## 📝 内容编辑指南
 
 ### 编辑首页信息
 
-打开 `index.html`，找到以下部分并修改：
+打开 `index.md`，找到以下部分并修改：
 
-```html
+```markdown
+# 今年会议信息
+
 <div class="info-card">
-    <h3>📅 会议时间</h3>
-    <p><strong>待更新</strong>（请联系组织者获取最新信息）</p>
+<h3>📅 会议时间</h3>
+<p><strong>待更新</strong>（请联系组织者获取最新信息）</p>
 </div>
 ```
 
@@ -150,40 +179,38 @@ GitHub会自动生成您的网站URL，通常格式为：`https://YOUR_USERNAME.
 
 ### 编辑会议议程
 
-打开 `pages/agenda.html`，找到议程表格，按照以下格式添加行：
+打开 `agenda.md`，找到议程表格，按照以下格式添加行：
 
-```html
-<tr>
-    <td>时间范围</td>
-    <td>报告标题</td>
-    <td>报告人</td>
-</tr>
+```markdown
+| 时间 | 报告名称 | 报告人 |
+|------|---------|--------|
+| 时间范围 | 报告标题 | 报告人名字 |
 ```
 
 ### 编辑组织人员
 
-打开 `pages/organizers.html`，在 `.organizers-grid` 中添加新的人员卡片：
+打开 `organizers.md`，添加新的人员卡片：
 
 ```html
 <div class="organizer-card">
-    <h4>姓名</h4>
-    <p class="role">角色：职位</p>
+<h4>姓名</h4>
+<p class="role">角色：职位</p>
 </div>
 ```
 
 ### 编辑联系方式
 
-打开 `pages/contact.html`，更新邮箱、微信等联系信息。
+打开 `contact.md`，更新邮箱、微信等联系信息。
 
 ### 添加往届回顾
 
-打开 `pages/past-events.html`，参考第一届（2024年）的格式，添加新的往届事件块。
+打开 `past-events.md`，参考第一届（2024年）的格式，添加新的往届事件块。
 
 ## 🎨 自定义网站
 
 ### 修改颜色主题
 
-编辑 `style.css` 中的颜色变量：
+编辑 `assets/css/style.css` 中的颜色变量：
 
 ```css
 :root {
@@ -196,21 +223,19 @@ GitHub会自动生成您的网站URL，通常格式为：`https://YOUR_USERNAME.
 
 ### 修改字体
 
-在 `body` 选择器中修改 `font-family`：
-
-```css
-body {
-    font-family: '您喜欢的字体', sans-serif;
-}
-```
+在 `assets/css/style.css` 中的 `body` 选择器中修改 `font-family`。
 
 ### 修改网站标题
 
-编辑所有HTML文件中的 `<title>` 标签。
+编辑 `_config.yml` 中的 `title` 字段。
+
+### 修改导航菜单
+
+编辑 `_layouts/default.html` 中的导航栏代码。
 
 ## 🔄 更新网站后部署
 
-每次修改内容后，需要将更改推送到GitHub：
+每次修改内容后，需要将更改推送到 GitHub：
 
 ```bash
 # 查看修改的文件
@@ -222,48 +247,87 @@ git add .
 # 提交更改（用实际的修改说明替换"更新会议信息"）
 git commit -m "更新会议信息"
 
-# 推送到GitHub
+# 推送到 GitHub
 git push origin main
 ```
 
-GitHub Pages会自动更新您的网站（通常需要几分钟）。
+GitHub Actions 会自动构建和部署您的网站（通常需要 1-2 分钟）。
 
 ## 📱 响应式设计
 
 本网站已针对不同屏幕尺寸进行优化，包括：
 
-- **桌面设备** (1200px及以上)
+- **桌面设备** (1200px 及以上)
 - **平板设备** (768px - 1199px)
 - **手机设备** (480px - 767px)
-- **小屏幕手机** (480px以下)
+- **小屏幕手机** (480px 以下)
 
 ## 🛠️ 技术栈
 
+- **Jekyll** - 静态网站生成器
+- **Markdown** - 内容格式
 - **HTML5** - 页面结构
 - **CSS3** - 样式和响应式设计
 - **Vanilla JavaScript** - 交互功能
 - **GitHub Pages** - 免费网站托管
+- **GitHub Actions** - 自动构建和部署
 
 ## 📞 常见问题
 
 ### Q: 如何添加新页面？
 
-A: 在 `pages/` 目录中创建新的HTML文件，参考现有页面的结构，然后在导航栏中添加链接。
+A: 在项目根目录创建新的 `.md` 文件，添加以下 Front Matter：
+
+```markdown
+---
+layout: default
+title: 页面标题
+permalink: /page-name/
+---
+
+# 页面内容
+```
+
+然后在 `_layouts/default.html` 中的导航菜单中添加链接。
 
 ### Q: 网站部署后没有看到更新？
 
-A: GitHub Pages可能需要几分钟来更新。您也可以尝试清除浏览器缓存（Ctrl+Shift+Delete）。
+A: 
+1. 检查 GitHub Actions 是否成功完成构建（在 **Actions** 选项卡中查看）
+2. 尝试清除浏览器缓存（Ctrl+Shift+Delete）
+3. 等待几分钟后重新刷新页面
 
 ### Q: 如何添加图片？
 
-A: 创建一个 `images/` 目录，将图片放入其中，然后在HTML中引用：
+A: 
+1. 创建一个 `assets/images/` 目录
+2. 将图片放入其中
+3. 在 Markdown 中引用：
+
+```markdown
+![图片描述]({{ '/assets/images/photo.jpg' | relative_url }})
+```
+
+或在 HTML 中引用：
+
 ```html
-<img src="../images/photo.jpg" alt="描述">
+<img src="{{ '/assets/images/photo.jpg' | relative_url }}" alt="图片描述">
 ```
 
 ### Q: 可以使用自己的域名吗？
 
-A: 可以。在GitHub仓库Settings > Pages中，可以配置自定义域名。
+A: 可以。在 GitHub 仓库 Settings > Pages 中，可以配置自定义域名。
+
+### Q: 如何修改网站的基础 URL？
+
+A: 编辑 `_config.yml` 中的 `baseurl` 字段。如果部署在根域名，设置为空字符串 `""`；如果部署在子目录，设置为 `/subdirectory`。
+
+### Q: GitHub Actions 构建失败怎么办？
+
+A: 
+1. 检查 **Actions** 选项卡中的错误日志
+2. 确保 `Gemfile` 和 `_config.yml` 配置正确
+3. 尝试在本地运行 `bundle exec jekyll build` 检查是否有错误
 
 ## 📄 许可证
 
@@ -278,3 +342,10 @@ A: 可以。在GitHub仓库Settings > Pages中，可以配置自定义域名。
 **最后更新**：2025年11月
 
 **维护者**：上海交通大学物理学院致远物理系学术交流会筹备组
+
+## 📚 参考资源
+
+- [Jekyll 官方文档](https://jekyllrb.com/)
+- [GitHub Pages 官方文档](https://docs.github.com/en/pages)
+- [GitHub Actions 官方文档](https://docs.github.com/en/actions)
+- [Markdown 语法指南](https://www.markdownguide.org/)

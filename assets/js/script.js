@@ -5,28 +5,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // 初始化导航功能
 function initializeNavigation() {
-    // 获取当前页面的文件名
-    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    // 获取当前页面的URL
+    const currentUrl = window.location.pathname;
     
     // 更新导航链接的活跃状态
-    updateActiveNavLink(currentPage);
+    updateActiveNavLink(currentUrl);
 }
 
 // 更新活跃导航链接
-function updateActiveNavLink(currentPage) {
+function updateActiveNavLink(currentUrl) {
     const navLinks = document.querySelectorAll('.nav-link');
     
     navLinks.forEach(link => {
         // 获取链接的href属性
         const href = link.getAttribute('href');
         
-        // 获取链接指向的页面名称
-        const linkPage = href.split('/').pop();
+        // 规范化URL进行比较
+        const normalizedHref = href.replace(/\/$/, '');
+        const normalizedCurrentUrl = currentUrl.replace(/\/$/, '');
         
         // 比较当前页面和链接页面
-        if (linkPage === currentPage || 
-            (currentPage === '' && href === 'index.html') ||
-            (currentPage === 'index.html' && href === 'index.html')) {
+        if (normalizedCurrentUrl.includes(normalizedHref) || 
+            (normalizedCurrentUrl === '' && normalizedHref === '') ||
+            (normalizedCurrentUrl === '/' && normalizedHref === '/')) {
             link.classList.add('active');
         } else {
             link.classList.remove('active');
