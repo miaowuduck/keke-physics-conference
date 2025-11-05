@@ -2,7 +2,7 @@
 ---
 layout: default
 title: Organizers
-permalink: /organizers/
+permalink: /organizers/index.html
 lang: en
 ---
 

@@ -2,7 +2,7 @@
 ---
 layout: default
 title: Contact
-permalink: /contact/
+permalink: /contact/index.html
 lang: en
 ---
 

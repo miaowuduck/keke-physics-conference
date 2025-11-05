@@ -2,7 +2,7 @@
 ---
 layout: default
 title: Agenda
-permalink: /agenda/
+permalink: /agenda/index.html
 lang: en
 ---
 

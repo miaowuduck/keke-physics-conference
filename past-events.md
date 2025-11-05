@@ -3,7 +3,7 @@
 ---
 layout: default
 title: Past events
-permalink: /past-events/
+permalink: /past-events/index.html
 lang: en
 ---
 
