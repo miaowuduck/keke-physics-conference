@@ -12,8 +12,14 @@ url: "https://miaowuduck.github.io"    # 修改为您的GitHub Pages URL
 twitter_username: miaowuduck
 github_username: miaowuduck
 
-# 网站语言
-lang: zh-CN
+# 网站语言（默认）
+# 这里将默认语言改为英文（site.lang 用作默认语言标记）
+lang: en
+
+# 支持的语言列表（便于模板或插件使用）
+languages:
+  - en
+  - zh
 
 # 构建设置
 markdown: kramdown

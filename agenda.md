@@ -1,30 +1,32 @@
 ---
+---
 layout: default
-title: 会议议程
+title: Agenda
 permalink: /agenda/
+lang: en
 ---
 
-# 会议议程
+# Agenda
 
 <div class="info-card">
-<h3><img src="{{ '/assets/images/TBD.svg' | relative_url }}" alt="正在施工中" class="emoji-svg" /> 这个页面正在建设中</h3>
-<p><strong>这个页面正在建设中，内容尚不准确，更详细的信息将会被更新。</strong></p>
+<h3><img src="{{ '/assets/images/TBD.svg' | relative_url }}" alt="Work in progress" class="emoji-svg" /> This page is under construction</h3>
+<p><strong>This page is under construction; details will be updated when available.</strong></p>
 </div>
 
 <div class="table-responsive">
 <table class="agenda-table">
 <thead>
 <tr>
-<th>时间</th>
-<th>报告名称</th>
-<th>报告人</th>
+<th>Time</th>
+<th>Talk title</th>
+<th>Speaker</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>待更新</td>
-<td>待更新</td>
-<td>待更新</td>
+<td>To be updated</td>
+<td>To be updated</td>
+<td>To be updated</td>
 </tr>
 </tbody>
 </table>
