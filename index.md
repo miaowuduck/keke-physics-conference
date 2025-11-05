@@ -4,7 +4,7 @@ title: 首页
 permalink: /
 ---
 
-# 欢迎参加 "咯咯物理奇妙夜" 学术交流会！
+# 欢迎参加 "2026 咯咯物理奇妙夜"！
 
 <div class="info-cards-wrapper">
 
