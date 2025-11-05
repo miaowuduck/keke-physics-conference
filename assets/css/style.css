@@ -111,6 +111,8 @@ body {
     pointer-events: none; /* 不阻塞点击 */
     overflow: visible; /* 允许弹幕穿出边界 */
     z-index: 1; /* 置于 logo/title 之下 */
+    /* 默认隐藏容器以避免在 JS 加载前造成空白或闪烁；当需要显示静态文本时，JS 会将 display 置空 */
+    display: none;
 }
 
 .barrage-item {
@@ -148,6 +150,25 @@ body {
     animation-timing-function: linear;
     animation-iteration-count: 1;
     will-change: transform, opacity;
+}
+
+/* 静态 banner 样式（用于 options.staticText，无动画） */
+.barrage-static {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    font-weight: 600;
+    color: rgba(40, 34, 8, 0.96);
+    background: rgba(255, 250, 180, 0.95);
+    padding: 6px 12px;
+    border-radius: 8px;
+    box-shadow: 0 4px 14px rgba(16,24,32,0.08);
+    font-size: 16px;
+    user-select: none;
+    -webkit-user-select: none;
+    z-index: 2; /* 置于容器之上但仍低于 logo/title 的 z-index（logo/title 使用 z-index:3） */
 }
 
 

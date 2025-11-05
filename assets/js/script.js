@@ -18,94 +18,21 @@ function initializeBarrage(options = {}) {
     const container = document.getElementById('barrage-container');
     if (!container) return;
 
-    const defaultOpt = {
-        lang: 'zh', // 使用中文显示（可改为 'en'）
-        maxConcurrent: 12, // 同时存在的弹幕数量
-        spawnInterval: 1000, // 毫秒：尝试生成新弹幕的间隔
-        minDuration: 7000, // 动画最短时长 ms
-        maxDuration: 16000 // 动画最长时长 ms
-    };
+    // 极简化：移除动态弹幕逻辑，不再加载或显示 assets/data/banner.json 的内容。
+    // 行为：如果调用时通过 options.staticText 传入文本，则显示该静态文本；
+    // 否则保持容器为空并隐藏，以避免占位。
+    container.innerHTML = '';
 
-    const cfg = Object.assign({}, defaultOpt, options);
-
-    // 加载 banner 数据
-    fetch(getBasePath() + '/assets/data/banner.json')
-        .then(resp => resp.json())
-        .then(data => {
-            const items = (data && data.banners) ? data.banners : [];
-            if (!items || items.length === 0) return;
-
-            // 维护当前活动弹幕数，定期尝试生成
-            const active = new Set();
-
-            function spawnOne() {
-                if (active.size >= cfg.maxConcurrent) return;
-
-                const entry = items[Math.floor(Math.random() * items.length)];
-                const text = (entry && entry[cfg.lang]) ? entry[cfg.lang] : (entry && entry.zh) || '';
-                if (!text) return;
-
-                const el = document.createElement('div');
-                el.className = 'barrage-item barrage-animate';
-                el.textContent = text;
-
-                // 随机字体大小与起始位置（在容器垂直范围内随机）
-                const fontSize = Math.floor(Math.random() * 12) + 14; // 14-25px
-                el.style.fontSize = fontSize + 'px';
-
-                // 先将元素添加到 DOM，以便测量尺寸
-                container.appendChild(el);
-
-                const rect = container.getBoundingClientRect();
-                const elRect = el.getBoundingClientRect();
-
-                // 随机起始 top（让它在可见区域稍偏下方起始）
-                const startTop = Math.random() * (rect.height * 0.6) + rect.height * 0.2; // 20%~80%
-                // 从容器左侧偏移一点开始（allow negative left），以便斜上飞出
-                const startLeft = - (elRect.width * (Math.random() * 0.4 + 0.1));
-
-                el.style.top = Math.round(startTop) + 'px';
-                el.style.left = Math.round(startLeft) + 'px';
-
-                // 动画时长与延迟随机
-                const duration = Math.floor(Math.random() * (cfg.maxDuration - cfg.minDuration)) + cfg.minDuration;
-                const delay = 0; // 也可随机化延迟
-                el.style.animationDuration = (duration / 1000) + 's';
-                el.style.animationDelay = (delay / 1000) + 's';
-
-                active.add(el);
-
-                // 清理：动画结束后移除元素
-                el.addEventListener('animationend', () => {
-                    try { container.removeChild(el); } catch (e) {}
-                    active.delete(el);
-                });
-            }
-
-            // 周期性尝试生成弹幕
-            const spawnTimer = setInterval(spawnOne, cfg.spawnInterval);
-
-            // 初始填充若干弹幕，制造即时效果
-            for (let i = 0; i < Math.min(4, cfg.maxConcurrent); i++) {
-                setTimeout(spawnOne, i * 300);
-            }
-
-            // 当页面卸载或容器从 DOM 中移除时清理定时器
-            const observer = new MutationObserver(() => {
-                if (!document.body.contains(container)) {
-                    clearInterval(spawnTimer);
-                    observer.disconnect();
-                }
-            });
-            observer.observe(document.body, { childList: true, subtree: true });
-        })
-        .catch(() => {
-            // 静默失败，不影响页面其它功能
-        });
-
-    function getBasePath() {
-        // 在不同部署路径下尽可能选择根路径；Jekyll 的 relative_url 已在模板中处理静态引用，这里保守使用相对根路径
-        return '';
+    const staticText = options.staticText || '';
+    if (staticText) {
+        const el = document.createElement('div');
+        el.className = 'barrage-item barrage-static';
+        el.textContent = staticText;
+        container.appendChild(el);
+        container.style.display = '';
+    } else {
+        // 不显示任何来自 banner.json 的内容 —— 隐藏容器以避免空白占位
+        container.style.display = 'none';
     }
 }
 
