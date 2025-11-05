@@ -15,31 +15,38 @@ function initializeNavigation() {
 // 更新活跃导航链接
 function updateActiveNavLink(currentUrl) {
     const navLinks = document.querySelectorAll('.nav-link');
-    
-    navLinks.forEach(link => {
-        // 获取链接的href属性
-        const href = link.getAttribute('href');
-        
-        // 更严格地规范化 URL：去掉首尾的斜杠，方便精确匹配
-        const strip = s => (s || '').replace(/^\/+|\/+$/g, '');
-        const normalizedHref = strip(href);
-        const normalizedCurrentUrl = strip(currentUrl);
 
-        // 针对首页做特殊处理（避免空字符串导致所有页面都匹配）
+    // 先移除所有已有的 active 类，避免模板渲染与 JS 冲突导致多个高亮
+    navLinks.forEach(link => link.classList.remove('active'));
+
+    // 规范化当前路径（去掉首尾斜杠）
+    const strip = s => (s || '').replace(/^\/+|\/+$/g, '');
+    const normalizedCurrentUrl = strip(currentUrl || '');
+
+    navLinks.forEach(link => {
+        let href = link.getAttribute('href') || '';
+
+        try {
+            // 使用 URL 解析 href，支持绝对/相对/带域名的 href
+            const url = new URL(href, window.location.origin);
+            href = url.pathname;
+        } catch (e) {
+            // 如果解析失败则保留原始 href
+        }
+
+        const normalizedHref = strip(href);
+
+        // 首页（href 为根路径）只有在当前路径也是根时才高亮
         if (normalizedHref === '') {
-            // 仅当当前路径也是根路径时才高亮首页
             if (normalizedCurrentUrl === '') {
                 link.classList.add('active');
-            } else {
-                link.classList.remove('active');
             }
-        } else {
-            // 非首页链接：当当前路径与链接路径相等，或以链接路径开头时视为高亮
-            if (normalizedCurrentUrl === normalizedHref || normalizedCurrentUrl.startsWith(normalizedHref + '/')) {
-                link.classList.add('active');
-            } else {
-                link.classList.remove('active');
-            }
+            return;
+        }
+
+        // 精确匹配或作为父路径（子页面）匹配时高亮
+        if (normalizedCurrentUrl === normalizedHref || normalizedCurrentUrl.startsWith(normalizedHref + '/')) {
+            link.classList.add('active');
         }
     });
 }

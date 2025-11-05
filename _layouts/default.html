@@ -27,11 +27,12 @@
 
     <nav class="site-nav">
         <ul class="nav-menu">
+            {%- comment -%} 使用精确匹配避免模糊 contains 导致多个 tab 同时高亮 {%- endcomment -%}
             <li><a href="{{ '/' | relative_url }}" class="nav-link {% if page.url == '/' %}active{% endif %}">首页</a></li>
-            <li><a href="{{ '/agenda/' | relative_url }}" class="nav-link {% if page.url contains 'agenda' %}active{% endif %}">会议议程</a></li>
-            <li><a href="{{ '/organizers/' | relative_url }}" class="nav-link {% if page.url contains 'organizers' %}active{% endif %}">组织人员</a></li>
-            <li><a href="{{ '/contact/' | relative_url }}" class="nav-link {% if page.url contains 'contact' %}active{% endif %}">联系方式</a></li>
-            <li><a href="{{ '/past-events/' | relative_url }}" class="nav-link {% if page.url contains 'past-events' %}active{% endif %}">往届回顾</a></li>
+            <li><a href="{{ '/agenda/' | relative_url }}" class="nav-link {% if page.url == '/agenda/' %}active{% endif %}">会议议程</a></li>
+            <li><a href="{{ '/organizers/' | relative_url }}" class="nav-link {% if page.url == '/organizers/' %}active{% endif %}">组织人员</a></li>
+            <li><a href="{{ '/contact/' | relative_url }}" class="nav-link {% if page.url == '/contact/' %}active{% endif %}">联系方式</a></li>
+            <li><a href="{{ '/past-events/' | relative_url }}" class="nav-link {% if page.url == '/past-events/' %}active{% endif %}">往届回顾</a></li>
         </ul>
     </nav>
 
