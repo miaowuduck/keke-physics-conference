@@ -1,5 +1,4 @@
 ---
----
 layout: default
 title: Agenda
 permalink: /agenda/index.html

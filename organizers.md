@@ -1,5 +1,4 @@
 ---
----
 layout: default
 title: Organizers
 permalink: /organizers/index.html
