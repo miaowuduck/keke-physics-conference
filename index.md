@@ -82,5 +82,3 @@ lang: en
 </div>
 
 
-</div>
-

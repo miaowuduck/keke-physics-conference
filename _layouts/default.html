@@ -95,6 +95,8 @@
         </p>
     </footer>
 
+    <!-- 将 site.baseurl 注入页面，供客户端脚本正确生成带 baseurl 的语言切换 URL -->
+    <script>window._SITE_BASEURL = "{{ site.baseurl | default: '' }}";</script>
     <script src="{{ '/assets/js/script.js' | relative_url }}"></script>
 </body>
 </html>
