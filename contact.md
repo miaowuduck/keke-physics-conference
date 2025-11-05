@@ -14,7 +14,7 @@ permalink: /contact/
 <div class="info-card">
 <h4><img src="{{ '/assets/images/wechat.svg' | relative_url }}" alt="微信公众号" class="emoji-svg" /> 微信公众号</h4>
 <!-- 插入assets\images\wechat_info.svg，横跨整个卡片宽度 -->
-<p><img src="{{ '/assets/images/wechat_info.svg' | relative_url }}" alt="微信公众号二维码" style="max-width: 1000px; width: 100%; height: auto;"></p>
+<p><img src="{{ '/assets/images/wechat_info.svg' | relative_url }}" alt="微信公众号二维码" style="max-width: 300px; width: 100%; height: auto;"></p>
 </div>
 
 <div class="info-card">
