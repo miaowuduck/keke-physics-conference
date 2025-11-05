@@ -44,7 +44,7 @@ lang: zh
 </tr>
 <tr>
 <td>19：10-19：20</td>
-<td>Modeling the star formation process of galaxies</td>
+<td>模拟银河系恒星形成过程</td>
 <td>陈致博</td>
 </tr>
 <tr>
@@ -69,12 +69,12 @@ lang: zh
 </tr>
 <tr>
 <td>19：50-20：05</td>
-<td>Floquet modulating two-magnon</td>
+<td>Floquet 调制下的双磁子</td>
 <td>郭禹恒</td>
 </tr>
 <tr>
 <td>20：05-20：25</td>
-<td>Something about AI for Science</td>
+<td>关于科研的人工智能</td>
 <td>吴尔杰</td>
 </tr>
 <tr>
@@ -89,22 +89,22 @@ lang: zh
 </tr>
 <tr>
 <td>21：00-21：10</td>
-<td>Phase transition and fractal</td>
+<td>相变与分形</td>
 <td>陈致真</td>
 </tr>
 <tr>
 <td>21：10-21：25</td>
-<td>Laser System Design for 88Sr+ Trapped-ion Quantum Computer</td>
+<td>用于 88Sr+ 囚禁离子量子计算机的激光系统设计</td>
 <td>魏振宇</td>
 </tr>
 <tr>
 <td>21：25-21：40</td>
-<td>A two-dimensional programmable photonic chip for classical and quantum information processing</td>
+<td>用于经典与量子信息处理的二维可编程光子芯片</td>
 <td>赵奕祺</td>
 </tr>
 <tr>
 <td>21：40-21：55</td>
-<td>Visualizing isospin magnetic texture in rhombohedral tetralayer graphene</td>
+<td>在菱形四层石墨烯中可视化等自旋磁性结构</td>
 <td>周垚璋</td>
 </tr>
 <tr>
