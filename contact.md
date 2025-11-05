@@ -7,23 +7,16 @@ permalink: /contact/
 # 联系方式
 
 <div class="info-card">
-<h3>📧 邮箱</h3>
+<h3><img src="{{ '/assets/images/email.svg' | relative_url }}" alt="电子邮箱" class="emoji-svg" /> 电子邮箱</h3>
+<p><strong>phyconf@163.com</strong></p>
+</div>
+
+<div class="info-card">
+<h4><img src="{{ '/assets/images/wechat.svg' | relative_url }}" alt="微信公众号" class="emoji-svg" /> 微信公众号</h4>
 <p><strong>待更新</strong></p>
 </div>
 
 <div class="info-card">
-<h3>💬 微信</h3>
-<p><strong>待更新</strong>（请联系组织者获取微信群二维码）</p>
-</div>
-
-<div class="info-card">
-<h3>📱 其他联系方式</h3>
-<p><strong>待更新</strong></p>
-</div>
-
-<div class="info-card">
-<h3>🔔 更新提示</h3>
-<p>
-如需更新联系方式信息，请编辑 <code>contact.md</code> 文件中的相应内容。
-</p>
+<h4><img src="{{ '/assets/images/location.svg' | relative_url }}" alt="联系地址" class="emoji-svg" /> 联系地址</h4>
+<p><strong>上海市闵行区东川路800号上海交通大学</strong></p>
 </div>

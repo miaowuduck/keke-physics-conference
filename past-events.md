@@ -130,8 +130,6 @@ permalink: /past-events/
 </table>
 </div>
 
-<h4><img src="{{ '/assets/images/meeting.svg' | relative_url }}" alt="筹备组" class="emoji-svg" /> 筹备组</h4>
-<p>学术交流会筹备组 二〇二四年十二月四日</p>
 </div>
 </div>
 
