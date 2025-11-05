@@ -417,20 +417,42 @@ h4 {
         font-size: 1rem;
     }
 
+    /* 在窄屏上改为单行横向滚动的导航，避免垂直堆叠到页面顶端
+       这样用户可以左右滑动查看菜单项，保持页面顶部空间紧凑。 */
     .nav-menu {
-        flex-direction: column;
+        flex-direction: row; /* 保持一行 */
+        flex-wrap: nowrap; /* 不换行 */
+        overflow-x: auto; /* 横向滚动 */
+        -webkit-overflow-scrolling: touch; /* 平滑滚动（iOS） */
+        justify-content: flex-start; /* 从左开始排列，方便横向浏览 */
+        gap: 0.25rem;
+        padding: 0.25rem 1rem;
+        scrollbar-width: thin;
+    }
+
+    /* 隐藏滚动条（可选），保持视觉整洁 */
+    .nav-menu::-webkit-scrollbar {
+        height: 8px;
+    }
+    .nav-menu::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    .nav-menu::-webkit-scrollbar-thumb {
+        background-color: rgba(43,43,43,0.12);
+        border-radius: 999px;
     }
 
     .nav-link {
-        padding: 0.8rem 1rem;
-        border-bottom: none;
-        border-left: 3px solid transparent;
+        padding: 0.6rem 0.9rem;
+        white-space: nowrap; /* 防止链接换行 */
+        border-bottom: 3px solid transparent; /* 使用下划线样式而不是左侧边框 */
+        border-left: none;
     }
 
     .nav-link:hover,
     .nav-link.active {
-        border-left-color: var(--secondary-color);
-        border-bottom: none;
+        border-bottom-color: var(--secondary-color);
+        color: var(--secondary-color);
     }
 
     h1 {
