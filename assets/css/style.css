@@ -11,7 +11,8 @@
     --secondary-color: #ff8a65; /* 暖色强调（链接/高光） */
     --accent-color: #ff6b6b; /* 点缀色 */
     --success-color: #10b981;
-    --bg-gradient: linear-gradient(135deg, #fffaf2 0%, #fff4e6 50%, #fff0de 100%);
+    /* 将整体背景调整为明亮的淡黄色（主色为 LemonChiffon / 亮黄） */
+    --bg-gradient: linear-gradient(135deg, #fff9c4 0%, #fffacd 50%, #fff59d 100%);
     --glass-bg: rgba(255, 255, 255, 0.75); /* 浅色半透明玻璃 */
     --glass-bg-2: rgba(255, 255, 255, 0.85);
     --glass-border: rgba(16, 24, 32, 0.06); /* 轻微边框阴影用于浅背景 */
@@ -19,16 +20,7 @@
     --text-color: #2b2b2b; /* 页面主体深色文字 */
     --card-text: #1f2933; /* 卡片内部文字（深） */
     --muted: rgba(43, 43, 43, 0.6);
-    --light-bg: #fffaf6; /* 表格/hover 的浅背景 */
-    --bg-gradient: linear-gradient(135deg, #fff9c4 0%, #fff8b3 50%, #fff7a1 100%);
-    --glass-bg: rgba(255, 255, 255, 0.75); /* 浅色半透明玻璃 */
-    --glass-bg-2: rgba(255, 255, 255, 0.85);
-    --glass-border: rgba(16, 24, 32, 0.06); /* 轻微边框阴影用于浅背景 */
-    --glass-shadow: 0 8px 24px rgba(16, 24, 32, 0.08);
-    --text-color: #2b2b2b; /* 页面主体深色文字 */
-    --card-text: #1f2933; /* 卡片内部文字（深） */
-    --muted: rgba(43, 43, 43, 0.6);
-    --light-bg: #fffaf6; /* 表格/hover 的浅背景 */
+    --light-bg: #fffde7; /* 表格/hover 的浅背景（与整体明亮黄保持协调） */
 }
 
 html {
