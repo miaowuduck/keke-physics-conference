@@ -305,6 +305,54 @@ h4 {
     border-bottom: none;
 }
 
+/* 额外增强表格：条纹、列宽、链接换行、可访问焦点样式 */
+.agenda-table tbody tr:nth-child(odd) {
+    background-color: rgba(16,24,32,0.02);
+}
+
+.agenda-table th.date {
+    width: 160px; /* 为日期列分配固定宽度，保持版面稳定 */
+    padding-right: 1rem;
+    white-space: nowrap; /* 防止日期换行 */
+    color: var(--primary-color);
+}
+
+.agenda-table th.item {
+    /* 剩余空间用于事项内容，允许换行 */
+    text-align: left;
+}
+
+.agenda-table th,
+.agenda-table td {
+    vertical-align: top;
+}
+
+.agenda-table a {
+    color: var(--secondary-color);
+    text-decoration: underline;
+    word-break: break-word; /* 允许长链接换行，避免溢出 */
+}
+
+/* 键盘焦点友好：表格行和链接 */
+.agenda-table tbody tr:focus-within,
+.agenda-table tbody tr:focus {
+    outline: 3px solid rgba(255,138,101,0.12);
+    outline-offset: 2px;
+}
+
+/* 小屏降级：确保表格在极窄设备上仍可读 */
+@media (max-width: 420px) {
+    .agenda-table th.date {
+        width: 120px;
+        font-size: 0.95rem;
+    }
+    .agenda-table th,
+    .agenda-table td {
+        padding: 0.5rem 0.6rem;
+        font-size: 0.95rem;
+    }
+}
+
 /* ===== 组织人员网格 ===== */
 .organizers-grid {
     display: grid;
