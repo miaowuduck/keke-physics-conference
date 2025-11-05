@@ -118,16 +118,17 @@ body {
 .barrage-item {
     position: absolute;
     white-space: nowrap;
-    font-weight: 600;
-    color: rgba(40, 34, 8, 0.96); /* 深色文字，搭配半透明淡黄背景更清晰 */
-    background: rgba(255, 250, 180, 0.85); /* 淡黄背景 */
-    padding: 4px 10px;
+    font-weight: 700;
+    /* 文本为淡黄色，配合暗色投影以保证可读性 */
+    color: rgba(255, 246, 174, 0.98); /* 淡黄色 */
+    background: transparent; /* 背景透明，纯文字显示在 logo/title 背后 */
+    padding: 2px 6px;
     border-radius: 6px;
-    box-shadow: 0 4px 14px rgba(16,24,32,0.08);
+    box-shadow: none;
     transform-origin: left center;
     transform: rotate(-18deg);
     font-size: 16px;
-    text-shadow: 0 1px 0 rgba(255,255,255,0.35);
+    text-shadow: 0 2px 8px rgba(8, 8, 10, 0.65); /* 暗色阴影提高对比度 */
     user-select: none;
     -webkit-user-select: none;
 }
