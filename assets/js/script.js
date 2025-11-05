@@ -39,68 +39,56 @@ function initializeBarrage(options = {}) {
 // 更新活跃导航链接
 function updateActiveNavLink(currentUrl) {
     const navLinks = document.querySelectorAll('.nav-link');
-
-    // 先移除所有已有的 active 类，避免模板渲染与 JS 冲突导致多个高亮
-    // 如果没有导航链接就直接返回
     if (!navLinks || navLinks.length === 0) return;
 
-    // 规范化和解码路径（去掉首尾斜杠）
     const strip = s => (s || '').replace(/^\/+|\/+$/g, '');
-    const decode = s => {
-        try { return decodeURIComponent(s); } catch (e) { return s; }
-    };
-
+    const decode = s => { try { return decodeURIComponent(s); } catch (e) { return s; } };
     const normalizedCurrentUrl = strip(decode(currentUrl || ''));
 
-    // 先移除所有已有的 active 类，确保 JS 控制时不会与模板残留冲突
+    // 清除已有状态
     navLinks.forEach(link => link.classList.remove('active'));
 
-    // 找到所有与当前路径匹配的候选项，评分规则：匹配路径长度越长优先级越高（避免父路径与子路径同时匹配）
-    const candidates = [];
+    // 将 href 解析为规范化路径（优先用 URL，回退到原始 href）
+    const resolvePath = href => {
+        let p = href || '';
+        try { p = new URL(href, window.location.origin).pathname; } catch (e) { /* 使用原始 href */ }
+        return strip(decode(p));
+    };
+
+    // 选择最佳匹配（优先精确匹配；否则选择最长的前缀匹配；根路径作为兜底）
+    let best = null; // { link, score }
 
     navLinks.forEach(link => {
-        let href = link.getAttribute('href') || '';
+        const href = link.getAttribute('href') || '';
+        const path = resolvePath(href);
 
-        try {
-            const url = new URL(href, window.location.origin);
-            href = url.pathname;
-        } catch (e) {
-            // 使用原始 href
-        }
-
-        const normalizedHref = strip(decode(href));
-
-        // 根路径特殊处理（href 为根时 normalizedHref === ''）
-        if (normalizedHref === '') {
-            if (normalizedCurrentUrl === '') {
-                candidates.push({ link, score: 0 });
-            }
+        if (path === '') {
+            // 根路径：只在当前也是根时作为候选（score 0）
+            if (normalizedCurrentUrl === '' && (!best || 0 > best.score)) best = { link, score: 0 };
             return;
         }
 
-        // 精确匹配
-        if (normalizedCurrentUrl === normalizedHref) {
-            candidates.push({ link, score: normalizedHref.length });
+        if (normalizedCurrentUrl === path) {
+            // 精确匹配优先：直接认为是最佳匹配（根据长度比较以处理多重相同长度链接）
+            if (!best || path.length > best.score) best = { link, score: path.length };
             return;
         }
 
-        // 作为父路径（例如 /agenda/ 应匹配 /agenda/xxx）
-        if (normalizedCurrentUrl.startsWith(normalizedHref + '/')) {
-            candidates.push({ link, score: normalizedHref.length });
+        // 前缀匹配（父路径匹配子路径，例如 /agenda -> /agenda/session）
+        if (normalizedCurrentUrl.startsWith(path + '/')) {
+            if (!best || path.length > best.score) best = { link, score: path.length };
             return;
         }
     });
 
-    // 选择评分最高的候选项（最长匹配）；若无候选且当前为根路径，则选择根链接
-    if (candidates.length > 0) {
-        candidates.sort((a, b) => b.score - a.score);
-        candidates[0].link.classList.add('active');
-    } else if (normalizedCurrentUrl === '') {
-        // 找到根链接并高亮
-        const root = Array.from(navLinks).find(l => {
-            try { return strip(decode(new URL(l.getAttribute('href') || '', window.location.origin).pathname)) === ''; }
-            catch (e) { return (strip(decode(l.getAttribute('href') || '')) === ''); }
-        });
+    if (best) {
+        best.link.classList.add('active');
+        return;
+    }
+
+    // 兜底：若当前是根路径，则尝试高亮 href 为空或指向根的链接
+    if (normalizedCurrentUrl === '') {
+        const root = Array.from(navLinks).find(l => resolvePath(l.getAttribute('href') || '') === '');
         if (root) root.classList.add('active');
     }
 }
