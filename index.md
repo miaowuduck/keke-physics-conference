@@ -30,7 +30,7 @@ permalink: /
     <section class="info-card">
     <header class="card-header">
       <h3>
-        <img src="{{ '/assets/images/meeting.svg' | relative_url }}" alt="" aria-hidden="true" class="emoji-svg" />
+        <img src="{{ '/assets/images/info.svg' | relative_url }}" alt="" aria-hidden="true" class="emoji-svg" />
         会议详情
       </h3>
     </header>

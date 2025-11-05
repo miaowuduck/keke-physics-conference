@@ -9,8 +9,8 @@ description: >-
   这是一个由同学自发组织的学术交流平台，旨在为致远物理方向的同学提供展示科研成果、分享学术心得的机会。
 baseurl: "/keke-physics-conference"  # 如果部署在子目录，修改此项；如果部署在根域名，改为 ""
 url: "https://miaowuduck.github.io"    # 修改为您的GitHub Pages URL
-twitter_username: jekyll
-github_username: jekyll
+twitter_username: miaowuduck
+github_username: miaowuduck
 
 # 网站语言
 lang: zh-CN
