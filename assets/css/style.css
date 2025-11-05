@@ -6,19 +6,20 @@
 }
 
 :root {
-    /* 玻璃质感配色与阴影 */
-    --primary-color: #0b1220; /* 深色基底（用于整体背景） */
-    --secondary-color: #65a3ff; /* 强调色（高光/链接） */
-    --accent-color: #ff7a7a; /* 点缀色 */
+    /* 暖色明亮玻璃质感配色 */
+    --primary-color: #2b2b2b; /* 主文本/标题深色 */
+    --secondary-color: #ff8a65; /* 暖色强调（链接/高光） */
+    --accent-color: #ff6b6b; /* 点缀色 */
     --success-color: #10b981;
-    --bg-gradient: linear-gradient(135deg, #071226 0%, #0b1330 50%, #071233 100%);
-    --glass-bg: rgba(255, 255, 255, 0.06); /* 半透明玻璃底色（浅） */
-    --glass-bg-2: rgba(255, 255, 255, 0.08);
-    --glass-border: rgba(255, 255, 255, 0.12); /* 玻璃边缘高光 */
-    --glass-shadow: 0 8px 30px rgba(2, 6, 23, 0.6);
-    --text-on-dark: #e8f2ff; /* 页面主体文字（浅） */
-    --card-text: #071227; /* 卡片内部偏深文字，保证在半透明白底上可读 */
-    --muted: rgba(232, 242, 255, 0.7);
+    --bg-gradient: linear-gradient(135deg, #fff9c4 0%, #fff8b3 50%, #fff7a1 100%);
+    --glass-bg: rgba(255, 255, 255, 0.75); /* 浅色半透明玻璃 */
+    --glass-bg-2: rgba(255, 255, 255, 0.85);
+    --glass-border: rgba(16, 24, 32, 0.06); /* 轻微边框阴影用于浅背景 */
+    --glass-shadow: 0 8px 24px rgba(16, 24, 32, 0.08);
+    --text-color: #2b2b2b; /* 页面主体深色文字 */
+    --card-text: #1f2933; /* 卡片内部文字（深） */
+    --muted: rgba(43, 43, 43, 0.6);
+    --light-bg: #fffaf6; /* 表格/hover 的浅背景 */
 }
 
 html {
@@ -27,7 +28,7 @@ html {
 
 body {
     font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    color: var(--text-on-dark);
+    color: var(--text-color);
     background: var(--bg-gradient);
     -webkit-font-smoothing:antialiased;
     -moz-osx-font-smoothing:grayscale;
@@ -36,14 +37,14 @@ body {
 
 /* ===== 头部样式 ===== */
 .site-header {
-    /* 玻璃头部：半透明 + 模糊 */
-    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
-    color: var(--text-on-dark);
+    /* 暖色玻璃头部：浅色半透明 + 微弱模糊 */
+    background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.8));
+    color: var(--text-color);
     padding: 3rem 1rem;
     text-align: center;
     box-shadow: var(--glass-shadow);
     border-bottom: 1px solid var(--glass-border);
-    backdrop-filter: blur(8px) saturate(120%);
+    backdrop-filter: blur(6px) saturate(110%);
 }
 
 .header-content .site-title {
@@ -86,7 +87,7 @@ body {
 .nav-link {
     display: inline-block;
     padding: 1rem 1.5rem;
-    color: var(--text-on-dark);
+    color: var(--text-color);
     text-decoration: none;
     font-weight: 500;
     transition: all 0.3s ease;
@@ -147,20 +148,20 @@ h4 {
 
 /* ===== 信息卡片 ===== */
 .info-card {
-    /* 玻璃卡片样式 */
+    /* 暖色玻璃卡片 */
     background: var(--glass-bg);
     padding: 1.5rem;
     margin-bottom: 1.5rem;
     border-radius: 12px;
     border: 1px solid var(--glass-border);
-    box-shadow: 0 6px 24px rgba(2,6,23,0.45);
+    box-shadow: var(--glass-shadow);
     transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.2s ease;
-    backdrop-filter: blur(8px) saturate(120%);
+    backdrop-filter: blur(6px) saturate(110%);
 }
 
 .info-card:hover {
     transform: translateY(-6px);
-    box-shadow: 0 18px 40px rgba(2,6,23,0.6);
+    box-shadow: 0 16px 36px rgba(16,24,32,0.12);
 }
 
 .info-card h3 {
@@ -199,11 +200,11 @@ h4 {
     border-radius: 12px;
     overflow: hidden;
     border: 1px solid var(--glass-border);
-    backdrop-filter: blur(6px) saturate(120%);
+    backdrop-filter: blur(4px) saturate(105%);
 }
 
 .agenda-table thead {
-    background: linear-gradient(90deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+    background: linear-gradient(90deg, rgba(255,255,255,0.95), rgba(255,255,255,0.9));
     color: var(--muted);
 }
 
@@ -216,7 +217,7 @@ h4 {
 
 .agenda-table td {
     padding: 0.8rem 1rem;
-    border-bottom: 1px solid rgba(232,242,255,0.03);
+    border-bottom: 1px solid rgba(16,24,32,0.04);
 }
 
 .agenda-table tbody tr:hover {
@@ -242,11 +243,11 @@ h4 {
     border: 1px solid var(--glass-border);
     text-align: center;
     transition: transform 0.18s ease, box-shadow 0.18s ease;
-    backdrop-filter: blur(8px) saturate(120%);
+    backdrop-filter: blur(6px) saturate(110%);
 }
 
 .organizer-card:hover {
-    box-shadow: 0 18px 40px rgba(2,6,23,0.55);
+    box-shadow: 0 16px 36px rgba(16,24,32,0.12);
     transform: translateY(-8px);
 }
 
@@ -267,7 +268,7 @@ h4 {
     padding: 1.5rem;
     margin-bottom: 2rem;
     border: 1px solid var(--glass-border);
-    backdrop-filter: blur(8px) saturate(120%);
+    backdrop-filter: blur(6px) saturate(110%);
 }
 
 .event-header {
@@ -318,8 +319,8 @@ h4 {
 
 /* ===== 页脚样式 ===== */
 .site-footer {
-    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
-    color: var(--text-on-dark);
+    background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.85));
+    color: var(--text-color);
     text-align: center;
     padding: 2rem 1rem;
     margin-top: 3rem;
@@ -338,7 +339,7 @@ h4 {
 }
 
 .site-footer a:hover {
-    color: white;
+    color: #ffffff;
     text-decoration: underline;
 }
 
