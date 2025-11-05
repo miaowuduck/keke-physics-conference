@@ -67,6 +67,7 @@ body {
     margin: 0 auto;
     /* 响应友好的基准高度（用于在需要时保持 logo 与 title 高度一致） */
     --title-height: clamp(48px, 8vw, 140px);
+    position: relative; /* 让弹幕容器绝对定位于此 */
 }
 
 .brand-link {
@@ -99,7 +100,56 @@ body {
     height: var(--title-height);
     max-height: calc(var(--title-height) * 1.15); /* 容错比例，避免极端拉伸 */
     width: auto;
+    position: relative; /* 保证图片在弹幕之上 */
+    z-index: 3;
 }
+
+/* ===== 弹幕样式（barrage / 弹幕弹出） ===== */
+#barrage-container {
+    position: absolute;
+    inset: 0; /* 覆盖 title-wrap 区域 */
+    pointer-events: none; /* 不阻塞点击 */
+    overflow: visible; /* 允许弹幕穿出边界 */
+    z-index: 1; /* 置于 logo/title 之下 */
+}
+
+.barrage-item {
+    position: absolute;
+    white-space: nowrap;
+    font-weight: 600;
+    color: rgba(40, 34, 8, 0.96); /* 深色文字，搭配半透明淡黄背景更清晰 */
+    background: rgba(255, 250, 180, 0.85); /* 淡黄背景 */
+    padding: 4px 10px;
+    border-radius: 6px;
+    box-shadow: 0 4px 14px rgba(16,24,32,0.08);
+    transform-origin: left center;
+    transform: rotate(-18deg);
+    font-size: 16px;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.35);
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+@keyframes barrage-move {
+    0% {
+        opacity: 0;
+        transform: translate(-10%, 110%) rotate(-18deg);
+    }
+    10% { opacity: 1; }
+    100% {
+        opacity: 0.95;
+        transform: translate(120%, -140%) rotate(-18deg);
+    }
+}
+
+/* JS 会为每个弹幕元素设置不同的 animation-duration 和 animation-delay */
+.barrage-animate {
+    animation-name: barrage-move;
+    animation-timing-function: linear;
+    animation-iteration-count: 1;
+    will-change: transform, opacity;
+}
+
 
 /* 响应式：较小屏幕时标题区域放宽并适当减小高度 */
 @media (max-width: 768px) {
