@@ -48,6 +48,44 @@ body {
     backdrop-filter: blur(6px) saturate(110%);
 }
 
+/* 品牌与标题图像布局 */
+.site-brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.brand-link {
+    display: inline-flex;
+    align-items: center;
+}
+
+.brand-logo {
+    width: 64px;
+    height: auto;
+    display: block;
+}
+
+.title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.title-svg {
+    height: 56px;
+    width: auto;
+    display: block;
+}
+
+.title-logo {
+    width: 40px;
+    height: auto;
+    display: block;
+}
+
 .header-content .site-title {
     font-size: 2.5rem;
     margin-bottom: 0.5rem;

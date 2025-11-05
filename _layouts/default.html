@@ -20,7 +20,17 @@
 <body>
     <header class="site-header">
         <div class="header-content">
-            <h1 class="site-title">🎓 {{ site.title }}</h1>
+            <div class="site-brand">
+                <a href="{{ '/' | relative_url }}" class="brand-link" aria-label="{{ site.title }}">
+                    <img src="{{ '/assets/images/logo_main.svg' | relative_url }}" alt="site logo" class="brand-logo">
+                </a>
+
+                <div class="title-wrap" role="banner">
+                    <img src="{{ '/assets/images/title.svg' | relative_url }}" alt="{{ site.title }}" class="title-svg">
+                    <img src="{{ '/assets/images/logo_main.svg' | relative_url }}" alt="logo beside title" class="title-logo">
+                </div>
+            </div>
+
             <p class="site-subtitle">{{ site.description | strip_html | truncatewords: 15 }}</p>
         </div>
     </header>
