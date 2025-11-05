@@ -1,6 +1,8 @@
 // 页面加载完成后的初始化
 document.addEventListener('DOMContentLoaded', function() {
     initializeNavigation();
+    // 初始化头部弹幕（若页面包含 danmaku-container）
+    try { initDanmaku(); } catch (e) { /* 容错 */ }
 });
 
 // 初始化导航功能
@@ -93,3 +95,105 @@ function scrollToTop() {
 window.addEventListener('scroll', function() {
     // 这里可以添加返回顶部按钮的显示/隐藏逻辑
 });
+
+/* ===== 低调斜向上弹幕（danmaku） =====
+   - 从容器的 data-src 加载 JSON，默认结构为 { "banners": [{"zh":"...","en":"..."}, ...] }
+   - 文本语言根据 document.documentElement.lang 优先选择中文（以 "zh" 开头）
+   - 随机大小 / 速度 / 颜色，但保持低透明度与不抢眼
+*/
+function initDanmaku() {
+    const container = document.querySelector('.danmaku-container');
+    if (!container) return;
+
+    const src = container.dataset.src || '/assets/data/banner.json';
+    fetch(src).then(r => {
+        if (!r.ok) throw new Error('failed to fetch banners');
+        return r.json();
+    }).then(data => {
+        const items = Array.isArray(data.banners) ? data.banners : [];
+        if (items.length === 0) return;
+
+        const lang = (document.documentElement.lang || navigator.language || 'zh').toLowerCase();
+        const useZh = lang.startsWith('zh');
+
+        const maxActive = 28; // 限制同时显示的数量，防止性能问题
+        const minInterval = 700; // ms
+        const maxInterval = 1600;
+
+        function randomBetween(a, b) { return a + Math.random() * (b - a); }
+        function pickText(obj) { return (useZh && obj.zh) ? obj.zh : (obj.en || obj.zh || ''); }
+
+        let spawnTimer = null;
+
+        function spawnOne() {
+            // 限制元素数量
+            if (container.children.length >= maxActive) return scheduleNext();
+
+            const banner = items[Math.floor(Math.random() * items.length)];
+            const text = pickText(banner);
+            if (!text) return scheduleNext();
+
+            const el = document.createElement('span');
+            el.className = 'danmaku-item';
+
+            // 随机样式（低调）
+            const fontSize = Math.round(randomBetween(12, 20)); // px
+            el.style.fontSize = fontSize + 'px';
+            el.style.left = (randomBetween(10, 85)) + '%'; // 起始横向位置
+            el.style.bottom = (randomBetween(4, 18)) + '%'; // 起始垂直偏移
+
+            // 随机颜色：使用 HSL 短色相范围并降低饱和/亮度使其不刺眼
+            const hue = Math.round(randomBetween(0, 360));
+            const sat = Math.round(randomBetween(30, 65));
+            const light = Math.round(randomBetween(40, 68));
+            el.style.color = `hsla(${hue}, ${sat}%, ${light}%, 0.85)`;
+
+            // 速度：较短到较长，越长越慢
+            const duration = randomBetween(6.0, 14.0); // seconds
+            el.style.animationDuration = duration + 's';
+
+            // 轻微随机旋转偏差（在 CSS 已设置 -18deg 基础上微调）
+            const rot = randomBetween(-26, -10);
+            el.style.transform = `translate3d(0,0,0) rotate(${rot}deg)`;
+
+            el.textContent = text;
+            container.appendChild(el);
+
+            // 清理：动画结束后移除节点
+            const onEnd = function() {
+                el.removeEventListener('animationend', onEnd);
+                if (el.parentNode === container) container.removeChild(el);
+            };
+            el.addEventListener('animationend', onEnd);
+
+            scheduleNext();
+        }
+
+        function scheduleNext() {
+            const t = Math.max(minInterval, randomBetween(minInterval, maxInterval));
+            clearTimeout(spawnTimer);
+            spawnTimer = setTimeout(spawnOne, t);
+        }
+
+        // 初始批量产生一些弹幕以丰富背景但不突兀
+        const initial = 6;
+        for (let i = 0; i < initial; i++) {
+            setTimeout(spawnOne, i * 350 + Math.random() * 400);
+        }
+
+        // 开始循环产生
+        scheduleNext();
+
+        // 在页面不可见时暂停产生，以节省性能
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) clearTimeout(spawnTimer);
+            else scheduleNext();
+        });
+
+        // 清理函数（可选）：在页面卸载时移除定时器
+        window.addEventListener('beforeunload', function() { clearTimeout(spawnTimer); });
+    }).catch(err => {
+        // 静默失败，不影响其他功能
+        console.warn('danmaku init failed:', err);
+    });
+}
