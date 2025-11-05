@@ -104,73 +104,7 @@ body {
     z-index: 3;
 }
 
-/* ===== 弹幕样式（barrage / 弹幕弹出） ===== */
-#barrage-container {
-    position: absolute;
-    inset: 0; /* 覆盖 title-wrap 区域 */
-    pointer-events: none; /* 不阻塞点击 */
-    overflow: visible; /* 允许弹幕穿出边界 */
-    z-index: 1; /* 置于 logo/title 之下 */
-    /* 默认隐藏容器以避免在 JS 加载前造成空白或闪烁；当需要显示静态文本时，JS 会将 display 置空 */
-    display: none;
-}
-
-.barrage-item {
-    position: absolute;
-    white-space: nowrap;
-    font-weight: 700;
-    /* 文本为淡黄色，配合暗色投影以保证可读性 */
-    color: rgba(255, 246, 174, 0.98); /* 淡黄色 */
-    background: transparent; /* 背景透明，纯文字显示在 logo/title 背后 */
-    padding: 2px 6px;
-    border-radius: 6px;
-    box-shadow: none;
-    transform-origin: left center;
-    transform: rotate(-18deg);
-    font-size: 16px;
-    text-shadow: 0 2px 8px rgba(8, 8, 10, 0.65); /* 暗色阴影提高对比度 */
-    user-select: none;
-    -webkit-user-select: none;
-}
-
-@keyframes barrage-move {
-    0% {
-        opacity: 0;
-        transform: translate(-10%, 110%) rotate(-18deg);
-    }
-    10% { opacity: 1; }
-    100% {
-        opacity: 0.95;
-        transform: translate(120%, -140%) rotate(-18deg);
-    }
-}
-
-/* JS 会为每个弹幕元素设置不同的 animation-duration 和 animation-delay */
-.barrage-animate {
-    animation-name: barrage-move;
-    animation-timing-function: linear;
-    animation-iteration-count: 1;
-    will-change: transform, opacity;
-}
-
-/* 静态 banner 样式（用于 options.staticText，无动画） */
-.barrage-static {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    white-space: nowrap;
-    font-weight: 600;
-    color: rgba(40, 34, 8, 0.96);
-    background: rgba(255, 250, 180, 0.95);
-    padding: 6px 12px;
-    border-radius: 8px;
-    box-shadow: 0 4px 14px rgba(16,24,32,0.08);
-    font-size: 16px;
-    user-select: none;
-    -webkit-user-select: none;
-    z-index: 2; /* 置于容器之上但仍低于 logo/title 的 z-index（logo/title 使用 z-index:3） */
-}
+/* 弹幕样式已移除（按用户要求保留最简 logo/title，不再包含任何弹幕样式） */
 
 
 /* 响应式：较小屏幕时标题区域放宽并适当减小高度 */
