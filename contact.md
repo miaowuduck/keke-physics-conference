@@ -13,7 +13,8 @@ permalink: /contact/
 
 <div class="info-card">
 <h4><img src="{{ '/assets/images/wechat.svg' | relative_url }}" alt="微信公众号" class="emoji-svg" /> 微信公众号</h4>
-<p><strong>待更新</strong></p>
+<!-- 插入assets\images\wechat_info.svg，横跨整个卡片宽度 -->
+<p><img src="{{ '/assets/images/wechat_info.svg' | relative_url }}" alt="微信公众号二维码" style="max-width: 100%; height: auto;"></p>
 </div>
 
 <div class="info-card">
