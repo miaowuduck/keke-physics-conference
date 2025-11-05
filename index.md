@@ -4,36 +4,34 @@ title: 首页
 permalink: /
 ---
 
-# 今年会议信息
+# 欢迎参加 "咯咯物理奇妙夜" 学术交流会！
 
 <div class="info-card">
-<h3>📅 会议时间</h3>
-<p><strong>待更新</strong>（请联系组织者获取最新信息）</p>
+<h3><img src="{{ '/assets/images/news.svg' | relative_url }}" alt="新闻" class="emoji-svg" /> 新闻</h3>
+<!-- 用 HTML 表格以保证在 HTML 块内正确渲染 -->
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left; padding-right:1rem;">日期</th>
+      <th style="text-align:left;">事项</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>2025年11月5日</td>
+      <td>请参会者尽快填写问卷，以便我们尽快组织会议：<br /><a href="https://v.wjx.cn/vm/muy9ycH.aspx" target="_blank" rel="noopener noreferrer">https://v.wjx.cn/vm/muy9ycH.aspx</a></td>
+    </tr>
+    <tr>
+      <td>2024年11月4日</td>
+      <td>会议网站正式上线！欢迎浏览并分享给有兴趣的同学们！<br /><a href="https://miaowuduck.github.io/keke-physics-conference/" target="_blank" rel="noopener noreferrer">https://miaowuduck.github.io/keke-physics-conference/</a></td>
+    </tr>
+    <tr>
+      <td>2024年10月29日</td>
+      <td>第二届 "咯咯物理奇妙夜" 学术交流会启动讨论！</td>
+    </tr>
+    <!-- 如需添加更多行，可在此处新增 <tr>...</tr> -->
+  </tbody>
+</table>
 </div>
 
-<div class="info-card">
-<h3>📍 会议地点</h3>
-<p><strong>待更新</strong>（请联系组织者获取最新信息）</p>
-</div>
 
-<div class="info-card">
-<h3>💻 线上会议</h3>
-<p><strong>待更新</strong>（请联系组织者获取最新信息）</p>
-</div>
-
-<div class="info-card">
-<h3>📝 会议简介</h3>
-<p>
-"咯咯物理奇妙夜"是由上海交通大学物理学院致远物理系同学自发组织的学术交流会。
-本交流会旨在为致远物理方向的同学提供一个展示科研成果、分享学术心得的平台，
-促进学科交叉、激发创新思维。
-</p>
-</div>
-
-<div class="info-card">
-<h3>🔔 更新提示</h3>
-<p>
-如需更新今年的会议信息（时间、地点、线上会议链接等），
-请编辑 <code>index.md</code> 文件中的相应内容。
-</p>
-</div>
