@@ -27,10 +27,16 @@ permalink: /
       </p>
     </div>
   </section>
-
-  <h4><img src="{{ '/assets/images/day.svg' | relative_url }}" alt="会议时间" class="emoji-svg" /> 会议时间</h4>
-<p>十一月份下旬，具体时间待定</p>
-
+    <section class="info-card">
+    <header class="card-header">
+      <h3>
+        <img src="{{ '/assets/images/meeting.svg' | relative_url }}" alt="" aria-hidden="true" class="emoji-svg" />
+        会议详情
+      </h3>
+    </header>
+    <div class="card-body">
+      <h4><img src="{{ '/assets/images/day.svg' | relative_url }}" alt="会议时间" class="emoji-svg" /> 会议时间</h4>
+      <p>十一月份下旬，具体时间待定</p>
 <h4><img src="{{ '/assets/images/map.svg' | relative_url }}" alt="会议地点" class="emoji-svg" /> 会议地点</h4>
 <p>具体地点待定</p>
 
@@ -39,6 +45,8 @@ permalink: /
 
 <h4><img src="{{ '/assets/images/pre.svg' | relative_url }}" alt="会议议程" class="emoji-svg" /> 会议议程</h4>
 <p>具体议程见 <a href="{{ '/agenda/' | relative_url }}">会议议程页面</a>，内容正在建设中。</p>
+    </div>
+  </section>
 
   <section class="info-card">
     <header class="card-header">
