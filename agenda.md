@@ -7,9 +7,8 @@ permalink: /agenda/
 # 会议议程
 
 <div class="info-card">
-<p style="color: #666; font-style: italic;">
-📝 <strong>待更新</strong>：请编辑 <code>agenda.md</code> 文件中的议程表格内容
-</p>
+<h3><img src="{{ '/assets/images/TBD.svg' | relative_url }}" alt="正在施工中" class="emoji-svg" /> 这个页面正在建设中</h3>
+<p><strong>这个页面正在建设中，内容尚不准确，更详细的信息将会被更新。</strong></p>
 </div>
 
 <div class="table-responsive">
