@@ -8,7 +8,7 @@ permalink: /past-events/
 
 <div class="past-event">
 <div class="event-header">
-<h3>🏆 第一届 (2024年)</h3>
+<h3><img src="/assets/images/one.svg" alt="第一届" class="emoji-svg" /> 第一届 (2024年)</h3>
 <span class="event-badge">2024</span>
 </div>
 
@@ -16,16 +16,16 @@ permalink: /past-events/
 <h4>会议名称</h4>
 <p>"咯咯奇妙夜"第一届 2019 级致远物理方向学术交流会</p>
 
-<h4>📅 会议时间</h4>
+<h4><img src="/assets/images/day.svg" alt="会议时间" class="emoji-svg" /> 会议时间</h4>
 <p>2024 年 12 月 7 日（周六）19：00</p>
 
-<h4>📍 会议地点</h4>
+<h4><img src="/assets/images/map.svg" alt="会议地点" class="emoji-svg" /> 会议地点</h4>
 <p>上海交通大学闵行校区致远学院 204 室</p>
 
-<h4>💻 线上会议</h4>
+<h4><img src="/assets/images/online.svg" alt="线上会议" class="emoji-svg" /> 线上会议</h4>
 <p>腾讯会议：<code>718-688-912</code>（会议密码：<code>127127</code>）</p>
 
-<h4>📋 会议议程</h4>
+<h4><img src="/assets/images/pre.svg" alt="会议议程" class="emoji-svg" /> 会议议程</h4>
 <div class="table-responsive">
 <table class="agenda-table">
 <thead>
@@ -130,7 +130,7 @@ permalink: /past-events/
 </table>
 </div>
 
-<h4>👥 筹备组</h4>
+<h4><img src="/assets/images/meeting.svg" alt="筹备组" class="emoji-svg" /> 筹备组</h4>
 <p>学术交流会筹备组 二〇二四年十二月四日</p>
 </div>
 </div>
