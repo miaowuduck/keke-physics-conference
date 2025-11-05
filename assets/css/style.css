@@ -601,9 +601,9 @@ h4 {
 /* ===== 自定义 SVG 替代 emoji 的样式 ===== */
 /* 这个类用于在文档中用小图标替换 emoji，尺寸和对齐接近字体表情 */
 .emoji-svg {
-    width: 1.2em; /* 跟随字体大小 */
-    height: 1.2em;
-    vertical-align: -0.15em; /* 微调使其与行内文字垂直居中 */
-    margin-right: 0.35em; /* 与后续文字保持间距 */
+    width: 1.4em; /* 从 1.2em 增大到 1.4em */
+    height: 1.4em;
+    vertical-align: -0.12em; /* 微调以保持与行内文字垂直居中 */
+    margin-right: 0.4em; /* 稍微增大间距，避免图标与文字过于靠近 */
     display: inline-block;
 }
