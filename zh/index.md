@@ -37,7 +37,7 @@ lang: zh
     </header>
     <div class="card-body">
       <h4><img src="{{ '/assets/images/day.svg' | relative_url }}" alt="会议时间" class="emoji-svg" /> 会议时间</h4>
-      <p>2025年12月7日（暂定）</p>
+      <p>十一月份下旬，具体时间待定</p>
 <h4><img src="{{ '/assets/images/map.svg' | relative_url }}" alt="会议地点" class="emoji-svg" /> 会议地点</h4>
 <p>具体地点待定</p>
 
