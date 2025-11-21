@@ -62,7 +62,7 @@ lang: en
                I have translated the visible text (Nov 5). -->
           <time datetime="2025-11-21">November 5, 2025</time>
           <div class="news-item">
-            The meeting is preliminarily scheduled for December 7, 2025. For possible lecture topics, please see the <a href="{{ '/en/agenda/' | relative_url }}">Agenda page</a>.
+            The meeting is preliminarily scheduled for December 7, 2025. For possible lecture topics, please see the <a href="{{ '/agenda/' | relative_url }}">Agenda page</a>.
           </div>
         </li>
         <li>
@@ -76,7 +76,7 @@ lang: en
         <li>
           <time datetime="2024-11-04">November 4, 2024</time>
           <div class="news-item">
-            The <a href="{{ '/en/' | relative_url }}" target="_blank" rel="noopener noreferrer">Conference Website</a>
+            The <a href="{{ '/' | relative_url }}" target="_blank" rel="noopener noreferrer">Conference Website</a>
             is officially live! Feel free to browse and share it with interested students!
           </div>
         </li>

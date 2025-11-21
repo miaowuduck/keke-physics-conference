@@ -62,7 +62,7 @@ lang: zh
               <li>
           <time datetime="2025-11-21">2025年11月5日</time>
           <div class="news-item">
-            会议被初步决定在2025年12月07日举行，可能的讲座内容见 <a href="{{ '/agenda/' | relative_url }}">会议议程页面</a>。
+            会议被初步决定在2025年12月07日举行，可能的讲座内容见 <a href="{{ '/cn/agenda/' | relative_url }}">会议议程页面</a>。
           </div>
         </li>
         <li>
@@ -76,7 +76,7 @@ lang: zh
         <li>
           <time datetime="2024-11-04">2024年11月4日</time>
           <div class="news-item">
-            <a href="{{ '/' | relative_url }}" target="_blank" rel="noopener noreferrer">会议网站</a>
+            <a href="{{ '/cn/' | relative_url }}" target="_blank" rel="noopener noreferrer">会议网站</a>
             正式上线！欢迎浏览并分享给有兴趣的同学们！
           </div>
         </li>
