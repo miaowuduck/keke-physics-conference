@@ -38,8 +38,7 @@ lang: en
     </header>
     <div class="card-body">
       <h4><img src="{{ '/assets/images/day.svg' | relative_url }}" alt="Meeting time" class="emoji-svg" /> Meeting time</h4>
-      <p>Late November — exact date to be announced</p>
-      <h4><img src="{{ '/assets/images/map.svg' | relative_url }}" alt="Meeting place" class="emoji-svg" /> Location</h4>
+      <p>December 7, 2025 (tentative)</p>    <h4><img src="{{ '/assets/images/map.svg' | relative_url }}" alt="Meeting place" class="emoji-svg" /> Location</h4>
       <p>To be announced</p>
 
       <h4><img src="{{ '/assets/images/online.svg' | relative_url }}" alt="Online" class="emoji-svg" /> Online</h4>
