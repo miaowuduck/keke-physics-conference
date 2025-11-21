@@ -52,33 +52,33 @@
     </header>
 
     <nav class="site-nav">
-                <ul class="nav-menu">
-                        {%- comment -%} 使用 page_lang 切换导航标签（英文/中文） {%- endcomment -%}
-                        {%- if page_lang == 'zh' -%}
-                            <li><a href="{{ '/' | relative_url }}" class="nav-link {% if page.url == '/' or page.url == '/zh/' %}active{% endif %}">首页</a></li>
-                            <li><a href="{{ '/agenda/' | relative_url }}" class="nav-link {% if page.url == '/agenda/' or page.url == '/zh/agenda/' %}active{% endif %}">会议议程</a></li>
-                            <li><a href="{{ '/organizers/' | relative_url }}" class="nav-link {% if page.url == '/organizers/' or page.url == '/zh/organizers/' %}active{% endif %}">组织人员</a></li>
-                            <li><a href="{{ '/contact/' | relative_url }}" class="nav-link {% if page.url == '/contact/' or page.url == '/zh/contact/' %}active{% endif %}">联系方式</a></li>
-                            <li><a href="{{ '/past-events/' | relative_url }}" class="nav-link {% if page.url == '/past-events/' or page.url == '/zh/past-events/' %}active{% endif %}">往届回顾</a></li>
-                        {%- else -%}
-                            <li><a href="{{ '/' | relative_url }}" class="nav-link {% if page.url == '/' %}active{% endif %}">Home</a></li>
-                            <li><a href="{{ '/agenda/' | relative_url }}" class="nav-link {% if page.url == '/agenda/' %}active{% endif %}">Agenda</a></li>
-                            <li><a href="{{ '/organizers/' | relative_url }}" class="nav-link {% if page.url == '/organizers/' %}active{% endif %}">Organizers</a></li>
-                            <li><a href="{{ '/contact/' | relative_url }}" class="nav-link {% if page.url == '/contact/' %}active{% endif %}">Contact</a></li>
-                            <li><a href="{{ '/past-events/' | relative_url }}" class="nav-link {% if page.url == '/past-events/' %}active{% endif %}">Past events</a></li>
-                        {%- endif -%}
+        <ul class="nav-menu">
+            {%- assign nav_items = site.data.navigation[page_lang] -%}
+            {%- for item in nav_items -%}
+                <li>
+                    <a href="{{ item.url | relative_url }}" class="nav-link {% if page.url == item.url %}active{% endif %}">
+                        {{ item.title }}
+                    </a>
+                </li>
+            {%- endfor -%}
 
-                        {%- comment -%} 语言切换：始终提供到英文根页与中文 /zh/ 的链接 {%- endcomment -%}
-                        <li class="lang-switcher" style="margin-left:1rem;">
-                            {%- if page_lang == 'zh' -%}
-                                <a href="{{ '/' | relative_url }}" class="nav-link">English</a> |
-                                <a href="{{ '/zh/' | relative_url }}" class="nav-link active">中文</a>
-                            {%- else -%}
-                                <a href="{{ '/' | relative_url }}" class="nav-link active">English</a> |
-                                <a href="{{ '/zh/' | relative_url }}" class="nav-link">中文</a>
-                            {%- endif -%}
-                        </li>
-                </ul>
+            {%- comment -%} 语言切换逻辑 {%- endcomment -%}
+            <li class="lang-switcher">
+                {%- if page_lang == 'zh' -%}
+                    {%- assign en_url = page.url | replace_first: '/zh/', '/' -%}
+                    {%- if en_url == '/zh/' %}{% assign en_url = '/' %}{% endif -%}
+                    <a href="{{ en_url | relative_url }}" class="nav-link" aria-label="Switch to English">EN</a>
+                    <span class="separator">/</span>
+                    <span class="nav-link active">中</span>
+                {%- else -%}
+                    {%- assign zh_url = '/zh' | append: page.url -%}
+                    {%- if page.url == '/' %}{% assign zh_url = '/zh/' %}{% endif -%}
+                    <span class="nav-link active">EN</span>
+                    <span class="separator">/</span>
+                    <a href="{{ zh_url | relative_url }}" class="nav-link" aria-label="切换到中文">中</a>
+                {%- endif -%}
+            </li>
+        </ul>
     </nav>
 
     <main class="site-main">

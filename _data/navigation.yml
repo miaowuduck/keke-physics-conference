@@ -1,0 +1,23 @@
+en:
+  - title: Home
+    url: /
+  - title: Agenda
+    url: /agenda/
+  - title: Organizers
+    url: /organizers/
+  - title: Contact
+    url: /contact/
+  - title: Past events
+    url: /past-events/
+
+zh:
+  - title: 首页
+    url: /zh/
+  - title: 会议议程
+    url: /zh/agenda/
+  - title: 组织人员
+    url: /zh/organizers/
+  - title: 联系方式
+    url: /zh/contact/
+  - title: 往届回顾
+    url: /zh/past-events/
