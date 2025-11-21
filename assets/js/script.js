@@ -1,6 +1,8 @@
 // 页面加载完成后的初始化
 document.addEventListener('DOMContentLoaded', function() {
     initializeNavigation();
+    initParticles(); // 初始化粒子系统
+    initCursorLight(); // 初始化光标光效
 });
 
 // 初始化导航功能
@@ -203,3 +205,160 @@ function scrollToTop() {
 window.addEventListener('scroll', function() {
     // 这里可以添加返回顶部按钮的显示/隐藏逻辑
 });
+
+// ===== 粒子系统与光效 =====
+
+function initCursorLight() {
+    const cursor = document.getElementById('cursor-light');
+    if (!cursor) return;
+
+    // 使用 requestAnimationFrame 优化鼠标跟随的性能
+    let mouseX = 0;
+    let mouseY = 0;
+    let cursorX = 0;
+    let cursorY = 0;
+
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
+
+    function animateCursor() {
+        // 简单的平滑跟随算法
+        const dx = mouseX - cursorX;
+        const dy = mouseY - cursorY;
+        
+        cursorX += dx * 0.15; // 0.15 是跟随速度系数
+        cursorY += dy * 0.15;
+
+        cursor.style.left = cursorX + 'px';
+        cursor.style.top = cursorY + 'px';
+
+        requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+}
+
+function initParticles() {
+    const canvas = document.getElementById('particle-canvas');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let particles = [];
+    
+    // 配置参数
+    // 根据屏幕宽度调整粒子数量
+    const getParticleCount = () => window.innerWidth < 768 ? 25 : 50;
+    const connectionDistance = 160;
+    const mouseDistance = 220;
+    
+    // 鼠标位置
+    let mouse = { x: null, y: null };
+
+    window.addEventListener('mousemove', (e) => {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+    });
+
+    window.addEventListener('mouseleave', () => {
+        mouse.x = null;
+        mouse.y = null;
+    });
+
+    // 调整尺寸
+    function resize() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+    }
+    
+    window.addEventListener('resize', () => {
+        resize();
+        initParticlesArray(); // 重新生成粒子
+    });
+    
+    resize();
+
+    class Particle {
+        constructor() {
+            this.x = Math.random() * width;
+            this.y = Math.random() * height;
+            this.vx = (Math.random() - 0.5) * 0.4; // 速度
+            this.vy = (Math.random() - 0.5) * 0.4;
+            this.size = Math.random() * 2 + 1;
+            // 粒子颜色：深灰色，低透明度
+            this.color = 'rgba(43, 43, 43, 0.15)'; 
+        }
+
+        update() {
+            this.x += this.vx;
+            this.y += this.vy;
+
+            // 边界反弹
+            if (this.x < 0 || this.x > width) this.vx *= -1;
+            if (this.y < 0 || this.y > height) this.vy *= -1;
+        }
+
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fillStyle = this.color;
+            ctx.fill();
+        }
+    }
+
+    function initParticlesArray() {
+        particles = [];
+        const count = getParticleCount();
+        for (let i = 0; i < count; i++) {
+            particles.push(new Particle());
+        }
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, width, height);
+        
+        for (let i = 0; i < particles.length; i++) {
+            particles[i].update();
+            particles[i].draw();
+
+            // 粒子间连线
+            for (let j = i; j < particles.length; j++) {
+                const dx = particles[i].x - particles[j].x;
+                const dy = particles[i].y - particles[j].y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < connectionDistance) {
+                    ctx.beginPath();
+                    // 连线颜色：深灰色，随距离渐变
+                    ctx.strokeStyle = `rgba(43, 43, 43, ${0.08 - distance/connectionDistance * 0.08})`;
+                    ctx.lineWidth = 1;
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.stroke();
+                }
+            }
+
+            // 鼠标连线
+            if (mouse.x != null) {
+                const dx = particles[i].x - mouse.x;
+                const dy = particles[i].y - mouse.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < mouseDistance) {
+                    ctx.beginPath();
+                    // 鼠标连线颜色：使用主题强调色 (secondary-color: #ff8a65)
+                    ctx.strokeStyle = `rgba(255, 138, 101, ${0.25 - distance/mouseDistance * 0.25})`; 
+                    ctx.lineWidth = 1.2;
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(mouse.x, mouse.y);
+                    ctx.stroke();
+                }
+            }
+        }
+        requestAnimationFrame(animate);
+    }
+
+    initParticlesArray();
+    animate();
+}

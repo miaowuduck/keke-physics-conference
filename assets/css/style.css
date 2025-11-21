@@ -25,15 +25,44 @@
 
 html {
     scroll-behavior: smooth;
+    background: var(--bg-gradient); /* 背景移到 html */
 }
 
 body {
     font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     color: var(--text-color);
-    background: var(--bg-gradient);
+    background: transparent; /* body 透明，以便显示下层的 canvas */
     -webkit-font-smoothing:antialiased;
     -moz-osx-font-smoothing:grayscale;
     line-height: 1.6;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* 背景粒子 Canvas */
+#particle-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* 在内容之下 */
+    pointer-events: none;
+}
+
+/* 光标跟随光效 */
+#cursor-light {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, rgba(255, 138, 101, 0.08) 0%, rgba(255, 255, 255, 0) 60%);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: -1; /* 与 canvas 同层级或略高 */
+    mix-blend-mode: multiply; /* 混合模式 */
+    transition: opacity 0.3s ease;
 }
 
 /* ===== 头部样式 ===== */
