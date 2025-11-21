@@ -37,7 +37,7 @@ lang: zh
     </header>
     <div class="card-body">
       <h4><img src="{{ '/assets/images/day.svg' | relative_url }}" alt="会议时间" class="emoji-svg" /> 会议时间</h4>
-      <p>十一月份下旬，具体时间待定</p>
+      <p>2025年12月07日（待定）</p>
 <h4><img src="{{ '/assets/images/map.svg' | relative_url }}" alt="会议地点" class="emoji-svg" /> 会议地点</h4>
 <p>具体地点待定</p>
 
@@ -59,6 +59,12 @@ lang: zh
     <div class="card-body">
       <!-- 改用时间线/列表，便于响应式展示 -->
       <ul class="news-list" aria-label="会议新闻列表">
+              <li>
+          <time datetime="2025-11-21">2025年11月5日</time>
+          <div class="news-item">
+            会议被初步决定在2025年12月07日举行，可能的讲座内容见 <a href="{{ '/agenda/' | relative_url }}">会议议程页面</a>。
+          </div>
+        </li>
         <li>
           <time datetime="2025-11-05">2025年11月5日</time>
           <div class="news-item">
@@ -70,7 +76,7 @@ lang: zh
         <li>
           <time datetime="2024-11-04">2024年11月4日</time>
           <div class="news-item">
-            <a href="https://miaowuduck.github.io/keke-physics-conference/" target="_blank" rel="noopener noreferrer">会议网站</a>
+            <a href="{{ '/' | relative_url }}" target="_blank" rel="noopener noreferrer">会议网站</a>
             正式上线！欢迎浏览并分享给有兴趣的同学们！
           </div>
         </li>
@@ -78,7 +84,6 @@ lang: zh
           <time datetime="2024-10-29">2024-10-29</time>
           <div class="news-item">第二届 "咯咯物理奇妙夜" 学术交流会启动讨论！</div>
         </li>
-        <!-- 如需添加更多新闻项，可复制上方 <li> 模板并修改 time 与文本 -->
       </ul>
     </div>
   </section>
