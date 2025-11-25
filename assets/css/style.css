@@ -425,6 +425,50 @@ h4 {
     backdrop-filter: blur(6px) saturate(110%);
 }
 
+/* ===== 卡片光效（光标跟随） ===== */
+/* 使卡片成为定位容器并添加伪元素作为光斑层 */
+.info-card,
+.organizer-card,
+.past-event {
+    position: relative;
+    overflow: hidden;
+}
+
+.info-card::before,
+.organizer-card::before,
+.past-event::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 160ms linear, transform 160ms linear;
+    transform: translateZ(0);
+    mix-blend-mode: screen; /* 以暖色叠加卡片 */
+    background: radial-gradient(circle at var(--mx, -999px) var(--my, -999px), rgba(255,138,101,0.16) 0%, rgba(255,138,101,0.08) 18%, rgba(255,138,101,0.03) 36%, transparent 60%);
+}
+
+/* 在悬停或当卡片被 JS 标记为 active 时显示光斑 */
+.info-card:hover::before,
+.organizer-card:hover::before,
+.past-event:hover::before,
+.info-card[data-cursor="1"]::before,
+.organizer-card[data-cursor="1"]::before,
+.past-event[data-cursor="1"]::before {
+    opacity: 1;
+}
+
+/* 键盘可访问性：当卡片获得焦点时也显示光斑 */
+.info-card:focus-within::before,
+.organizer-card:focus-within::before,
+.past-event:focus-within::before {
+    opacity: 1;
+}
+
 .event-header {
     display: flex;
     justify-content: space-between;

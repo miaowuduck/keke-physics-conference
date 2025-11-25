@@ -217,6 +217,8 @@ function initCursorLight() {
     let mouseY = 0;
     let cursorX = 0;
     let cursorY = 0;
+    // 缓存可被高亮的卡片集合
+    const cards = Array.from(document.querySelectorAll('.info-card, .organizer-card, .past-event'));
 
     document.addEventListener('mousemove', (e) => {
         mouseX = e.clientX;
@@ -233,6 +235,26 @@ function initCursorLight() {
 
         cursor.style.left = cursorX + 'px';
         cursor.style.top = cursorY + 'px';
+
+        // 更新每个卡片的相对鼠标位置变量，用于驱动伪元素光斑
+        if (cards && cards.length) {
+            for (let i = 0; i < cards.length; i++) {
+                const c = cards[i];
+                const rect = c.getBoundingClientRect();
+                // 相对坐标（相对于卡片左上角）
+                const mx = mouseX - rect.left;
+                const my = mouseY - rect.top;
+
+                // 将坐标写入 CSS 变量
+                c.style.setProperty('--mx', (Math.round(mx)) + 'px');
+                c.style.setProperty('--my', (Math.round(my)) + 'px');
+
+                // 当鼠标位于卡片区域内时，设置 data 属性以确保在某些环境下显示光斑
+                const inside = mouseX >= rect.left && mouseX <= rect.right && mouseY >= rect.top && mouseY <= rect.bottom;
+                if (inside) c.setAttribute('data-cursor', '1');
+                else c.removeAttribute('data-cursor');
+            }
+        }
 
         requestAnimationFrame(animateCursor);
     }
