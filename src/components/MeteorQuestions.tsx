@@ -44,11 +44,15 @@ function makeMeteor(id: number, now: number, mobile: boolean): Meteor {
   const index = Math.floor(Math.random() * questions.length)
   const text = questions[index]
   const duration = 7.5 + Math.random() * 3
-  const startY = 4 + Math.random() * 46
+  const startY = mobile
+    ? 44 + Math.random() * 22
+    : 4 + Math.random() * 46
   const verticalDrop = mobile
-    ? 8 + Math.random() * 14
+    ? 6 + Math.random() * 8
     : 20 + Math.random() * 28
-  const endY = Math.min(98, startY + verticalDrop)
+  const endY = mobile
+    ? Math.min(76, startY + verticalDrop)
+    : Math.min(98, startY + verticalDrop)
   const shatterAt = duration * (0.66 + Math.random() * 0.06)
   const chars = Array.from(text).map((ch) => ({
     ch,
