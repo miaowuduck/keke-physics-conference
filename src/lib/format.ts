@@ -2,6 +2,12 @@ export function cn(...values: Array<string | false | null | undefined>) {
   return values.filter(Boolean).join(' ')
 }
 
+export function externalLink(href: string) {
+  return href.startsWith('http')
+    ? { target: '_blank', rel: 'noreferrer' }
+    : {}
+}
+
 export function pad2(value: number) {
   return String(value).padStart(2, '0')
 }

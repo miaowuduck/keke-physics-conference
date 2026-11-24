@@ -5,6 +5,7 @@
 - 活动：2026 年 12 月 26 日（周六）19:00
 - 地点：上海交通大学致远学院 204-ClassIn 全球教室
 - 线上：腾讯会议（会议号会前公布）
+- 报名：<https://v.wjx.cn/vm/Y0QyiiI.aspx>（截止 2026-12-01 20:00）
 
 ## 技术栈
 
@@ -35,10 +36,11 @@ npm run preview  # 预览生产构建
 常见修改：
 
 - **改活动日期**：改 `site.dateISO` 与 `site.dateLabel` / `site.dateLong`。首页倒计时、JSON-LD、日历下载都会跟着变。
-- **开放报名**：把 `site.registrationUrl` 填成问卷链接；留空时按钮会打开“报名通道即将开放”弹窗。
+- **报名问卷**：`site.registrationUrl` 已设为 <https://v.wjx.cn/vm/Y0QyiiI.aspx>；截止时间在 `site.registrationDeadlineISO`（2026-12-01 20:00）。留空时会回退到邮件报名弹窗。
 - **公布腾讯会议号**：改 `site.online`，以及 `editions` 中 2027 的 `online`。
 - **上线 2027 议程**：往 `editions` 里 2027 的 `sessions` 数组添加场次，`status` 改为 `past`（或保留 upcoming），议程页会自动出现年份 tab 内容。
-- **换讲者**：改 `speakers`；头像由姓名 hash 生成，不需要图片。
+- **换讲者**：改 `speakers`；头像由姓名 + 议题生成，不需要图片。
+- **今夜的问题**：改 `questions`；首页会随机抽取问题作为流星划过夜空，飞行中逐字破碎。
 - **改报名卡 / FAQ**：改 `tiers`、`attend`、`faq`。
 
 ### 新增一场报告
@@ -70,7 +72,6 @@ npm run preview  # 预览生产构建
 
 ## 待确认 / 占位
 
-- 2027 报名问卷链接（当前用 `mailto:phyconf@163.com` 兜底）
 - 2027 腾讯会议号与密码
 - 2027 议程与讲者
 - 公众号二维码、照片直播链接（原素材未存档）
@@ -82,7 +83,7 @@ index.html / schedule.html      两个入口
 src/content.ts                  全部内容与数据
 src/pages/Home.tsx              首页
 src/pages/Schedule.tsx          议程页
-src/components/                 导航、标题、星野、倒计时、讲者、场地卡、报名、FAQ…
+src/components/                 导航、标题、星野、问题流星、倒计时、讲者、场地卡、报名、FAQ…
 src/styles.css                  配色、字体、组件类、动效
 public/                         favicon、logo、重定向页、robots、sitemap
 ```

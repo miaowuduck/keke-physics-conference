@@ -21,6 +21,8 @@ import { AttendCards } from '../components/AttendCards'
 import { FAQ } from '../components/FAQ'
 import { CtaBand } from '../components/CtaBand'
 import { Footer } from '../components/Footer'
+import { MeteorQuestions } from '../components/MeteorQuestions'
+import { RegistrationCountdown } from '../components/RegistrationCountdown'
 import {
   about,
   attend,
@@ -31,6 +33,7 @@ import {
   thisYear,
   venue,
 } from '../content'
+import { externalLink } from '../lib/format'
 import { useMediaQuery } from '../lib/useMediaQuery'
 import { useReducedMotion } from '../lib/useReducedMotion'
 
@@ -70,6 +73,8 @@ function Hero() {
         className="hero-ring hero-ring--outer"
         style={{ top: '3%', right: '-6%', width: '66vw', height: '66vw' }}
       />
+
+      <MeteorQuestions />
 
       <div className="poster-wrap relative flex min-h-[calc(100svh-64px)] flex-col py-8">
         <div className="flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-[10.5px] uppercase tracking-[0.12em] text-mute">
@@ -121,7 +126,11 @@ function Hero() {
             {hero.intro}
           </p>
           <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap md:col-span-5 md:justify-end">
-            <a href={hero.primary.href} className="btn-gold">
+            <a
+              href={hero.primary.href}
+              {...externalLink(hero.primary.href)}
+              className="btn-gold"
+            >
               {hero.primary.label}
               <ArrowRight className="btn-arrow h-4 w-4" strokeWidth={2} />
             </a>
@@ -253,7 +262,11 @@ function ThisYearSection() {
             </dl>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <a href={thisYear.cta.href} className="btn-gold">
+              <a
+                href={thisYear.cta.href}
+                {...externalLink(thisYear.cta.href)}
+                className="btn-gold"
+              >
                 {thisYear.cta.label}
                 <ArrowRight className="btn-arrow h-4 w-4" strokeWidth={2} />
               </a>
@@ -447,6 +460,9 @@ function AttendSection() {
         <h3 className="mt-8 max-w-3xl display text-[clamp(26px,3.4vw,44px)] font-extrabold leading-tight">
           {attend.title}
         </h3>
+        <div className="mt-8">
+          <RegistrationCountdown />
+        </div>
         <div className="mt-8">
           <AttendCards />
         </div>

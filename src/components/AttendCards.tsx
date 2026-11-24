@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { ArrowRight } from 'lucide-react'
 import { attend, mailto, site, tiers } from '../content'
-import { cn } from '../lib/format'
+import { cn, externalLink } from '../lib/format'
 
 const toneClasses: Record<string, string> = {
   gold: 'bg-gold text-night',
@@ -87,6 +87,15 @@ export function AttendCards() {
                 {tier.action === 'mail' ? (
                   <a
                     href={mailto(tier.subject ?? '咨询 - 2027 咯咯物理奇妙夜')}
+                    className={buttonClass}
+                  >
+                    {tier.cta}
+                    <ArrowRight className="btn-arrow h-4 w-4" strokeWidth={2} />
+                  </a>
+                ) : site.registrationUrl ? (
+                  <a
+                    href={site.registrationUrl}
+                    {...externalLink(site.registrationUrl)}
                     className={buttonClass}
                   >
                     {tier.cta}

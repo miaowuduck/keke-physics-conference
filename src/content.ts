@@ -110,7 +110,10 @@ export const site = {
   address: '上海市闵行区东川路 800 号 上海交通大学',
   online: '腾讯会议 · 会议号会前公布',
   email: 'phyconf@163.com',
-  registrationUrl: '',
+  registrationUrl: 'https://v.wjx.cn/vm/Y0QyiiI.aspx',
+  registrationDeadlineISO: '2026-12-01T20:00:00+08:00',
+  registrationDeadlineLabel: '2026.12.01 周二 20:00',
+  registrationDeadlineLong: '2026 年 12 月 1 日（周二）20:00',
   siteUrl: 'https://miaowuduck.github.io/keke-physics-conference/',
   copyright: '© 2019–2026 致远物理咯咯 · 上海交通大学物理学院致远学院',
   creditUrl: 'https://vibefather.ai/t/design-conference-website',
@@ -137,7 +140,7 @@ export const hero = {
   titleEn: 'Keke Physics Night 2027',
   intro:
     '第三届奇妙夜。一个晚上，把量子、天体、光子与凝聚态带到同一间教室——专业，但不失风趣。',
-  primary: { label: '报名参会', href: './index.html#attend' },
+  primary: { label: '报名参会', href: site.registrationUrl },
   secondary: { label: '查看三年议程', href: './schedule.html' },
   stats: [
     { value: '03', label: '第三届' },
@@ -211,7 +214,7 @@ export const thisYear = {
       body: '19:00 开场。报告、中场休息与自由讨论，预计持续到深夜。',
     },
   ],
-  cta: { label: '报名参会', href: './index.html#attend' },
+  cta: { label: '报名参会', href: site.registrationUrl },
   calendarLabel: '添加到日历',
 }
 
@@ -690,8 +693,8 @@ export const tiers: {
     tag: '推荐',
     tone: 'gold',
     desc: '现场座位 · 中场茶歇 · 自由讨论',
-    detail: '致远学院 204-ClassIn 全球教室，19:00 开始。',
-    cta: '报名参会',
+    detail: '致远学院 204-ClassIn 全球教室，19:00 开始。问卷截止 2026.12.01 20:00。',
+    cta: '填写报名问卷',
     action: 'register',
     featured: true,
     subject: '报名 - 2027 咯咯物理奇妙夜',
@@ -726,12 +729,35 @@ export const tiers: {
 export const attend = {
   eyebrow: 'ATTEND',
   title: '免费，但请让我们知道你要来。',
-  note: '报名通道即将开放。现在可以先发邮件登记；会议号、议程与问卷链接会持续更新。',
-  dialogTitle: '报名通道即将开放',
+  note: '报名问卷开放至 2026 年 12 月 1 日（周二）20:00，由问卷星托管。',
+  dialogTitle: '通过邮件报名',
   dialogBody:
-    '2027 的报名问卷还在准备中。你可以先发邮件到 phyconf@163.com，注明“报名 - 姓名”，我们会把开放通知发给你。',
+    '报名问卷链接暂不可用。请发邮件到 phyconf@163.com，注明“报名 - 姓名”，我们会回复确认。',
   dialogClose: '关闭',
 }
+
+export const questions = [
+  'AI黑箱预测与“物理直觉”的边界',
+  'AI能否独立“发现”全新物理定律？',
+  '大科学装置 vs. 桌面级精密测量：谁将主导下一代突破？',
+  '诺奖“破圈”背景下，当代物理学的学科边界在哪里？',
+  '自动化实验室兴起，实验物理博士的技能树如何重塑？',
+  '大型对撞机未见新粒子，高能物理该如何寻找新范式？',
+  '量子计算从纠错迈向实用化，还有哪些底层物理障碍？',
+  '“室温超导”等争议后，物理界如何重建实验复现机制？',
+  '算力霸权时代，大规模数值模拟正在取代解析推导吗？',
+  '拓扑与莫尔超晶格之后，凝聚态物理的下一个爆发点在哪？',
+  '非平衡统计与活性物质，能否从底层解释生命涌现？',
+  '“时空源于量子纠缠”：是深刻洞见还是数学类比？',
+  '物理第一性原理建模，能为“世界模型”与具身智能带来什么？',
+  '核聚变商业化热潮下，哪些基础物理难题被低估了？',
+  '缺乏直接实验验证时，前沿理论物理的评价标准是什么？',
+  '海量预印本与AI写作冲击下，物理学同行评审该如何演进？',
+  '物理博士跨界生物、AI或金融，最不可替代的优势是什么？',
+  '物理研究实现“数据代码全开源、一键复现”的现实阻碍',
+  '大合作组时代，青年物理学者如何建立独立的学术辨识度？',
+  '从追求对称简洁到拥抱复杂无序，物理学的“审美”变了吗？',
+]
 
 export const faq = [
   {
@@ -763,7 +789,7 @@ export const faq = [
 export const cta = {
   line: '同一个夜晚，第三届。',
   sub: '把问题带到光下。',
-  primary: { label: '报名参会', href: './index.html#attend' },
+  primary: { label: '报名参会', href: site.registrationUrl },
   secondary: { label: '查看三年议程', href: './schedule.html' },
 }
 

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import { Menu, X } from 'lucide-react'
 import { nav, site } from '../content'
-import { cn } from '../lib/format'
+import { cn, externalLink } from '../lib/format'
 import { useReducedMotion } from '../lib/useReducedMotion'
 
 type Props = {
@@ -96,7 +96,8 @@ export function Header({ active = 'home' }: Props) {
 
           <div className="flex items-center gap-3">
             <a
-              href="./index.html#attend"
+              href={site.registrationUrl}
+              {...externalLink(site.registrationUrl)}
               className="hidden h-10 items-center bg-gold px-4 text-[13px] font-semibold text-night transition-colors hover:bg-golddeep sm:inline-flex"
             >
               报名参会
@@ -166,7 +167,8 @@ export function Header({ active = 'home' }: Props) {
 
             <div className="poster-wrap pb-8">
               <a
-                href="./index.html#attend"
+                href={site.registrationUrl}
+                {...externalLink(site.registrationUrl)}
                 onClick={close}
                 className="btn-gold w-full"
               >

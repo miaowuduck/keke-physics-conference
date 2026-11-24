@@ -1,6 +1,7 @@
 import { motion } from 'motion/react'
 import { ArrowRight } from 'lucide-react'
 import { cta } from '../content'
+import { externalLink } from '../lib/format'
 import { useReducedMotion } from '../lib/useReducedMotion'
 
 export function CtaBand() {
@@ -37,7 +38,11 @@ export function CtaBand() {
         </p>
 
         <div className="mt-8 flex flex-col items-start gap-5 sm:flex-row sm:items-center">
-          <a href={cta.primary.href} className="btn-ink">
+          <a
+            href={cta.primary.href}
+            {...externalLink(cta.primary.href)}
+            className="btn-ink"
+          >
             {cta.primary.label}
             <ArrowRight className="btn-arrow h-4 w-4" strokeWidth={2} />
           </a>
