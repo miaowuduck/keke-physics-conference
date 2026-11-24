@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { questions } from '../content'
+import { useMediaQuery } from '../lib/useMediaQuery'
 import { useReducedMotion } from '../lib/useReducedMotion'
 
 type ShatterChar = {
@@ -30,9 +31,6 @@ type Meteor = {
   bornAt: number
 }
 
-const MAX_METEORS = 3
-const SPAWN_MS = 2600
-
 function randomShatter(): Omit<ShatterChar, 'ch'> {
   return {
     dx: (Math.random() - 0.5) * 130,
@@ -42,13 +40,16 @@ function randomShatter(): Omit<ShatterChar, 'ch'> {
   }
 }
 
-function makeMeteor(id: number, now: number): Meteor {
+function makeMeteor(id: number, now: number, mobile: boolean): Meteor {
   const index = Math.floor(Math.random() * questions.length)
   const text = questions[index]
-  const duration = 9 + Math.random() * 4
+  const duration = 7.5 + Math.random() * 3
   const startY = 4 + Math.random() * 46
-  const endY = Math.min(98, startY + 20 + Math.random() * 28)
-  const shatterAt = 2.8 + Math.random() * 1.8
+  const verticalDrop = mobile
+    ? 8 + Math.random() * 14
+    : 20 + Math.random() * 28
+  const endY = Math.min(98, startY + verticalDrop)
+  const shatterAt = duration * (0.66 + Math.random() * 0.06)
   const chars = Array.from(text).map((ch) => ({
     ch,
     ...randomShatter(),
@@ -88,6 +89,7 @@ function makeMeteor(id: number, now: number): Meteor {
 
 export function MeteorQuestions() {
   const reduced = useReducedMotion()
+  const mobile = useMediaQuery('(max-width: 640px)')
   const [meteors, setMeteors] = useState<Meteor[]>([])
   const idRef = useRef(0)
 
@@ -97,31 +99,34 @@ export function MeteorQuestions() {
       return
     }
 
+    const maxMeteors = mobile ? 2 : 3
+    const spawnMs = mobile ? 3200 : 2600
+
     const spawn = () => {
       const now = Date.now()
       setMeteors((current) => {
         const alive = current.filter(
           (meteor) => now - meteor.bornAt < meteor.duration * 1000 + 800,
         )
-        if (alive.length >= MAX_METEORS) return alive
+        if (alive.length >= maxMeteors) return alive
         idRef.current += 1
-        return [...alive, makeMeteor(idRef.current, now)]
+        return [...alive, makeMeteor(idRef.current, now, mobile)]
       })
     }
 
     const first = window.setTimeout(spawn, 700)
-    const timer = window.setInterval(spawn, SPAWN_MS)
+    const timer = window.setInterval(spawn, spawnMs)
 
     return () => {
       window.clearTimeout(first)
       window.clearInterval(timer)
     }
-  }, [reduced])
+  }, [reduced, mobile])
 
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none absolute inset-0 overflow-hidden"
+      className="meteor-layer pointer-events-none absolute inset-0 overflow-hidden"
     >
       {meteors.map((meteor) => (
         <div
