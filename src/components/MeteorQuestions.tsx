@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { questions } from '../content'
-import { useMediaQuery } from '../lib/useMediaQuery'
 import { useReducedMotion } from '../lib/useReducedMotion'
 
 type ShatterChar = {
@@ -40,19 +39,13 @@ function randomShatter(): Omit<ShatterChar, 'ch'> {
   }
 }
 
-function makeMeteor(id: number, now: number, mobile: boolean): Meteor {
+function makeMeteor(id: number, now: number): Meteor {
   const index = Math.floor(Math.random() * questions.length)
   const text = questions[index]
   const duration = 7.5 + Math.random() * 3
-  const startY = mobile
-    ? 44 + Math.random() * 22
-    : 4 + Math.random() * 46
-  const verticalDrop = mobile
-    ? 6 + Math.random() * 8
-    : 20 + Math.random() * 28
-  const endY = mobile
-    ? Math.min(76, startY + verticalDrop)
-    : Math.min(98, startY + verticalDrop)
+  const startY = 4 + Math.random() * 46
+  const verticalDrop = 20 + Math.random() * 28
+  const endY = Math.min(98, startY + verticalDrop)
   const shatterAt = duration * (0.66 + Math.random() * 0.06)
   const chars = Array.from(text).map((ch) => ({
     ch,
@@ -93,7 +86,6 @@ function makeMeteor(id: number, now: number, mobile: boolean): Meteor {
 
 export function MeteorQuestions() {
   const reduced = useReducedMotion()
-  const mobile = useMediaQuery('(max-width: 640px)')
   const [meteors, setMeteors] = useState<Meteor[]>([])
   const idRef = useRef(0)
 
@@ -103,8 +95,8 @@ export function MeteorQuestions() {
       return
     }
 
-    const maxMeteors = mobile ? 2 : 3
-    const spawnMs = mobile ? 3200 : 2600
+    const maxMeteors = 3
+    const spawnMs = 2600
 
     const spawn = () => {
       const now = Date.now()
@@ -114,7 +106,7 @@ export function MeteorQuestions() {
         )
         if (alive.length >= maxMeteors) return alive
         idRef.current += 1
-        return [...alive, makeMeteor(idRef.current, now, mobile)]
+        return [...alive, makeMeteor(idRef.current, now)]
       })
     }
 
@@ -125,12 +117,12 @@ export function MeteorQuestions() {
       window.clearTimeout(first)
       window.clearInterval(timer)
     }
-  }, [reduced, mobile])
+  }, [reduced])
 
   return (
     <div
       aria-hidden="true"
-      className="meteor-layer pointer-events-none absolute inset-0 overflow-hidden"
+      className="pointer-events-none absolute inset-0 overflow-hidden"
     >
       {meteors.map((meteor) => (
         <div

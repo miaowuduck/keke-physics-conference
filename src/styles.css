@@ -374,43 +374,6 @@
   }
 }
 
-@media (max-width: 640px) {
-  .meteor-layer {
-    z-index: 20;
-  }
-
-  .meteor-text {
-    position: relative;
-    isolation: isolate;
-    max-width: 76vw;
-    padding: 0.2rem 0.35rem;
-    font-size: 14.5px;
-    white-space: normal;
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  .meteor-text::before {
-    content: '';
-    position: absolute;
-    inset: -0.3rem -0.45rem;
-    z-index: -1;
-    background: rgba(16, 22, 47, 0.88);
-    border-left: 2px solid var(--gold);
-    backdrop-filter: blur(3px);
-    animation: meteor-bg-out 0.25s ease-out var(--shatter-at, 6s) forwards;
-  }
-
-  @keyframes meteor-bg-out {
-    to {
-      opacity: 0;
-    }
-  }
-
-  .meteor-trail {
-    width: 200px;
-  }
-}
 
 
 /* ---------- speaker portraits ---------- */
