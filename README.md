@@ -5,7 +5,7 @@
 - 活动：2026 年 12 月 26 日（周六）19:00
 - 地点：上海交通大学致远学院 204-ClassIn 全球教室
 - 线上：腾讯会议（会议号会前公布）
-- 报名：<https://v.wjx.cn/vm/Y0QyiiI.aspx>（截止 2026-12-01 20:00）
+- 报名：<https://v.wjx.cn/vm/Y0QyiiI.aspx>（截止 2026-12-04 20:00）
 
 ## 技术栈
 
@@ -36,7 +36,7 @@ npm run preview  # 预览生产构建
 常见修改：
 
 - **改活动日期**：改 `site.dateISO` 与 `site.dateLabel` / `site.dateLong`。首页倒计时、JSON-LD、日历下载都会跟着变。
-- **报名问卷**：`site.registrationUrl` 已设为 <https://v.wjx.cn/vm/Y0QyiiI.aspx>；截止时间在 `site.registrationDeadlineISO`（2026-12-01 20:00）。留空时会回退到邮件报名弹窗。
+- **报名问卷**：`site.registrationUrl` 已设为 <https://v.wjx.cn/vm/Y0QyiiI.aspx>；截止时间在 `site.registrationDeadlineISO`（2026-12-04 20:00）。留空时会回退到邮件报名弹窗。
 - **公布腾讯会议号**：改 `site.online`，以及 `editions` 中 2027 的 `online`。
 - **上线 2027 议程**：往 `editions` 里 2027 的 `sessions` 数组添加场次，`status` 改为 `past`（或保留 upcoming），议程页会自动出现年份 tab 内容。
 - **换讲者**：改 `speakers`；头像由姓名 + 议题生成，不需要图片。
