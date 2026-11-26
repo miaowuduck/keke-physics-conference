@@ -82,13 +82,13 @@ function ArchiveCard({ item }: { item: ArchiveItem }) {
         </span>
       </div>
 
-      <div className="border-b-2 border-line bg-white">
+      <div className="border-b-2 border-line bg-[#1C2449]">
         <iframe
           key={playCount}
           src={item.embed.src}
           title={item.embed.title}
           loading="lazy"
-          className="block aspect-square w-full border-0"
+          className="block aspect-square w-full border-0 bg-[#1C2449]"
         />
       </div>
 

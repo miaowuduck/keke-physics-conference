@@ -33,7 +33,7 @@
 - AI 生成的编辑插画：`hero`、`four-directions`、`stage-talk`、`registration`、`venue-night`、`poster`。统一深海军蓝 / 金 / 骨白配色，图注均标注“插画：致远物理咯咯”。
 - 主办方资料照片：`2025-group.jpg`（2025 年第二届现场合影），图注标注“照片：主办方提供”。
 - 徽章报道物料：`logo-hero`、`logo-detail`、`logo-badge`、`logo-ticket`、`logo-poster` 均由 `.shots/logo_scenes.html` 用真实 `logo_mark.svg` 合成后截图，不是 AI 生图；白模拆解图由 `src/components/LogoAnatomy.tsx` 直接以 SVG 绘制。图注标注“视觉：致远物理咯咯设计组”与“工艺示意 / 物料示意”。
-- 徽章报道旧稿：`public/designs/old-atomic-chick.html` 与 `public/designs/old-starlight-hatch.html` 为两个未采用方案的原始动效文件，通过 `?embed=1` 以 iframe 直接嵌入报道（只保留画布并自动播放一次）。前者用本地编译的 Tailwind 样式替换了 CDN，二者均无外部字体或脚本依赖，整页标记 `noindex`。
+- 徽章报道旧稿：`public/designs/old-atomic-chick.html` 与 `public/designs/old-starlight-hatch.html` 为两个未采用方案的原始动效文件，通过 `?embed=1` 以 iframe 直接嵌入报道（只保留画布并自动播放一次；为深色版面改用 `#1C2449` 底色与浅钢蓝线条）。前者用本地编译的 Tailwind 样式替换了 CDN，二者均无外部字体或脚本依赖，整页标记 `noindex`。
 - 压缩策略：每张图提供 AVIF / WebP / JPEG 三套格式与 640 / 960 / 1280 多尺寸（竖版海报为 360 / 720），通过原生 `<picture>` + `srcset` 按视口与 DPR 加载；AVIF 单张 5–78KB，首屏约 50KB。非首屏图片使用 `loading="lazy"`。
 
 ## 模板

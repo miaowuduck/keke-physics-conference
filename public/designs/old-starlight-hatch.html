@@ -366,14 +366,28 @@
   <meta name="robots" content="noindex, follow" />
   <link rel="icon" href="../favicon.svg" />
   <style>
-    /* 内嵌模式：只保留动效画布，隐藏控制面板（?embed=1） */
+    /* 内嵌模式：只保留动效画布，隐藏控制面板（?embed=1）；深色版面配色 */
     html { height: 100%; }
     body.embed {
       height: 100%;
       min-height: 0;
       padding: 0;
-      background: #FFFFFF;
+      background: #1C2449;
     }
+    /* 白底负形改为版面底色，蛋体与镂空在深色上继续生效 */
+    body.embed #logoSvg > rect,
+    body.embed #eggFillIntact,
+    body.embed #eggFillCracked { fill: #1C2449 !important; }
+    body.embed [id$="FrontKnockout"] { stroke: #1C2449 !important; }
+    /* 深蓝线条换成浅钢蓝，保留双色结构 */
+    body.embed #orbit1Back,
+    body.embed #orbit1Front,
+    body.embed #orbit2Back,
+    body.embed #orbit2Front,
+    body.embed #eggBodyStroke,
+    body.embed #eggTopCap,
+    body.embed #eggCrackLeft,
+    body.embed #eggCrackRight { stroke: #9AA3C4 !important; }
     body.embed .app-shell {
       max-width: none;
       width: 100%;
@@ -385,6 +399,7 @@
       height: 100%;
       padding: 7%;
       border-radius: 0;
+      background: transparent;
       box-shadow: none;
     }
     body.embed .logo-svg {
