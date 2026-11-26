@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>旧稿 · 原子蛋壳小鸡 · SVG 动效预览</title>
+  <style>
+/* Tailwind utilities compiled locally — source: 旧设计/1.html */
+*,:after,:before{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/*! tailwindcss v3.4.19 | MIT License | https://tailwindcss.com*/*,:after,:before{box-sizing:border-box;border:0 solid #e5e7eb}:after,:before{--tw-content:""}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;-o-tab-size:4;tab-size:4;font-family:Inter Variable,PingFang SC,Microsoft YaHei,Noto Sans SC,sans-serif;font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:JetBrains Mono,PingFang SC,Microsoft YaHei,monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0}fieldset,legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::-moz-placeholder,textarea::-moz-placeholder{opacity:1;color:#9ca3af}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.pointer-events-none{pointer-events:none}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.bottom-4{bottom:1rem}.left-1\/2{left:50%}.mx-1{margin-left:.25rem;margin-right:.25rem}.flex{display:flex}.inline-flex{display:inline-flex}.hidden{display:none}.aspect-square{aspect-ratio:1/1}.h-2{height:.5rem}.h-4{height:1rem}.h-5{height:1.25rem}.h-6{height:1.5rem}.h-9{height:2.25rem}.h-full{height:100%}.w-2{width:.5rem}.w-4{width:1rem}.w-5{width:1.25rem}.w-9{width:2.25rem}.w-full{width:100%}.w-px{width:1px}.max-w-2xl{max-width:42rem}.max-w-\[420px\]{max-width:420px}.origin-center{transform-origin:center}.-translate-x-1\/2{--tw-translate-x:-50%}.-translate-x-1\/2,.translate-y-0{transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.translate-y-0{--tw-translate-y:0px}.translate-y-2{--tw-translate-y:0.5rem}.transform,.translate-y-2{transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}@keyframes pulse{50%{opacity:.5}}.animate-pulse{animation:pulse 2s cubic-bezier(.4,0,.6,1) infinite}@keyframes spin{to{transform:rotate(1turn)}}.animate-spin{animation:spin 1s linear infinite}.cursor-pointer{cursor:pointer}.select-none{-webkit-user-select:none;-moz-user-select:none;user-select:none}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.items-center{align-items:center}.justify-center{justify-content:center}.gap-1\.5{gap:.375rem}.gap-2{gap:.5rem}.gap-2\.5{gap:.625rem}.gap-3{gap:.75rem}.self-start{align-self:flex-start}.overflow-hidden{overflow:hidden}.rounded-3xl{border-radius:1.5rem}.rounded-full{border-radius:9999px}.rounded-xl{border-radius:.75rem}.border{border-width:1px}.border-b{border-bottom-width:1px}.border-t{border-top-width:1px}.border-\[\#1FA2E1\]{--tw-border-opacity:1;border-color:rgb(31 162 225/var(--tw-border-opacity,1))}.border-\[\#FFCB42\]\/50{border-color:rgba(255,203,66,.5)}.border-amber-200{--tw-border-opacity:1;border-color:rgb(253 230 138/var(--tw-border-opacity,1))}.border-amber-200\/80{border-color:hsla(48,97%,77%,.8)}.border-emerald-200\/80{border-color:rgba(167,243,208,.8)}.border-sky-200{--tw-border-opacity:1;border-color:rgb(186 230 253/var(--tw-border-opacity,1))}.border-sky-200\/70{border-color:rgba(186,230,253,.7)}.border-sky-200\/80{border-color:rgba(186,230,253,.8)}.border-slate-100{--tw-border-opacity:1;border-color:rgb(241 245 249/var(--tw-border-opacity,1))}.border-slate-200{--tw-border-opacity:1;border-color:rgb(226 232 240/var(--tw-border-opacity,1))}.border-slate-200\/80{border-color:rgba(226,232,240,.8)}.bg-\[\#1C385A\]{--tw-bg-opacity:1;background-color:rgb(28 56 90/var(--tw-bg-opacity,1))}.bg-\[\#1FA2E1\]{--tw-bg-opacity:1;background-color:rgb(31 162 225/var(--tw-bg-opacity,1))}.bg-\[\#FFF6D6\]{--tw-bg-opacity:1;background-color:rgb(255 246 214/var(--tw-bg-opacity,1))}.bg-amber-50{--tw-bg-opacity:1;background-color:rgb(255 251 235/var(--tw-bg-opacity,1))}.bg-amber-500{--tw-bg-opacity:1;background-color:rgb(245 158 11/var(--tw-bg-opacity,1))}.bg-emerald-50{--tw-bg-opacity:1;background-color:rgb(236 253 245/var(--tw-bg-opacity,1))}.bg-emerald-500{--tw-bg-opacity:1;background-color:rgb(16 185 129/var(--tw-bg-opacity,1))}.bg-sky-50{--tw-bg-opacity:1;background-color:rgb(240 249 255/var(--tw-bg-opacity,1))}.bg-sky-500{--tw-bg-opacity:1;background-color:rgb(14 165 233/var(--tw-bg-opacity,1))}.bg-slate-100{--tw-bg-opacity:1;background-color:rgb(241 245 249/var(--tw-bg-opacity,1))}.bg-slate-200{--tw-bg-opacity:1;background-color:rgb(226 232 240/var(--tw-bg-opacity,1))}.bg-slate-400{--tw-bg-opacity:1;background-color:rgb(148 163 184/var(--tw-bg-opacity,1))}.bg-slate-50\/90{background-color:rgba(248,250,252,.9)}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255/var(--tw-bg-opacity,1))}.bg-white\/90{background-color:hsla(0,0%,100%,.9)}.p-4{padding:1rem}.px-3{padding-left:.75rem;padding-right:.75rem}.px-4{padding-left:1rem;padding-right:1rem}.px-5{padding-left:1.25rem;padding-right:1.25rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.py-1{padding-top:.25rem;padding-bottom:.25rem}.py-2{padding-top:.5rem;padding-bottom:.5rem}.py-2\.5{padding-top:.625rem;padding-bottom:.625rem}.py-5{padding-top:1.25rem;padding-bottom:1.25rem}.py-6{padding-top:1.5rem;padding-bottom:1.5rem}.pb-4{padding-bottom:1rem}.pt-6{padding-top:1.5rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:.875rem;line-height:1.25rem}.text-xs{font-size:.75rem;line-height:1rem}.font-bold{font-weight:700}.font-medium{font-weight:500}.font-semibold{font-weight:600}.tracking-tight{letter-spacing:-.025em}.text-\[\#1C385A\]{--tw-text-opacity:1;color:rgb(28 56 90/var(--tw-text-opacity,1))}.text-\[\#FFCB42\]{--tw-text-opacity:1;color:rgb(255 203 66/var(--tw-text-opacity,1))}.text-amber-700{--tw-text-opacity:1;color:rgb(180 83 9/var(--tw-text-opacity,1))}.text-amber-800{--tw-text-opacity:1;color:rgb(146 64 14/var(--tw-text-opacity,1))}.text-emerald-700{--tw-text-opacity:1;color:rgb(4 120 87/var(--tw-text-opacity,1))}.text-sky-700{--tw-text-opacity:1;color:rgb(3 105 161/var(--tw-text-opacity,1))}.text-slate-500{--tw-text-opacity:1;color:rgb(100 116 139/var(--tw-text-opacity,1))}.text-slate-600{--tw-text-opacity:1;color:rgb(71 85 105/var(--tw-text-opacity,1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255/var(--tw-text-opacity,1))}.opacity-0{opacity:0}.opacity-100{opacity:1}.shadow-\[0_20px_60px_-15px_rgba\(28\2c 56\2c 90\2c 0\.12\)\]{--tw-shadow:0 20px 60px -15px rgba(28,56,90,.12);--tw-shadow-colored:0 20px 60px -15px var(--tw-shadow-color)}.shadow-\[0_20px_60px_-15px_rgba\(28\2c 56\2c 90\2c 0\.12\)\],.shadow-lg{box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow)}.shadow-lg{--tw-shadow:0 10px 15px -3px rgba(0,0,0,.1),0 4px 6px -4px rgba(0,0,0,.1);--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color),0 4px 6px -4px var(--tw-shadow-color)}.shadow-md{--tw-shadow:0 4px 6px -1px rgba(0,0,0,.1),0 2px 4px -2px rgba(0,0,0,.1);--tw-shadow-colored:0 4px 6px -1px var(--tw-shadow-color),0 2px 4px -2px var(--tw-shadow-color)}.shadow-md,.shadow-sm{box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow)}.shadow-sm{--tw-shadow:0 1px 2px 0 rgba(0,0,0,.05);--tw-shadow-colored:0 1px 2px 0 var(--tw-shadow-color)}.shadow-sky-200{--tw-shadow-color:#bae6fd;--tw-shadow:var(--tw-shadow-colored)}.filter{filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.backdrop-blur-md{--tw-backdrop-blur:blur(12px);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.transition{transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.transition-transform{transition-property:transform;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.duration-300{transition-duration:.3s}.ease-in-out{transition-timing-function:cubic-bezier(.4,0,.2,1)}.ease-out{transition-timing-function:cubic-bezier(0,0,.2,1)}.hover\:border-slate-300:hover{--tw-border-opacity:1;border-color:rgb(203 213 225/var(--tw-border-opacity,1))}.hover\:bg-\[\#264A75\]:hover{--tw-bg-opacity:1;background-color:rgb(38 74 117/var(--tw-bg-opacity,1))}.hover\:bg-amber-100:hover{--tw-bg-opacity:1;background-color:rgb(254 243 199/var(--tw-bg-opacity,1))}.hover\:bg-sky-100:hover{--tw-bg-opacity:1;background-color:rgb(224 242 254/var(--tw-bg-opacity,1))}.hover\:bg-slate-100:hover{--tw-bg-opacity:1;background-color:rgb(241 245 249/var(--tw-bg-opacity,1))}@media (min-width:640px){.sm\:block{display:block}.sm\:flex-row{flex-direction:row}.sm\:items-center{align-items:center}.sm\:justify-between{justify-content:space-between}.sm\:self-center{align-self:center}.sm\:p-6{padding:1.5rem}.sm\:py-8{padding-top:2rem;padding-bottom:2rem}.sm\:text-xl{font-size:1.25rem;line-height:1.75rem}}@media (min-width:768px){.md\:p-8{padding:2rem}}
+  </style>
+  <style>
+    :root {
+      --navy: #1C385A;
+      --sky: #1FA2E1;
+      --gold: #FFCB42;
+    }
+
+    body {
+      font-family: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(160deg, #F5F7FB 0%, #EBF0F7 100%);
+      color: #1C385A;
+      min-height: 100vh;
+    }
+
+    /* SVG 通用变换基准设置 */
+    #atomic-chick-svg * {
+      transform-box: view-box;
+    }
+
+    .origin-center {
+      transform-origin: 250px 250px;
+    }
+
+    .origin-chick {
+      transform-origin: 250px 262px;
+    }
+
+    .origin-shell-top {
+      transform-origin: 245px 185px;
+    }
+
+    .origin-tuft {
+      transform-origin: 228px 160px;
+    }
+
+    .origin-wing-right {
+      transform-origin: 300px 236px;
+    }
+
+    .origin-wing-left {
+      transform-origin: 196px 248px;
+    }
+
+    .origin-eyes {
+      transform-origin: 260px 221px;
+    }
+
+    /* 隐藏状态 */
+    #atomic-chick-svg.state-hidden #chick-group,
+    #atomic-chick-svg.state-hidden .orbit-piece,
+    #atomic-chick-svg.state-hidden .electron-dot,
+    #atomic-chick-svg.state-hidden .decor-item {
+      opacity: 0;
+      transform: scale(0);
+    }
+
+    /* ============================================================
+       一、出场动画 (Entrance, 总时长约 1.1s)
+       ============================================================ */
+    /* 阶段 1 (0 ~ 0.55s): 小鸡主体 Q 弹弹出 */
+    #atomic-chick-svg.state-enter #chick-group {
+      opacity: 0;
+      animation: chickEnter 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) 0s forwards;
+    }
+
+    /* 顶部蛋壳帽：略微延迟向上掀弹再落回 */
+    #atomic-chick-svg.state-enter #shell-top {
+      animation: shellTopHop 0.62s cubic-bezier(0.34, 1.56, 0.64, 1) 0.14s forwards;
+    }
+
+    /* 头顶呆毛抖动 */
+    #atomic-chick-svg.state-enter #chick-tuft {
+      animation: tuftWiggle 0.55s ease-out 0.22s forwards;
+    }
+
+    /* 右翅膀俏皮挥手打招呼 */
+    #atomic-chick-svg.state-enter #wing-right {
+      animation: wingWaveEnter 0.65s ease-in-out 0.25s forwards;
+    }
+
+    /* 阶段 2 (0.15 ~ 0.75s): 4 条原子轨道交错缩放旋转展开 */
+    #atomic-chick-svg.state-enter .orbit-v {
+      opacity: 0;
+      animation: orbitEnterV 0.55s cubic-bezier(0.22, 1.28, 0.36, 1) 0.15s forwards;
+    }
+    #atomic-chick-svg.state-enter .orbit-h {
+      opacity: 0;
+      animation: orbitEnterH 0.55s cubic-bezier(0.22, 1.28, 0.36, 1) 0.22s forwards;
+    }
+    #atomic-chick-svg.state-enter .orbit-d1 {
+      opacity: 0;
+      animation: orbitEnterD1 0.55s cubic-bezier(0.22, 1.28, 0.36, 1) 0.28s forwards;
+    }
+    #atomic-chick-svg.state-enter .orbit-d2 {
+      opacity: 0;
+      animation: orbitEnterD2 0.55s cubic-bezier(0.22, 1.28, 0.36, 1) 0.34s forwards;
+    }
+
+    /* 2 颗电子球顺势弹入 */
+    #atomic-chick-svg.state-enter #electron-1 {
+      opacity: 0;
+      transform-origin: 155px 196px;
+      animation: popIn 0.38s cubic-bezier(0.34, 1.7, 0.64, 1) 0.46s forwards;
+    }
+    #atomic-chick-svg.state-enter #electron-2 {
+      opacity: 0;
+      transform-origin: 328px 353px;
+      animation: popIn 0.38s cubic-bezier(0.34, 1.7, 0.64, 1) 0.54s forwards;
+    }
+
+    /* 阶段 3 (0.45 ~ 1.05s): 外圈星月与星点按 stagger 延迟依次弹出 */
+    #atomic-chick-svg.state-enter .decor-pop {
+      opacity: 0;
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: starPopEnter 0.44s cubic-bezier(0.34, 1.65, 0.64, 1) var(--d, 0.55s) forwards;
+    }
+
+    @keyframes chickEnter {
+      0% {
+        opacity: 0;
+        transform: scale(0.2) translateY(28px);
+      }
+      60% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    @keyframes shellTopHop {
+      0% { transform: translateY(0) rotate(0deg); }
+      38% { transform: translateY(-16px) rotate(-7deg); }
+      68% { transform: translateY(3px) rotate(2deg); }
+      100% { transform: translateY(0) rotate(0deg); }
+    }
+
+    @keyframes tuftWiggle {
+      0% { transform: rotate(0deg); }
+      25% { transform: rotate(-16deg) scale(1.08); }
+      55% { transform: rotate(12deg); }
+      80% { transform: rotate(-6deg); }
+      100% { transform: rotate(0deg); }
+    }
+
+    @keyframes wingWaveEnter {
+      0% { transform: rotate(0deg); }
+      25% { transform: rotate(-22deg); }
+      50% { transform: rotate(8deg); }
+      75% { transform: rotate(-16deg); }
+      100% { transform: rotate(0deg); }
+    }
+
+    @keyframes orbitEnterV {
+      0% { opacity: 0; transform: scale(0.25) rotate(-42deg); }
+      100% { opacity: 1; transform: scale(1) rotate(0deg); }
+    }
+    @keyframes orbitEnterH {
+      0% { opacity: 0; transform: scale(0.25) rotate(42deg); }
+      100% { opacity: 1; transform: scale(1) rotate(0deg); }
+    }
+    @keyframes orbitEnterD1 {
+      0% { opacity: 0; transform: scale(0.25) rotate(-38deg); }
+      100% { opacity: 1; transform: scale(1) rotate(0deg); }
+    }
+    @keyframes orbitEnterD2 {
+      0% { opacity: 0; transform: scale(0.25) rotate(38deg); }
+      100% { opacity: 1; transform: scale(1) rotate(0deg); }
+    }
+
+    @keyframes popIn {
+      0% { opacity: 0; transform: scale(0); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes starPopEnter {
+      0% { opacity: 0; transform: scale(0) rotate(-35deg); }
+      70% { opacity: 1; transform: scale(1.18) rotate(8deg); }
+      100% { opacity: 1; transform: scale(1) rotate(0deg); }
+    }
+
+    /* ============================================================
+       二、待机微动效 (Idle, 出场结束后平滑切入)
+       ============================================================ */
+    #atomic-chick-svg.state-idle #chick-group {
+      animation: chickFloat 3.4s ease-in-out infinite;
+    }
+
+    #atomic-chick-svg.state-idle #chick-eyes {
+      animation: chickBlink 4.2s ease-in-out infinite;
+    }
+
+    #atomic-chick-svg.state-idle #wing-right {
+      animation: wingIdle 2.8s ease-in-out infinite;
+    }
+
+    #atomic-chick-svg.state-idle #chick-tuft {
+      animation: tuftIdle 3.4s ease-in-out infinite;
+    }
+
+    #atomic-chick-svg.state-idle .decor-twinkle {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: twinkleBreath 3.2s ease-in-out var(--tw, 0s) infinite;
+    }
+
+    #atomic-chick-svg.state-idle #electron-1 {
+      transform-origin: 155px 196px;
+      animation: electronPulse 2.6s ease-in-out infinite;
+    }
+    #atomic-chick-svg.state-idle #electron-2 {
+      transform-origin: 328px 353px;
+      animation: electronPulse 2.6s ease-in-out 1.3s infinite;
+    }
+
+    @keyframes chickFloat {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-5.5px); }
+    }
+
+    @keyframes chickBlink {
+      0%, 44%, 49%, 100% { transform: scaleY(1); }
+      46.5% { transform: scaleY(0.08); }
+    }
+
+    @keyframes wingIdle {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(-9deg); }
+    }
+
+    @keyframes tuftIdle {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(-5deg); }
+    }
+
+    @keyframes twinkleBreath {
+      0%, 100% { opacity: 1; transform: translateY(0px) scale(1); }
+      50% { opacity: 0.6; transform: translateY(-2.5px) scale(0.86); }
+    }
+
+    @keyframes electronPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.13); }
+    }
+
+    /* ============================================================
+       三、退场动画 (Exit, 总时长约 0.85s)
+       ============================================================ */
+    /* 阶段 1 (0 ~ 0.35s): 外圈星月与星点向内收缩淡出 */
+    #atomic-chick-svg.state-exit .decor-pop {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: decorExit 0.35s cubic-bezier(0.55, 0.06, 0.68, 0.19) var(--ed, 0s) forwards;
+    }
+
+    /* 阶段 2 (0.10 ~ 0.55s): 4 条原子轨道与电子加速旋转坍缩 */
+    #atomic-chick-svg.state-exit .orbit-v {
+      animation: orbitExitPos 0.45s cubic-bezier(0.55, 0.05, 0.75, 0.2) 0.10s forwards;
+    }
+    #atomic-chick-svg.state-exit .orbit-h {
+      animation: orbitExitNeg 0.45s cubic-bezier(0.55, 0.05, 0.75, 0.2) 0.14s forwards;
+    }
+    #atomic-chick-svg.state-exit .orbit-d1 {
+      animation: orbitExitPos 0.45s cubic-bezier(0.55, 0.05, 0.75, 0.2) 0.18s forwards;
+    }
+    #atomic-chick-svg.state-exit .orbit-d2 {
+      animation: orbitExitNeg 0.45s cubic-bezier(0.55, 0.05, 0.75, 0.2) 0.22s forwards;
+    }
+
+    #atomic-chick-svg.state-exit #electron-1,
+    #atomic-chick-svg.state-exit #electron-2 {
+      transform-origin: 250px 250px;
+      animation: orbitExitPos 0.42s cubic-bezier(0.55, 0.05, 0.75, 0.2) 0.12s forwards;
+    }
+
+    /* 阶段 3 (0.30 ~ 0.85s): 蛋壳帽扣紧 -> 小鸡压扁蓄力 -> 弹跳缩小消失 */
+    #atomic-chick-svg.state-exit #shell-top {
+      animation: shellTopClamp 0.3s ease-in-out 0.26s forwards;
+    }
+
+    #atomic-chick-svg.state-exit #chick-group {
+      animation: chickExit 0.55s cubic-bezier(0.6, -0.28, 0.735, 0.045) 0.30s forwards;
+    }
+
+    @keyframes decorExit {
+      0% { opacity: 1; transform: scale(1) rotate(0deg); }
+      100% { opacity: 0; transform: scale(0.35) rotate(28deg); }
+    }
+
+    @keyframes orbitExitPos {
+      0% { opacity: 1; transform: scale(1) rotate(0deg); }
+      100% { opacity: 0; transform: scale(0.1) rotate(68deg); }
+    }
+
+    @keyframes orbitExitNeg {
+      0% { opacity: 1; transform: scale(1) rotate(0deg); }
+      100% { opacity: 0; transform: scale(0.1) rotate(-68deg); }
+    }
+
+    @keyframes shellTopClamp {
+      0% { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(8px) rotate(3deg); }
+    }
+
+    @keyframes chickExit {
+      0% { opacity: 1; transform: scale(1, 1) translateY(0); }
+      28% { opacity: 1; transform: scale(1.1, 0.88) translateY(6px); }
+      100% { opacity: 0; transform: scale(0.05, 0.05) translateY(-10px); }
+    }
+
+    /* 控制按钮微交互 */
+    .btn-control {
+      transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    .btn-control:active {
+      transform: scale(0.96);
+    }
+  </style>
+  <meta name="robots" content="noindex, follow" />
+  <link rel="icon" href="../favicon.svg" />
+</head>
+<body class="flex items-center justify-center p-4 sm:p-6 md:p-8">
+
+  <main class="w-full max-w-2xl bg-white/90 backdrop-blur-md rounded-3xl shadow-[0_20px_60px_-15px_rgba(28,56,90,0.12)] border border-slate-200/80 overflow-hidden">
+    <!-- 顶部标题栏 -->
+    <header class="px-6 pt-6 pb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-slate-100">
+      <div class="flex items-center gap-3">
+        <span class="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-[#FFF6D6] text-[#1C385A] border border-[#FFCB42]/50 shadow-sm">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="2.5" fill="#FFCB42"/>
+            <ellipse cx="12" cy="12" rx="9" ry="4" transform="rotate(45 12 12)"/>
+            <ellipse cx="12" cy="12" rx="9" ry="4" transform="rotate(-45 12 12)"/>
+          </svg>
+        </span>
+        <div>
+          <h1 class="text-lg sm:text-xl font-bold tracking-tight text-[#1C385A]">原子蛋壳小鸡 · SVG 动效预览</h1>
+          <p class="text-xs text-slate-500">手绘扁平矢量插画 · 3D 分层穿插轨道 · 状态机动效</p>
+        </div>
+      </div>
+
+      <!-- 当前状态徽章 -->
+      <div class="flex items-center gap-2 self-start sm:self-center">
+        <span id="status-badge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-sky-50 text-sky-700 border border-sky-200/70">
+          <span id="status-dot" class="w-2 h-2 rounded-full bg-sky-500 animate-pulse"></span>
+          <span id="status-text">准备中</span>
+        </span>
+      </div>
+    </header>
+
+    <!-- 纯白主画布区域 -->
+    <section class="bg-white px-4 py-6 sm:py-8 flex items-center justify-center relative">
+      <div class="w-full max-w-[420px] aspect-square flex items-center justify-center">
+        <!-- 核心矢量 SVG（viewBox="0 0 500 500"） -->
+        <svg
+          id="atomic-chick-svg"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 500 500"
+          class="w-full h-full select-none"
+          role="img"
+          aria-label="原子蛋壳小鸡矢量插画"
+        >
+          <defs>
+            <!-- 小鸡身体渐变：亮黄到暖黄 -->
+            <linearGradient id="chickBodyGrad" x1="35%" y1="10%" x2="70%" y2="95%">
+              <stop offset="0%" stop-color="#FFE066" />
+              <stop offset="55%" stop-color="#FFCA3A" />
+              <stop offset="100%" stop-color="#FFBA26" />
+            </linearGradient>
+
+            <!-- 小鸡右侧翼渐变 -->
+            <linearGradient id="wingGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#FFE066" />
+              <stop offset="100%" stop-color="#FFBA26" />
+            </linearGradient>
+
+            <!-- 原子轨道丝带渐变：亮天蓝到清澈湖蓝 -->
+            <linearGradient id="orbitRibbonGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#2BB5F2" />
+              <stop offset="50%" stop-color="#1FA2E1" />
+              <stop offset="100%" stop-color="#1588C9" />
+            </linearGradient>
+
+            <!-- 垂直轨道丝带形状（利用内外双椭圆 evenodd 实现立体双边丝带感） -->
+            <path
+              id="ribbon-vertical"
+              fill-rule="evenodd"
+              d="M 250,104 A 49,146 0 1,1 249.99,104 Z
+                 M 250,117 A 41,131 0 1,0 250.01,117 Z"
+            />
+            <!-- 水平轨道丝带形状 -->
+            <path
+              id="ribbon-horizontal"
+              fill-rule="evenodd"
+              d="M 104,250 A 146,49 0 1,1 104,250.01 Z
+                 M 117,250 A 131,41 0 1,0 117,249.99 Z"
+            />
+
+            <!-- 前景轨道局部裁切区域：沿轨道自身长轴(y>=250)精准裁出前半弧，两端完美藏于小鸡外侧并与后层无缝衔接 -->
+            <clipPath id="clip-front-half">
+              <rect x="80" y="250" width="340" height="100" />
+            </clipPath>
+          </defs>
+
+          <!-- ========================================================
+               层级 1：最外层装饰层 (#decor-outer)
+               仅保留右上弯月、错落四角星与少量小圆星点，原地轻柔闪烁微浮
+               ======================================================== -->
+          <g id="decor-outer">
+            <!-- 右上角金黄色新月 -->
+            <path
+              id="decor-moon"
+              class="decor-item decor-pop decor-twinkle"
+              style="--d:0.52s; --ed:0.03s; --tw:0.4s;"
+              fill="#FFCB42"
+              d="M 326,105 A 16,16 0 1,0 345,127 A 12.5,12.5 0 1,1 326,105 Z"
+            />
+
+            <!-- 7 颗金黄色四角星（大中小错落） -->
+            <g id="decor-stars" fill="#FFCB42">
+              <!-- 1. 顶部偏左小星 -->
+              <path class="decor-item decor-pop decor-twinkle" style="--d:0.50s; --ed:0.00s; --tw:0.2s;"
+                d="M 204,78 Q 204,85 211,85 Q 204,85 204,92 Q 204,85 197,85 Q 204,85 204,78 Z" />
+              <!-- 2. 左上内侧中星 -->
+              <path class="decor-item decor-pop decor-twinkle" style="--d:0.56s; --ed:0.02s; --tw:0.9s;"
+                d="M 192,113 Q 192,123 202,123 Q 192,123 192,133 Q 192,123 182,123 Q 192,123 192,113 Z" />
+              <!-- 3. 右上角小星 -->
+              <path class="decor-item decor-pop decor-twinkle" style="--d:0.60s; --ed:0.04s; --tw:1.5s;"
+                d="M 347,94 Q 347,102 355,102 Q 347,102 347,110 Q 347,102 339,102 Q 347,102 347,94 Z" />
+              <!-- 4. 最左侧小星 -->
+              <path class="decor-item decor-pop decor-twinkle" style="--d:0.64s; --ed:0.01s; --tw:0.6s;"
+                d="M 96,174 Q 96,182 104,182 Q 96,182 96,190 Q 96,182 88,182 Q 96,182 96,174 Z" />
+              <!-- 5. 右侧大星 -->
+              <path class="decor-item decor-pop decor-twinkle" style="--d:0.68s; --ed:0.05s; --tw:1.1s;"
+                d="M 366,232 Q 366,246 380,246 Q 366,246 366,260 Q 366,246 352,246 Q 366,246 366,232 Z" />
+              <!-- 6. 左下内侧中星 -->
+              <path class="decor-item decor-pop decor-twinkle" style="--d:0.72s; --ed:0.03s; --tw:2.0s;"
+                d="M 164,306 Q 164,316 174,316 Q 164,316 164,326 Q 164,316 154,316 Q 164,316 164,306 Z" />
+              <!-- 7. 左下外侧中星 -->
+              <path class="decor-item decor-pop decor-twinkle" style="--d:0.76s; --ed:0.02s; --tw:0.3s;"
+                d="M 171,368 Q 171,378 181,378 Q 171,378 171,388 Q 171,378 161,378 Q 171,378 171,368 Z" />
+            </g>
+
+            <!-- 少量点缀金黄色小圆星点 -->
+            <g id="decor-dots" fill="#E8B94F">
+              <circle class="decor-item decor-pop decor-twinkle" style="--d:0.54s; --ed:0.01s; --tw:0.5s;" cx="305" cy="86" r="3" />
+              <circle class="decor-item decor-pop decor-twinkle" style="--d:0.62s; --ed:0.04s; --tw:1.3s;" cx="404" cy="196" r="3.8" />
+              <circle class="decor-item decor-pop decor-twinkle" style="--d:0.70s; --ed:0.05s; --tw:0.8s;" cx="382" cy="360" r="3" />
+              <circle class="decor-item decor-pop decor-twinkle" style="--d:0.74s; --ed:0.01s; --tw:1.8s;" cx="204" cy="398" r="3.2" />
+              <circle class="decor-item decor-pop decor-twinkle" style="--d:0.78s; --ed:0.02s; --tw:1.0s;" cx="106" cy="296" r="3.4" />
+              <circle class="decor-item decor-pop decor-twinkle" style="--d:0.82s; --ed:0.03s; --tw:2.2s;" cx="144" cy="252" r="3.6" />
+            </g>
+          </g>
+
+          <!-- ========================================================
+               层级 2：后层原子轨道 (#orbits-back)
+               ======================================================== -->
+          <g id="orbits-back" stroke="#1C385A" stroke-width="5.2" stroke-linecap="round" stroke-linejoin="round" fill="url(#orbitRibbonGrad)">
+            <!-- 垂直椭圆轨道（完全在小鸡后方） -->
+            <g class="orbit-piece orbit-v origin-center">
+              <use href="#ribbon-vertical" />
+            </g>
+
+            <!-- 水平椭圆轨道（完全在小鸡后方） -->
+            <g class="orbit-piece orbit-h origin-center">
+              <use href="#ribbon-horizontal" />
+            </g>
+
+            <!-- 左上-右下对角轨道（旋转 45°，完整后层） -->
+            <g class="orbit-piece orbit-d1 origin-center">
+              <g transform="rotate(45 250 250)">
+                <use href="#ribbon-horizontal" />
+              </g>
+            </g>
+
+            <!-- 右上-左下对角轨道（旋转 -45°，完整后层） -->
+            <g class="orbit-piece orbit-d2 origin-center">
+              <g transform="rotate(-45 250 250)">
+                <use href="#ribbon-horizontal" />
+              </g>
+            </g>
+          </g>
+
+          <!-- ========================================================
+               层级 3：小鸡与蛋壳主体 (#chick-group)
+               ======================================================== -->
+          <g id="chick-group" class="origin-chick">
+            <!-- 3.1 小鸡双脚（底部蛋壳下方伸出） -->
+            <g id="chick-feet" fill="none" stroke="#1C385A" stroke-width="4.8" stroke-linecap="round" stroke-linejoin="round">
+              <!-- 左脚 -->
+              <path d="M 226,334 L 222,349 M 222,349 L 210,353 M 222,349 L 221,360 M 222,349 L 232,354" />
+              <!-- 右脚 -->
+              <path d="M 284,331 L 289,345 M 289,345 L 279,351 M 289,345 L 291,356 M 289,345 L 301,349" />
+            </g>
+
+            <!-- 3.2 小鸡右侧翅膀（向右上方俏皮举起，位于身体右后侧） -->
+            <g id="wing-right" class="origin-wing-right">
+              <path
+                d="M 294,234 C 307,222 325,204 333,209 C 340,214 331,238 313,253 Z"
+                fill="url(#wingGrad)"
+                stroke="#1C385A"
+                stroke-width="5.6"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </g>
+
+            <!-- 3.3 小鸡圆胖黄色身体 -->
+            <g id="chick-body">
+              <ellipse
+                cx="250"
+                cy="244"
+                rx="67"
+                ry="68"
+                fill="url(#chickBodyGrad)"
+                stroke="#1C385A"
+                stroke-width="5.8"
+              />
+              <!-- 左侧柔和亮黄高光 -->
+              <path
+                d="M 206,204 C 194,220 193,246 202,268"
+                fill="none"
+                stroke="#FFF099"
+                stroke-width="6.5"
+                stroke-linecap="round"
+                opacity="0.7"
+              />
+              <!-- 右侧底部微弱暖橙阴影 -->
+              <path
+                d="M 296,202 C 314,225 314,262 294,288"
+                fill="none"
+                stroke="#F2A41A"
+                stroke-width="7"
+                stroke-linecap="round"
+                opacity="0.45"
+              />
+            </g>
+
+            <!-- 3.4 小鸡左侧翅膀（向左下方自然张开） -->
+            <g id="wing-left" class="origin-wing-left">
+              <path
+                d="M 197,236 C 180,245 162,262 167,271 C 172,279 194,273 207,260"
+                fill="url(#wingGrad)"
+                stroke="#1C385A"
+                stroke-width="5.6"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </g>
+
+            <!-- 3.5 小鸡面部（眼睛 + 小嘴） -->
+            <g id="chick-face">
+              <!-- 双眼分组（用于周期性眨眼动画） -->
+              <g id="chick-eyes" class="origin-eyes">
+                <!-- 左眼 -->
+                <ellipse cx="238" cy="222" rx="6.2" ry="7.4" fill="#1C385A" />
+                <circle cx="236" cy="219.5" r="2.2" fill="#FFFFFF" />
+                <!-- 右眼 -->
+                <ellipse cx="284" cy="215" rx="6.0" ry="7.2" fill="#1C385A" />
+                <circle cx="282" cy="212.5" r="2.1" fill="#FFFFFF" />
+              </g>
+
+              <!-- 张开的可爱小嘴（橙黄外喙 + 深橙口腔） -->
+              <g id="chick-beak">
+                <!-- 下喙张口内部 -->
+                <path
+                  d="M 255,229 L 274,227 L 269,240 C 266,243 261,242 258,238 Z"
+                  fill="#D97724"
+                  stroke="#1C385A"
+                  stroke-width="4.2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <!-- 上喙 -->
+                <path
+                  d="M 253,229 Q 264,215 277,225 Q 265,234 253,229 Z"
+                  fill="#F59E2D"
+                  stroke="#1C385A"
+                  stroke-width="4.2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </g>
+            </g>
+
+            <!-- 3.6 底部破蛋壳（4 尖角锯齿 + 底部暖米灰阴影） -->
+            <g id="shell-bottom">
+              <!-- 蛋壳主体轮廓 -->
+              <path
+                d="M 181,275
+                   L 196,292 L 214,276 L 235,296 L 256,277 L 275,292 L 296,274 L 311,284 L 323,268
+                   C 324,316 293,345 252,345
+                   C 210,345 180,316 181,275 Z"
+                fill="#FFFDF7"
+                stroke="#1C385A"
+                stroke-width="5.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <!-- 底部柔和暖米灰弧形阴影 -->
+              <path
+                d="M 192,302 C 206,331 245,342 282,334 C 304,328 317,310 319,288 C 310,316 281,330 248,329 C 220,328 202,318 192,302 Z"
+                fill="#EAE0CE"
+              />
+              <!-- 重新描一遍外轮廓保证线条压在阴影上方干净利落 -->
+              <path
+                d="M 181,275
+                   L 196,292 L 214,276 L 235,296 L 256,277 L 275,292 L 296,274 L 311,284 L 323,268
+                   C 324,316 293,345 252,345
+                   C 210,345 180,316 181,275 Z"
+                fill="none"
+                stroke="#1C385A"
+                stroke-width="5.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </g>
+
+            <!-- 3.7 头顶呆毛（两瓣小小黄色羽冠） -->
+            <g id="chick-tuft" class="origin-tuft">
+              <path
+                d="M 224,166 C 216,158 219,151 227,154 C 224,142 232,138 240,149 L 243,157 Z"
+                fill="#FFCB42"
+                stroke="#1C385A"
+                stroke-width="5.2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </g>
+
+            <!-- 3.8 顶部蛋壳帽（锯齿裂缝 + 浅灰阴影） -->
+            <g id="shell-top" class="origin-shell-top">
+              <path
+                d="M 186,214
+                   C 192,167 228,151 259,156
+                   C 282,160 298,176 306,196
+                   L 276,184 L 263,205 L 240,190 L 222,208 L 204,195 Z"
+                fill="#FFFDF7"
+                stroke="#1C385A"
+                stroke-width="5.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <!-- 顶部蛋壳左侧微弱浅灰阴影 -->
+              <path
+                d="M 192,204 C 197,172 222,159 246,158 C 222,166 208,180 202,193 Z"
+                fill="#EAE0CE"
+              />
+              <!-- 清晰顶层描边 -->
+              <path
+                d="M 186,214
+                   C 192,167 228,151 259,156
+                   C 282,160 298,176 306,196
+                   L 276,184 L 263,205 L 240,190 L 222,208 L 204,195 Z"
+                fill="none"
+                stroke="#1C385A"
+                stroke-width="5.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </g>
+          </g>
+
+          <!-- ========================================================
+               层级 4：前层原子轨道与电子 (#orbits-front)
+               利用局部长轴 clip-front-half 精准呈现两条对角轨道平滑穿过底部蛋壳前方，无尖锐裁切锯齿
+               ======================================================== -->
+          <g id="orbits-front">
+            <!-- 右上-左下对角轨道（-45°）前层半弧 -->
+            <g class="orbit-piece orbit-d2 origin-center">
+              <g transform="rotate(-45 250 250)">
+                <g clip-path="url(#clip-front-half)" stroke="#1C385A" stroke-width="5.2" stroke-linecap="round" stroke-linejoin="round" fill="url(#orbitRibbonGrad)">
+                  <use href="#ribbon-horizontal" />
+                </g>
+              </g>
+            </g>
+
+            <!-- 左上-右下对角轨道（45°）前层半弧（压在 -45° 之上，形成真实平滑交叉） -->
+            <g class="orbit-piece orbit-d1 origin-center">
+              <g transform="rotate(45 250 250)">
+                <g clip-path="url(#clip-front-half)" stroke="#1C385A" stroke-width="5.2" stroke-linecap="round" stroke-linejoin="round" fill="url(#orbitRibbonGrad)">
+                  <use href="#ribbon-horizontal" />
+                </g>
+              </g>
+            </g>
+
+            <!-- 2 颗金黄色电子球（精准嵌在 45° 轨道前层中轴线上） -->
+            <g id="electron-1" class="electron-dot">
+              <circle cx="155" cy="196" r="8.5" fill="#FFC837" stroke="#1C385A" stroke-width="4.8" />
+              <circle cx="152.5" cy="193.5" r="2.2" fill="#FFF3B0" />
+            </g>
+            <g id="electron-2" class="electron-dot">
+              <circle cx="328" cy="353" r="8.5" fill="#FFC837" stroke="#1C385A" stroke-width="4.8" />
+              <circle cx="325.5" cy="350.5" r="2.2" fill="#FFF3B0" />
+            </g>
+          </g>
+        </svg>
+      </div>
+
+      <!-- 复制/下载轻量提示条 -->
+      <div
+        id="toast"
+        class="pointer-events-none absolute bottom-4 left-1/2 -translate-x-1/2 translate-y-2 opacity-0 transition-all duration-300 px-4 py-2 rounded-full bg-[#1C385A] text-white text-xs font-medium shadow-lg flex items-center gap-2"
+      >
+        <svg class="w-4 h-4 text-[#FFCB42]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+        <span id="toast-text">已复制到剪贴板</span>
+      </div>
+    </section>
+
+    <!-- 底部交互控制栏 -->
+    <footer class="px-5 py-5 bg-slate-50/90 border-t border-slate-100">
+      <div class="flex flex-wrap items-center justify-center gap-2.5">
+        <!-- 1. 播放出场动画 -->
+        <button
+          id="btn-enter"
+          type="button"
+          class="btn-control inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-semibold bg-[#1C385A] text-white hover:bg-[#264A75] shadow-sm cursor-pointer"
+        >
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+          <span>播放出场动画</span>
+        </button>
+
+        <!-- 2. 播放退场动画 -->
+        <button
+          id="btn-exit"
+          type="button"
+          class="btn-control inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-semibold bg-white text-[#1C385A] border border-slate-200 hover:bg-slate-100 hover:border-slate-300 shadow-sm cursor-pointer"
+        >
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+          <span>播放退场动画</span>
+        </button>
+
+        <!-- 3. 循环演示 -->
+        <button
+          id="btn-loop"
+          type="button"
+          aria-pressed="false"
+          class="btn-control inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-semibold bg-white text-[#1C385A] border border-slate-200 hover:bg-slate-100 hover:border-slate-300 shadow-sm cursor-pointer"
+        >
+          <svg id="loop-icon" class="w-4 h-4 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="17 1 21 5 17 9"></polyline>
+            <path d="M3 11V9a4 4 0 0 1 4-4h14"></path>
+            <polyline points="7 23 3 19 7 15"></polyline>
+            <path d="M21 13v2a4 4 0 0 1-4 4H3"></path>
+          </svg>
+          <span>循环演示</span>
+        </button>
+
+        <!-- 分隔符（大屏显示） -->
+        <div class="hidden sm:block w-px h-6 bg-slate-200 mx-1"></div>
+
+        <!-- 4. 下载 SVG -->
+        <button
+          id="btn-download"
+          type="button"
+          class="btn-control inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-semibold bg-sky-50 text-sky-700 border border-sky-200 hover:bg-sky-100 shadow-sm cursor-pointer"
+        >
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          <span>下载 SVG</span>
+        </button>
+
+        <!-- 5. 复制 SVG 代码 -->
+        <button
+          id="btn-copy"
+          type="button"
+          class="btn-control inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-semibold bg-amber-50 text-amber-800 border border-amber-200 hover:bg-amber-100 shadow-sm cursor-pointer"
+        >
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          <span id="copy-btn-label">复制 SVG 代码</span>
+        </button>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    (function () {
+      const svgEl = document.getElementById('atomic-chick-svg');
+      const statusBadge = document.getElementById('status-badge');
+      const statusDot = document.getElementById('status-dot');
+      const statusText = document.getElementById('status-text');
+
+      const btnEnter = document.getElementById('btn-enter');
+      const btnExit = document.getElementById('btn-exit');
+      const btnLoop = document.getElementById('btn-loop');
+      const loopIcon = document.getElementById('loop-icon');
+      const btnDownload = document.getElementById('btn-download');
+      const btnCopy = document.getElementById('btn-copy');
+      const copyBtnLabel = document.getElementById('copy-btn-label');
+
+      const toast = document.getElementById('toast');
+      const toastText = document.getElementById('toast-text');
+
+      // 动画时长常量（毫秒）
+      const ENTER_DURATION = 1120;
+      const EXIT_DURATION = 880;
+      const LOOP_IDLE_HOLD = 2500;
+      const LOOP_HIDDEN_PAUSE = 800;
+
+      // 状态机变量
+      let currentState = 'hidden'; // 'entering' | 'idle' | 'exiting' | 'hidden'
+      let isLooping = false;
+      let timers = [];
+      let toastTimer = null;
+
+      /**
+       * 清理所有待执行定时器，防止状态切换冲突
+       */
+      function clearAllTimers() {
+        timers.forEach((id) => clearTimeout(id));
+        timers = [];
+      }
+
+      /**
+       * 注册受控定时器
+       */
+      function schedule(fn, delay) {
+        const id = setTimeout(() => {
+          timers = timers.filter((t) => t !== id);
+          fn();
+        }, delay);
+        timers.push(id);
+        return id;
+      }
+
+      /**
+       * 更新顶部状态徽章样式与文案
+       */
+      function updateStatusUI(state) {
+        currentState = state;
+        const map = {
+          entering: {
+            text: '出场动画中',
+            badge: 'bg-sky-50 text-sky-700 border-sky-200/80',
+            dot: 'bg-sky-500 animate-pulse',
+          },
+          idle: {
+            text: '待机微动效',
+            badge: 'bg-emerald-50 text-emerald-700 border-emerald-200/80',
+            dot: 'bg-emerald-500',
+          },
+          exiting: {
+            text: '退场动画中',
+            badge: 'bg-amber-50 text-amber-700 border-amber-200/80',
+            dot: 'bg-amber-500 animate-pulse',
+          },
+          hidden: {
+            text: '已退场隐藏',
+            badge: 'bg-slate-100 text-slate-600 border-slate-200',
+            dot: 'bg-slate-400',
+          },
+        };
+        const cfg = map[state] || map.hidden;
+        statusBadge.className = `inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium border ${cfg.badge}`;
+        statusDot.className = `w-2 h-2 rounded-full ${cfg.dot}`;
+        statusText.textContent = isLooping ? `${cfg.text} · 循环` : cfg.text;
+      }
+
+      /**
+       * 切换 SVG 动画类并强制触发重绘以重播 CSS Keyframes
+       */
+      function applySvgStateClass(className) {
+        svgEl.classList.remove('state-enter', 'state-idle', 'state-exit', 'state-hidden');
+        void svgEl.offsetWidth; // 强制同步 reflow，确保动画从第 0 帧干净重播
+        svgEl.classList.add(className);
+      }
+
+      /**
+       * 播放出场动画 -> 自动进入待机
+       */
+      function playEntrance() {
+        clearAllTimers();
+        applySvgStateClass('state-enter');
+        updateStatusUI('entering');
+
+        schedule(() => {
+          applySvgStateClass('state-idle');
+          updateStatusUI('idle');
+
+          if (isLooping) {
+            schedule(() => {
+              playExit();
+            }, LOOP_IDLE_HOLD);
+          }
+        }, ENTER_DURATION);
+      }
+
+      /**
+       * 从当前状态平滑触发退场动画
+       */
+      function playExit() {
+        if (currentState === 'hidden' && !isLooping) {
+          showToast('当前已处于退场隐藏状态');
+          return;
+        }
+        clearAllTimers();
+        applySvgStateClass('state-exit');
+        updateStatusUI('exiting');
+
+        schedule(() => {
+          applySvgStateClass('state-hidden');
+          updateStatusUI('hidden');
+
+          if (isLooping) {
+            schedule(() => {
+              playEntrance();
+            }, LOOP_HIDDEN_PAUSE);
+          }
+        }, EXIT_DURATION);
+      }
+
+      /**
+       * 切换循环演示模式
+       */
+      function toggleLoop() {
+        isLooping = !isLooping;
+        btnLoop.setAttribute('aria-pressed', String(isLooping));
+
+        if (isLooping) {
+          btnLoop.className =
+            'btn-control inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-semibold bg-[#1FA2E1] text-white border border-[#1FA2E1] shadow-md shadow-sky-200 cursor-pointer';
+          loopIcon.classList.add('animate-spin');
+          loopIcon.style.animationDuration = '3s';
+          playEntrance();
+        } else {
+          btnLoop.className =
+            'btn-control inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-semibold bg-white text-[#1C385A] border border-slate-200 hover:bg-slate-100 hover:border-slate-300 shadow-sm cursor-pointer';
+          loopIcon.classList.remove('animate-spin');
+          clearAllTimers();
+          // 停止循环时：若正在播放出场或退场，让当前阶段自然完成；若已停留在某状态则更新文案
+          if (currentState === 'entering') {
+            schedule(() => {
+              applySvgStateClass('state-idle');
+              updateStatusUI('idle');
+            }, 600);
+          } else if (currentState === 'exiting') {
+            schedule(() => {
+              applySvgStateClass('state-hidden');
+              updateStatusUI('hidden');
+            }, 500);
+          } else {
+            updateStatusUI(currentState);
+          }
+        }
+      }
+
+      /**
+       * 生成纯净独立的 SVG 源代码（去除网页动效类与临时内联延迟变量）
+       */
+      function getCleanSvgString() {
+        const clone = svgEl.cloneNode(true);
+        clone.removeAttribute('id');
+        clone.removeAttribute('class');
+        clone.removeAttribute('role');
+        clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+        clone.setAttribute('width', '500');
+        clone.setAttribute('height', '500');
+
+        // 清理仅用于 HTML 动效的 class 和 style 自定义变量
+        const allNodes = clone.querySelectorAll('*');
+        allNodes.forEach((node) => {
+          node.removeAttribute('class');
+          node.removeAttribute('style');
+        });
+
+        const serializer = new XMLSerializer();
+        const raw = serializer.serializeToString(clone);
+        return `<?xml version="1.0" encoding="UTF-8"?>\n${raw}`;
+      }
+
+      /**
+       * 下载纯净 SVG 文件 (atomic-chick.svg)
+       */
+      function downloadSvg() {
+        try {
+          const svgCode = getCleanSvgString();
+          const blob = new Blob([svgCode], { type: 'image/svg+xml;charset=utf-8' });
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = 'atomic-chick.svg';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          setTimeout(() => URL.revokeObjectURL(url), 1000);
+          showToast('已开始下载 atomic-chick.svg');
+        } catch (err) {
+          showToast('下载失败，请重试');
+        }
+      }
+
+      /**
+       * 一键复制纯净 SVG 源码
+       */
+      function copySvgCode() {
+        try {
+          const svgCode = getCleanSvgString();
+          const textarea = document.createElement('textarea');
+          textarea.value = svgCode;
+          textarea.setAttribute('readonly', '');
+          textarea.style.position = 'fixed';
+          textarea.style.left = '-9999px';
+          textarea.style.top = '0';
+          document.body.appendChild(textarea);
+          textarea.select();
+          textarea.setSelectionRange(0, svgCode.length);
+          const ok = document.execCommand('copy');
+          document.body.removeChild(textarea);
+
+          if (ok) {
+            copyBtnLabel.textContent = '已复制';
+            showToast('纯净 SVG 代码已复制');
+            setTimeout(() => {
+              copyBtnLabel.textContent = '复制 SVG 代码';
+            }, 1800);
+          } else {
+            showToast('复制未成功，请手动下载 SVG');
+          }
+        } catch (err) {
+          showToast('复制失败，请使用下载功能');
+        }
+      }
+
+      /**
+       * 显示底部轻量提示条
+       */
+      function showToast(message) {
+        toastText.textContent = message;
+        toast.classList.remove('opacity-0', 'translate-y-2');
+        toast.classList.add('opacity-100', 'translate-y-0');
+        if (toastTimer) clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => {
+          toast.classList.remove('opacity-100', 'translate-y-0');
+          toast.classList.add('opacity-0', 'translate-y-2');
+        }, 2000);
+      }
+
+      // 绑定按钮事件
+      btnEnter.addEventListener('click', () => {
+        if (isLooping) toggleLoop();
+        playEntrance();
+      });
+
+      btnExit.addEventListener('click', () => {
+        if (isLooping) toggleLoop();
+        playExit();
+      });
+
+      btnLoop.addEventListener('click', toggleLoop);
+      btnDownload.addEventListener('click', downloadSvg);
+      btnCopy.addEventListener('click', copySvgCode);
+
+      // 页面初次加载自动播放一次出场动画
+      window.addEventListener('DOMContentLoaded', () => {
+        playEntrance();
+      });
+    })();
+  </script>
+</body>
+</html>

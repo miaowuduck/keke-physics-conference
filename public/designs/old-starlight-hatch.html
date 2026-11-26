@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>旧稿 · 星光破壳 · 交错出入场矢量动画</title>
+  <style>
+    /* =========================================================
+       基础变量与全局重置（无外部 CDN 依赖，零闪烁）
+       ========================================================= */
+    :root {
+      --navy: #0E233A;
+      --navy-hover: #173454;
+      --gold: #F6A614;
+      --gold-soft: rgba(246, 166, 20, 0.14);
+      --white: #FFFFFF;
+      --surface: #F5F7FA;
+      --border: rgba(14, 35, 58, 0.08);
+      --text-muted: #64748B;
+      --radius-lg: 24px;
+      --radius-md: 16px;
+      --radius-sm: 10px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      min-height: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", Roboto, sans-serif;
+      background: radial-gradient(circle at 50% 28%, #FFFFFF 0%, #F4F7FA 62%, #EBF0F6 100%);
+      color: var(--navy);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* 主容器 */
+    .app-shell {
+      width: 100%;
+      max-width: 520px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    /* =========================================================
+       SVG 展示舞台卡片
+       ========================================================= */
+    .stage-card {
+      width: 100%;
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow:
+        0 22px 52px -14px rgba(14, 35, 58, 0.09),
+        0 6px 18px -6px rgba(14, 35, 58, 0.04),
+        0 0 0 1px rgba(14, 35, 58, 0.045);
+    }
+
+    .logo-svg {
+      width: 100%;
+      max-width: 380px;
+      height: auto;
+      display: block;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    /* =========================================================
+       极简中文悬浮控制面板
+       ========================================================= */
+    .control-panel {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 14px 16px 16px;
+      box-shadow:
+        0 10px 28px -10px rgba(14, 35, 58, 0.07),
+        0 2px 6px -2px rgba(14, 35, 58, 0.03);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* 状态栏与细进度条 */
+    .status-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--navy);
+      letter-spacing: 0.01em;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--navy);
+      transition: background-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .status-dot.state-entrance {
+      background: var(--navy);
+      box-shadow: 0 0 0 3px rgba(14, 35, 58, 0.14);
+    }
+
+    .status-dot.state-idle {
+      background: var(--gold);
+      box-shadow: 0 0 0 3px rgba(246, 166, 20, 0.24);
+      animation: dotPulse 1.8s ease-in-out infinite;
+    }
+
+    .status-dot.state-exit {
+      background: #476582;
+      box-shadow: 0 0 0 3px rgba(71, 101, 130, 0.16);
+    }
+
+    .status-dot.state-exited {
+      background: #CBD5E1;
+      box-shadow: none;
+    }
+
+    @keyframes dotPulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.25); opacity: 0.75; }
+    }
+
+    .time-readout {
+      font-size: 12px;
+      font-variant-numeric: tabular-nums;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 4px;
+      background: #E8EEF4;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--navy) 0%, var(--gold) 100%);
+      transition: background 0.25s ease;
+      will-change: width;
+    }
+
+    .progress-fill.is-exit {
+      background: linear-gradient(90deg, var(--gold) 0%, #64748B 100%);
+    }
+
+    /* 主操作按钮组 */
+    .action-row {
+      display: grid;
+      grid-template-columns: 1.45fr 1fr 1fr;
+      gap: 8px;
+    }
+
+    .btn {
+      appearance: none;
+      border: 1px solid transparent;
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: transform 0.15s ease, background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
+      white-space: nowrap;
+    }
+
+    .btn:active {
+      transform: scale(0.97);
+    }
+
+    .btn-primary {
+      background: var(--navy);
+      color: var(--white);
+      box-shadow: 0 4px 12px rgba(14, 35, 58, 0.16);
+    }
+
+    .btn-primary:hover {
+      background: var(--navy-hover);
+    }
+
+    .btn-secondary {
+      background: var(--surface);
+      color: var(--navy);
+      border-color: rgba(14, 35, 58, 0.08);
+    }
+
+    .btn-secondary:hover {
+      background: #EAEFF5;
+      border-color: rgba(14, 35, 58, 0.15);
+    }
+
+    .btn-secondary.is-active {
+      background: var(--gold-soft);
+      color: #B87400;
+      border-color: rgba(246, 166, 20, 0.35);
+    }
+
+    .btn svg {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+    }
+
+    /* 底部辅助行：速度切换 + 自动循环开关 */
+    .meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(14, 35, 58, 0.06);
+      flex-wrap: wrap;
+    }
+
+    .speed-group {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .meta-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .speed-pills {
+      display: inline-flex;
+      background: var(--surface);
+      padding: 3px;
+      border-radius: 9px;
+      border: 1px solid rgba(14, 35, 58, 0.06);
+      gap: 2px;
+    }
+
+    .speed-btn {
+      appearance: none;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 600;
+      font-family: inherit;
+      font-variant-numeric: tabular-nums;
+      padding: 4px 9px;
+      border-radius: 7px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .speed-btn:hover {
+      color: var(--navy);
+    }
+
+    .speed-btn.active {
+      background: var(--white);
+      color: var(--navy);
+      box-shadow: 0 1px 4px rgba(14, 35, 58, 0.1);
+    }
+
+    /* 开关控件 */
+    .loop-control {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      cursor: pointer;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .toggle-track {
+      position: relative;
+      width: 42px;
+      height: 24px;
+      border-radius: 999px;
+      border: none;
+      background: #CBD5E1;
+      cursor: pointer;
+      transition: background-color 0.25s ease;
+      padding: 0;
+    }
+
+    .toggle-track[aria-checked="true"] {
+      background: var(--gold);
+    }
+
+    .toggle-thumb {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--white);
+      box-shadow: 0 1px 4px rgba(14, 35, 58, 0.2);
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .toggle-track[aria-checked="true"] .toggle-thumb {
+      transform: translateX(18px);
+    }
+
+    /* 移动端自适应优化 */
+    @media (max-width: 440px) {
+      .stage-card {
+        padding: 14px;
+        border-radius: 20px;
+      }
+      .action-row {
+        grid-template-columns: 1fr 1fr;
+      }
+      .action-row .btn-primary {
+        grid-column: 1 / -1;
+      }
+      .control-panel {
+        padding: 12px 14px 14px;
+      }
+    }
+  </style>
+  <meta name="robots" content="noindex, follow" />
+  <link rel="icon" href="../favicon.svg" />
+</head>
+<body>
+  <main class="app-shell">
+    <!-- SVG 动画舞台卡片 -->
+    <section class="stage-card" aria-label="徽标动画舞台">
+      <svg
+        id="logoSvg"
+        viewBox="0 0 400 400"
+        class="logo-svg"
+        xmlns="http://www.w3.org/2000/svg"
+        role="img"
+        aria-label="三条轨道依次划出，蛋摇动破壳蹦出金色星光的出入场矢量动画"
+      >
+        <defs>
+          <!-- 星光柔和环境光晕 -->
+          <radialGradient id="starAmbientGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#F6A614" stop-opacity="0.46" />
+            <stop offset="55%" stop-color="#F6A614" stop-opacity="0.14" />
+            <stop offset="100%" stop-color="#F6A614" stop-opacity="0" />
+          </radialGradient>
+
+          <!-- 破壳裂口内部柔和金光 -->
+          <radialGradient id="crackBurstGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#F6A614" stop-opacity="0.62" />
+            <stop offset="55%" stop-color="#F6A614" stop-opacity="0.18" />
+            <stop offset="100%" stop-color="#F6A614" stop-opacity="0" />
+          </radialGradient>
+        </defs>
+
+        <!-- 纯白画布底色 -->
+        <rect x="0" y="0" width="400" height="400" fill="#FFFFFF" />
+
+        <!-- =======================================================
+             第 1 层：蛋体后方轨道弧段（被蛋体自然遮挡）
+             ======================================================= -->
+        <g id="orbitsBackLayer" fill="none" stroke-linecap="round">
+          <!-- 轨道 1 后半段（水平深蓝） -->
+          <g id="orbit1BackWrap">
+            <path
+              id="orbit1Back"
+              d="M 68 224 A 132 46 0 0 1 332 224"
+              stroke="#0E233A"
+              stroke-width="10"
+            />
+          </g>
+
+          <!-- 轨道 2 后半段（左上至右下深蓝，42°） -->
+          <g id="orbit2BackWrap">
+            <path
+              id="orbit2Back"
+              d="M 62 216 A 138 50 0 0 1 338 216"
+              transform="rotate(42 200 216)"
+              stroke="#0E233A"
+              stroke-width="10"
+            />
+          </g>
+
+          <!-- 轨道 3 后半段（左下至右上琥珀金，-42°） -->
+          <g id="orbit3BackWrap">
+            <path
+              id="orbit3Back"
+              d="M 62 216 A 138 50 0 0 1 338 216"
+              transform="rotate(-42 200 216)"
+              stroke="#F6A614"
+              stroke-width="10"
+            />
+          </g>
+        </g>
+
+        <!-- =======================================================
+             第 2 层：中心蛋体（绕底部支点 (200, 312) 缩放、摇摆与破壳）
+             ======================================================= -->
+        <g id="eggGroup" opacity="0">
+          <!-- 完整状态纯白填充（遮挡后方轨道） -->
+          <path
+            id="eggFillIntact"
+            d="M 200 115
+               C 246 115, 278 175, 278 232
+               C 278 286, 244 318, 200 318
+               C 156 318, 122 286, 122 232
+               C 122 175, 154 115, 200 115 Z"
+            fill="#FFFFFF"
+          />
+
+          <!-- 破壳状态纯白填充（顶部保留 V 形锯齿缺口） -->
+          <path
+            id="eggFillCracked"
+            d="M 220.93 119.35
+               C 255.42 134.12, 278 184.12, 278 232
+               C 278 286, 244 318, 200 318
+               C 156 318, 122 286, 122 232
+               C 122 184.12, 144.58 134.12, 179.07 119.35
+               L 188 134 L 179 149 L 197 157 L 190 173 L 201 196
+               L 202 168 L 219 152 L 210 139 Z"
+            fill="#FFFFFF"
+            opacity="0"
+          />
+
+          <!-- 破壳瞬间裂口迸发的柔和金色光晕 -->
+          <ellipse
+            id="crackGlow"
+            cx="200"
+            cy="146"
+            rx="34"
+            ry="28"
+            fill="url(#crackBurstGlow)"
+            opacity="0"
+          />
+
+          <!-- 蛋体主轮廓（左右两侧与底部，精准衔接顶部裂口端点） -->
+          <path
+            id="eggBodyStroke"
+            d="M 220.93 119.35
+               C 255.42 134.12, 278 184.12, 278 232
+               C 278 286, 244 318, 200 318
+               C 156 318, 122 286, 122 232
+               C 122 184.12, 144.58 134.12, 179.07 119.35"
+            fill="none"
+            stroke="#0E233A"
+            stroke-width="10"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+
+          <!-- 顶部完整壳弧（破壳消隐，退场闪回闭合） -->
+          <path
+            id="eggTopCap"
+            d="M 179.07 119.35
+               C 185.64 116.54, 192.64 115, 200 115
+               C 207.36 115, 214.36 116.54, 220.93 119.35"
+            fill="none"
+            stroke="#0E233A"
+            stroke-width="10"
+            stroke-linecap="round"
+          />
+
+          <!-- 左侧锯齿破壳裂纹 -->
+          <g id="crackLeftGroup">
+            <path
+              id="eggCrackLeft"
+              d="M 179.07 119.35 L 188 134 L 179 149 L 197 157 L 190 173 L 201 196"
+              fill="none"
+              stroke="#0E233A"
+              stroke-width="8.5"
+              stroke-linecap="round"
+              stroke-linejoin="miter"
+              stroke-miterlimit="8"
+            />
+          </g>
+
+          <!-- 右侧锯齿破壳裂纹 -->
+          <g id="crackRightGroup">
+            <path
+              id="eggCrackRight"
+              d="M 220.93 119.35 L 210 139 L 219 152 L 202 168 L 201 196"
+              fill="none"
+              stroke="#0E233A"
+              stroke-width="8.5"
+              stroke-linecap="round"
+              stroke-linejoin="miter"
+              stroke-miterlimit="8"
+            />
+          </g>
+        </g>
+
+        <!-- =======================================================
+             第 3 层：蛋体前方轨道弧段（白色外描边制作精准穿插镂空）
+             顺序：水平深蓝 -> 对角深蓝 -> 琥珀金（确保金色压过深蓝与蛋体）
+             ======================================================= -->
+        <g id="orbitsFrontLayer" fill="none">
+          <!-- 轨道 1 前半段（水平深蓝） -->
+          <g id="orbit1FrontWrap">
+            <path
+              id="orbit1FrontKnockout"
+              d="M 332 224 A 132 46 0 0 1 68 224"
+              stroke="#FFFFFF"
+              stroke-width="19"
+              stroke-linecap="butt"
+            />
+            <path
+              id="orbit1Front"
+              d="M 332 224 A 132 46 0 0 1 68 224"
+              stroke="#0E233A"
+              stroke-width="10"
+              stroke-linecap="round"
+            />
+          </g>
+
+          <!-- 轨道 2 前半段（对角深蓝 42°） -->
+          <g id="orbit2FrontWrap">
+            <path
+              id="orbit2FrontKnockout"
+              d="M 338 216 A 138 50 0 0 1 62 216"
+              transform="rotate(42 200 216)"
+              stroke="#FFFFFF"
+              stroke-width="19"
+              stroke-linecap="butt"
+            />
+            <path
+              id="orbit2Front"
+              d="M 338 216 A 138 50 0 0 1 62 216"
+              transform="rotate(42 200 216)"
+              stroke="#0E233A"
+              stroke-width="10"
+              stroke-linecap="round"
+            />
+          </g>
+
+          <!-- 轨道 3 前半段（对角琥珀金 -42°） -->
+          <g id="orbit3FrontWrap">
+            <path
+              id="orbit3FrontKnockout"
+              d="M 338 216 A 138 50 0 0 1 62 216"
+              transform="rotate(-42 200 216)"
+              stroke="#FFFFFF"
+              stroke-width="19"
+              stroke-linecap="butt"
+            />
+            <path
+              id="orbit3Front"
+              d="M 338 216 A 138 50 0 0 1 62 216"
+              transform="rotate(-42 200 216)"
+              stroke="#F6A614"
+              stroke-width="10"
+              stroke-linecap="round"
+            />
+          </g>
+        </g>
+
+        <!-- =======================================================
+             第 4 层：破壳放射微光、极简微星粒子与核心金色四角星光
+             ======================================================= -->
+        <g id="burstRaysLayer" stroke="#F6A614" stroke-linecap="round" fill="none"></g>
+        <g id="microStarsLayer"></g>
+
+        <!-- 退场时星光向心收束的微光闪点 -->
+        <circle id="exitFlashCircle" cx="200" cy="102" r="14" fill="url(#starAmbientGlow)" opacity="0" />
+
+        <!-- 核心金色四角星光（顶点落位于 (200, 106)） -->
+        <g id="mainStarGroup" opacity="0">
+          <circle id="starGlowCircle" cx="0" cy="0" r="44" fill="url(#starAmbientGlow)" opacity="0" />
+          <path
+            id="mainStarPath"
+            d="M 0 -34 Q 4 -6 29 0 Q 4 6 0 34 Q -4 6 -29 0 Q -4 -6 0 -34 Z"
+            fill="#F6A614"
+          />
+        </g>
+      </svg>
+    </section>
+
+    <!-- 极简中文交互控制面板 -->
+    <section class="control-panel" aria-label="动画控制面板">
+      <!-- 实时状态与细进度条 -->
+      <div>
+        <div class="status-header" style="margin-bottom: 8px;">
+          <div class="status-badge">
+            <span id="statusDot" class="status-dot state-entrance"></span>
+            <span id="statusText">出场中</span>
+          </div>
+          <span id="timeReadout" class="time-readout">0.00s / 2.30s</span>
+        </div>
+        <div class="progress-track" aria-hidden="true">
+          <div id="progressFill" class="progress-fill"></div>
+        </div>
+      </div>
+
+      <!-- 核心控制按钮 -->
+      <div class="action-row">
+        <button id="btnDemo" type="button" class="btn btn-primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="6 4 20 12 6 20 6 4"></polygon>
+          </svg>
+          <span>完整演示（出场+退场）</span>
+        </button>
+
+        <button id="btnEntrance" type="button" class="btn btn-secondary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 19V5"></path>
+            <polyline points="5 12 12 5 19 12"></polyline>
+          </svg>
+          <span>播放出场</span>
+        </button>
+
+        <button id="btnExit" type="button" class="btn btn-secondary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 5v14"></path>
+            <polyline points="19 12 12 19 5 12"></polyline>
+          </svg>
+          <span>播放退场</span>
+        </button>
+      </div>
+
+      <!-- 播放速度与自动循环 -->
+      <div class="meta-row">
+        <div class="speed-group">
+          <span class="meta-label">速度</span>
+          <div class="speed-pills" role="group" aria-label="播放速度切换">
+            <button type="button" class="speed-btn" data-speed="0.75">0.75x</button>
+            <button type="button" class="speed-btn active" data-speed="1">1.0x</button>
+            <button type="button" class="speed-btn" data-speed="1.25">1.25x</button>
+          </div>
+        </div>
+
+        <label class="loop-control">
+          <span class="meta-label">自动循环</span>
+          <button
+            id="loopToggleBtn"
+            type="button"
+            role="switch"
+            aria-checked="true"
+            aria-label="切换自动循环"
+            class="toggle-track"
+          >
+            <span class="toggle-thumb"></span>
+          </button>
+        </label>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    /**
+     * 星光破壳轨道徽标 · 交错出入场高精度动画引擎
+     * ---------------------------------------------------------
+     * 架构设计：
+     * - 纯 requestAnimationFrame + deltaTime * speed 驱动，支持无跳变变速
+     * - 状态机管理：'entrance' (2.30s) -> 'idle' (1.80s / 持续) -> 'exit' (1.35s) -> 'pause' (0.50s) / 'exited'
+     * - 出场与退场均采用多动作重叠（Overlapping & Staggered）曲线编排
+     */
+    (function () {
+      'use strict';
+
+      const SVG_NS = 'http://www.w3.org/2000/svg';
+
+      // =========================================================
+      // 1. 缓动与插值函数库
+      // =========================================================
+      const clamp = (v, min = 0, max = 1) => Math.max(min, Math.min(max, v));
+      const lerp = (a, b, t) => a + (b - a) * t;
+      const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+      const easeInCubic = (t) => t * t * t;
+      const easeInOutCubic = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+      const easeOutQuart = (t) => 1 - Math.pow(1 - t, 4);
+      const easeOutExpo = (t) => (t >= 1 ? 1 : 1 - Math.pow(2, -10 * t));
+      const easeInExpo = (t) => (t <= 0 ? 0 : Math.pow(2, 10 * t - 10));
+      const easeOutBack = (t, s = 1.7) => {
+        const c3 = s + 1;
+        return 1 + c3 * Math.pow(t - 1, 3) + s * Math.pow(t - 1, 2);
+      };
+
+      // =========================================================
+      // 2. DOM 引用与 SVG 路径长度缓存
+      // =========================================================
+      const el = {
+        eggGroup: document.getElementById('eggGroup'),
+        eggFillIntact: document.getElementById('eggFillIntact'),
+        eggFillCracked: document.getElementById('eggFillCracked'),
+        eggTopCap: document.getElementById('eggTopCap'),
+        crackGlow: document.getElementById('crackGlow'),
+        crackLeftGroup: document.getElementById('crackLeftGroup'),
+        crackRightGroup: document.getElementById('crackRightGroup'),
+        eggCrackLeft: document.getElementById('eggCrackLeft'),
+        eggCrackRight: document.getElementById('eggCrackRight'),
+        burstRaysLayer: document.getElementById('burstRaysLayer'),
+        microStarsLayer: document.getElementById('microStarsLayer'),
+        exitFlashCircle: document.getElementById('exitFlashCircle'),
+        mainStarGroup: document.getElementById('mainStarGroup'),
+        starGlowCircle: document.getElementById('starGlowCircle'),
+
+        // 控制栏 UI
+        statusDot: document.getElementById('statusDot'),
+        statusText: document.getElementById('statusText'),
+        timeReadout: document.getElementById('timeReadout'),
+        progressFill: document.getElementById('progressFill'),
+        btnDemo: document.getElementById('btnDemo'),
+        btnEntrance: document.getElementById('btnEntrance'),
+        btnExit: document.getElementById('btnExit'),
+        loopToggleBtn: document.getElementById('loopToggleBtn'),
+        speedBtns: Array.from(document.querySelectorAll('.speed-btn'))
+      };
+
+      // 三条轨道配置：出场 0.15s 紧密交错；退场按逆序 0.11s 交错抽离
+      const orbits = [
+        {
+          id: 1,
+          backWrap: document.getElementById('orbit1BackWrap'),
+          frontWrap: document.getElementById('orbit1FrontWrap'),
+          back: document.getElementById('orbit1Back'),
+          front: document.getElementById('orbit1Front'),
+          knockout: document.getElementById('orbit1FrontKnockout'),
+          inStart: 0.16,
+          inEnd: 0.95,
+          outStart: 0.34,
+          outEnd: 0.72
+        },
+        {
+          id: 2,
+          backWrap: document.getElementById('orbit2BackWrap'),
+          frontWrap: document.getElementById('orbit2FrontWrap'),
+          back: document.getElementById('orbit2Back'),
+          front: document.getElementById('orbit2Front'),
+          knockout: document.getElementById('orbit2FrontKnockout'),
+          inStart: 0.31,
+          inEnd: 1.10,
+          outStart: 0.23,
+          outEnd: 0.61
+        },
+        {
+          id: 3,
+          backWrap: document.getElementById('orbit3BackWrap'),
+          frontWrap: document.getElementById('orbit3FrontWrap'),
+          back: document.getElementById('orbit3Back'),
+          front: document.getElementById('orbit3Front'),
+          knockout: document.getElementById('orbit3FrontKnockout'),
+          inStart: 0.46,
+          inEnd: 1.25,
+          outStart: 0.12,
+          outEnd: 0.50
+        }
+      ];
+
+      orbits.forEach((o) => {
+        o.backLen = o.back.getTotalLength();
+        o.frontLen = o.front.getTotalLength();
+        o.knockoutLen = o.knockout.getTotalLength();
+        o.back.style.strokeDasharray = `${o.backLen}`;
+        o.front.style.strokeDasharray = `${o.frontLen}`;
+        o.knockout.style.strokeDasharray = `${o.knockoutLen}`;
+      });
+
+      const crackLeftLen = el.eggCrackLeft.getTotalLength();
+      const crackRightLen = el.eggCrackRight.getTotalLength();
+      el.eggCrackLeft.style.strokeDasharray = `${crackLeftLen}`;
+      el.eggCrackRight.style.strokeDasharray = `${crackRightLen}`;
+
+      // =========================================================
+      // 3. 构建破壳放射微光与 7 颗轻盈微星粒子
+      // =========================================================
+      const burstRaysConfig = [
+        { angle: -90,  r1: 20, r2: 60, width: 3.0 },
+        { angle: -122, r1: 18, r2: 52, width: 2.5 },
+        { angle: -58,  r1: 18, r2: 52, width: 2.5 },
+        { angle: -148, r1: 16, r2: 42, width: 2.0 },
+        { angle: -32,  r1: 16, r2: 42, width: 2.0 },
+        { angle: -106, r1: 22, r2: 48, width: 1.8 },
+        { angle: -74,  r1: 22, r2: 48, width: 1.8 }
+      ];
+
+      const burstRays = burstRaysConfig.map((cfg) => {
+        const line = document.createElementNS(SVG_NS, 'line');
+        line.setAttribute('stroke-width', cfg.width);
+        line.setAttribute('opacity', '0');
+        el.burstRaysLayer.appendChild(line);
+        return { ...cfg, el: line, rad: (cfg.angle * Math.PI) / 180 };
+      });
+
+      const microStarsConfig = [
+        { angle: -144, dist: 82,  scale: 0.22, delay: 0.00, rot: -45 },
+        { angle: -116, dist: 100, scale: 0.26, delay: 0.03, rot: 38 },
+        { angle: -92,  dist: 108, scale: 0.20, delay: 0.01, rot: -26 },
+        { angle: -64,  dist: 96,  scale: 0.25, delay: 0.04, rot: 48 },
+        { angle: -36,  dist: 80,  scale: 0.21, delay: 0.02, rot: -38 },
+        { angle: -160, dist: 64,  scale: 0.16, delay: 0.06, rot: 55 },
+        { angle: -20,  dist: 62,  scale: 0.16, delay: 0.05, rot: -52 }
+      ];
+
+      const microStars = microStarsConfig.map((cfg) => {
+        const g = document.createElementNS(SVG_NS, 'g');
+        const path = document.createElementNS(SVG_NS, 'path');
+        path.setAttribute('d', 'M 0 -34 Q 4 -6 29 0 Q 4 6 0 34 Q -4 6 -29 0 Q -4 -6 0 -34 Z');
+        path.setAttribute('fill', '#F6A614');
+        g.appendChild(path);
+        g.setAttribute('opacity', '0');
+        el.microStarsLayer.appendChild(g);
+        return { ...cfg, el: g, rad: (cfg.angle * Math.PI) / 180 };
+      });
+
+      // =========================================================
+      // 4. 轨道渲染辅助函数（出场划出 / 退场切线抽离）
+      // =========================================================
+      function setOrbitTransform(orbit, scale, opacity) {
+        const tf = scale === 1
+          ? ''
+          : `translate(200, 216) scale(${scale.toFixed(4)}) translate(-200, -216)`;
+        orbit.backWrap.setAttribute('transform', tf);
+        orbit.frontWrap.setAttribute('transform', tf);
+        orbit.backWrap.setAttribute('opacity', opacity.toFixed(3));
+        orbit.frontWrap.setAttribute('opacity', opacity.toFixed(3));
+      }
+
+      // 出场：前快后缓地从后半段无缝衔接到前半段 360° 划出
+      function renderOrbitEntrance(orbit, rawP) {
+        const p = clamp(rawP, 0, 1);
+        setOrbitTransform(orbit, 1, 1);
+
+        if (p <= 0) {
+          orbit.back.style.opacity = '0';
+          orbit.front.style.opacity = '0';
+          orbit.knockout.style.opacity = '0';
+          orbit.back.style.strokeDashoffset = `${orbit.backLen}`;
+          orbit.front.style.strokeDashoffset = `${orbit.frontLen}`;
+          orbit.knockout.style.strokeDashoffset = `${orbit.knockoutLen}`;
+          return;
+        }
+
+        // 前快后缓（easeOutQuart 混合 easeOutCubic），动势利落
+        const eased = 0.65 * easeOutQuart(p) + 0.35 * easeOutCubic(p);
+
+        const backP = clamp(eased / 0.5, 0, 1);
+        orbit.back.style.opacity = '1';
+        orbit.back.style.strokeDashoffset = `${orbit.backLen * (1 - backP)}`;
+
+        const frontP = clamp((eased - 0.5) / 0.5, 0, 1);
+        if (frontP <= 0) {
+          orbit.front.style.opacity = '0';
+          orbit.knockout.style.opacity = '0';
+          orbit.front.style.strokeDashoffset = `${orbit.frontLen}`;
+          orbit.knockout.style.strokeDashoffset = `${orbit.knockoutLen}`;
+        } else {
+          orbit.front.style.opacity = '1';
+          orbit.knockout.style.opacity = '1';
+          orbit.front.style.strokeDashoffset = `${orbit.frontLen * (1 - frontP)}`;
+          // 白色镂空略缩进，避免在端点处切到后半段圆头
+          const koP = clamp((frontP - 0.025) / 0.95, 0, 1);
+          orbit.knockout.style.strokeDashoffset = `${orbit.knockoutLen * (1 - koP)}`;
+        }
+      }
+
+      // 退场：沿切线方向加速抽离收空（负 dashoffset 顺向抽空）并伴随轻微外扩消散
+      function renderOrbitExit(orbit, rawP) {
+        const p = clamp(rawP, 0, 1);
+        if (p <= 0) {
+          renderOrbitEntrance(orbit, 1);
+          return;
+        }
+        if (p >= 1) {
+          renderOrbitEntrance(orbit, 0);
+          return;
+        }
+
+        const eased = easeInCubic(p);
+        const expandScale = lerp(1, 1.075, easeOutCubic(p));
+        const fadeOpacity = p < 0.68 ? 1 : clamp(1 - (p - 0.68) / 0.32, 0, 1);
+        setOrbitTransform(orbit, expandScale, fadeOpacity);
+
+        // 后半段先沿切线抽空（0 -> 0.5），前半段紧随抽空（0.5 -> 1.0）
+        const backOut = clamp(eased / 0.5, 0, 1);
+        if (backOut >= 1) {
+          orbit.back.style.opacity = '0';
+          orbit.back.style.strokeDashoffset = `${-orbit.backLen}`;
+        } else {
+          orbit.back.style.opacity = '1';
+          orbit.back.style.strokeDashoffset = `${-orbit.backLen * backOut}`;
+        }
+
+        const frontOut = clamp((eased - 0.5) / 0.5, 0, 1);
+        if (frontOut >= 1) {
+          orbit.front.style.opacity = '0';
+          orbit.knockout.style.opacity = '0';
+          orbit.front.style.strokeDashoffset = `${-orbit.frontLen}`;
+          orbit.knockout.style.strokeDashoffset = `${-orbit.knockoutLen}`;
+        } else {
+          orbit.front.style.opacity = '1';
+          orbit.knockout.style.opacity = '1';
+          orbit.front.style.strokeDashoffset = `${-orbit.frontLen * frontOut}`;
+          orbit.knockout.style.strokeDashoffset = `${-orbit.knockoutLen * frontOut}`;
+        }
+      }
+
+      function clearTransientFX() {
+        burstRays.forEach((ray) => ray.el.setAttribute('opacity', '0'));
+        microStars.forEach((ms) => ms.el.setAttribute('opacity', '0'));
+        el.crackGlow.setAttribute('opacity', '0');
+        el.exitFlashCircle.setAttribute('opacity', '0');
+      }
+
+      // =========================================================
+      // 5. 交错出场渲染（0.00s - 2.30s）
+      // =========================================================
+      const ENTRANCE_DURATION = 2.30;
+      const IDLE_DEMO_DURATION = 1.80;
+      const EXIT_DURATION = 1.35;
+      const LOOP_PAUSE_DURATION = 0.50;
+
+      function renderEntrance(t) {
+        el.exitFlashCircle.setAttribute('opacity', '0');
+
+        // 1) 蛋体浮现与弹性落位 (0.00s - 0.65s)
+        const appearP = clamp(t / 0.65, 0, 1);
+        const riseY = lerp(30, 0, easeOutBack(appearP, 1.35));
+        const appearOp = easeOutCubic(clamp(t / 0.32, 0, 1));
+        const baseScale = lerp(0.84, 1.0, easeOutBack(appearP, 1.25));
+
+        // 2) 三条轨道紧密交错划出 (0.16s - 1.25s, 0.15s stagger)
+        orbits.forEach((o) => {
+          const p = clamp((t - o.inStart) / (o.inEnd - o.inStart), 0, 1);
+          renderOrbitEntrance(o, p);
+        });
+
+        // 3) 轨道能量扫过触发蛋体弹性摇动 + 挤压拉伸 (0.58s - 1.38s) & 破壳回弹 (1.22s - 1.72s)
+        let eggAngle = 0;
+        let sx = baseScale;
+        let sy = baseScale;
+
+        if (t >= 0.58 && t < 1.22) {
+          const wp = (t - 0.58) / 0.64; // 0 -> 1 蓄力递增
+          const ampEnv = Math.sin(wp * Math.PI * 0.88) * (0.35 + 0.85 * wp);
+          const wave = Math.sin(wp * wp * 16.5 + wp * 9.0);
+          eggAngle = wave * 10.5 * ampEnv;
+
+          // 同步细微挤压拉伸 + 末端下压蓄力
+          const rockStretch = Math.abs(wave) * 0.024 * ampEnv;
+          sx *= 1 + rockStretch;
+          sy *= 1 - rockStretch;
+
+          if (wp > 0.68) {
+            const sq = easeInOutCubic((wp - 0.68) / 0.32);
+            sx *= 1 + 0.055 * sq;
+            sy *= 1 - 0.065 * sq;
+          }
+        } else if (t >= 1.22 && t < 1.72) {
+          // 破壳瞬间释放弹性回弹 + 残余摇摆快速收稳
+          const bp = (t - 1.22) / 0.50;
+          const damp = Math.exp(-bp * 6.2) * Math.sin(bp * Math.PI * 2.6);
+          sx *= 1 - 0.065 * damp;
+          sy *= 1 + 0.08 * damp;
+          eggAngle = Math.exp(-bp * 7.5) * Math.cos(bp * Math.PI * 3.0) * 4.2;
+        }
+
+        el.eggGroup.setAttribute('opacity', appearOp.toFixed(3));
+        el.eggGroup.setAttribute(
+          'transform',
+          `translate(200, ${(312 + riseY).toFixed(2)}) rotate(${eggAngle.toFixed(2)}) scale(${sx.toFixed(4)}, ${sy.toFixed(4)}) translate(-200, -312)`
+        );
+
+        // 4) 破壳：顶弧消隐、锯齿裂纹向下劈开、壳缘张合回弹、裂口金光 (1.22s - 1.72s)
+        if (t < 1.22) {
+          el.eggTopCap.setAttribute('opacity', '1');
+          el.eggFillIntact.setAttribute('opacity', '1');
+          el.eggFillCracked.setAttribute('opacity', '0');
+          el.eggCrackLeft.style.opacity = '0';
+          el.eggCrackRight.style.opacity = '0';
+          el.eggCrackLeft.style.strokeDashoffset = `${crackLeftLen}`;
+          el.eggCrackRight.style.strokeDashoffset = `${crackRightLen}`;
+          el.crackLeftGroup.setAttribute('transform', '');
+          el.crackRightGroup.setAttribute('transform', '');
+          el.crackGlow.setAttribute('opacity', '0');
+        } else {
+          const cp = clamp((t - 1.22) / 0.24, 0, 1);
+          const crackDraw = easeOutExpo(cp);
+
+          el.eggTopCap.setAttribute('opacity', '0');
+          el.eggFillIntact.setAttribute('opacity', '0');
+          el.eggFillCracked.setAttribute('opacity', '1');
+
+          el.eggCrackLeft.style.opacity = '1';
+          el.eggCrackRight.style.opacity = '1';
+          el.eggCrackLeft.style.strokeDashoffset = `${crackLeftLen * (1 - crackDraw)}`;
+          el.eggCrackRight.style.strokeDashoffset = `${crackRightLen * (1 - crackDraw)}`;
+
+          // 左右壳缘张开回弹
+          const recoilP = clamp((t - 1.23) / 0.46, 0, 1);
+          const recoilDeg = Math.sin(recoilP * Math.PI * 1.15) * Math.exp(-recoilP * 2.4) * 4.8;
+          el.crackLeftGroup.setAttribute('transform', `rotate(${(-recoilDeg).toFixed(2)} 201 196)`);
+          el.crackRightGroup.setAttribute('transform', `rotate(${recoilDeg.toFixed(2)} 201 196)`);
+
+          // 裂口柔和金光闪现
+          const glowP = clamp((t - 1.22) / 0.56, 0, 1);
+          const glowOp = glowP < 0.25 ? glowP / 0.25 : clamp(1 - (glowP - 0.25) / 0.75, 0, 1);
+          el.crackGlow.setAttribute('opacity', (glowOp * 0.9).toFixed(3));
+        }
+
+        // 破壳放射射线 (1.24s - 1.76s)
+        if (t >= 1.24 && t <= 1.76) {
+          const rp = (t - 1.24) / 0.52;
+          const headP = easeOutExpo(clamp(rp * 1.35, 0, 1));
+          const tailP = easeOutCubic(clamp((rp - 0.16) / 0.84, 0, 1));
+          const rayOp = rp < 0.18 ? rp / 0.18 : clamp(1 - (rp - 0.18) / 0.82, 0, 1);
+
+          burstRays.forEach((ray) => {
+            const d1 = lerp(ray.r1, ray.r2, tailP);
+            const d2 = lerp(ray.r1, ray.r2, headP);
+            ray.el.setAttribute('x1', (200 + Math.cos(ray.rad) * d1).toFixed(2));
+            ray.el.setAttribute('y1', (124 + Math.sin(ray.rad) * d1).toFixed(2));
+            ray.el.setAttribute('x2', (200 + Math.cos(ray.rad) * d2).toFixed(2));
+            ray.el.setAttribute('y2', (124 + Math.sin(ray.rad) * d2).toFixed(2));
+            ray.el.setAttribute('opacity', (rayOp * 0.85).toFixed(3));
+          });
+        } else {
+          burstRays.forEach((ray) => ray.el.setAttribute('opacity', '0'));
+        }
+
+        // 5) 金色四角星乘势旋转放大并弹性跃升至顶点 (1.32s - 2.25s)
+        if (t < 1.32) {
+          el.mainStarGroup.setAttribute('opacity', '0');
+          el.starGlowCircle.setAttribute('opacity', '0');
+        } else {
+          const sp = clamp((t - 1.32) / 0.93, 0, 1);
+          const yMove = easeOutBack(clamp(sp / 0.78, 0, 1), 1.65);
+          const starY = lerp(164, 106, yMove);
+
+          let starScale;
+          if (sp < 0.46) {
+            starScale = lerp(0.05, 1.22, easeOutBack(sp / 0.46, 1.25));
+          } else {
+            starScale = lerp(1.22, 1.0, easeOutCubic((sp - 0.46) / 0.54));
+          }
+
+          const starRot = lerp(-56, 0, easeOutExpo(clamp(sp / 0.72, 0, 1)));
+          const starOp = clamp(sp / 0.12, 0, 1);
+          const glowOp = clamp((sp - 0.16) / 0.55, 0, 1) * 0.55;
+
+          el.mainStarGroup.setAttribute('opacity', starOp.toFixed(3));
+          el.mainStarGroup.setAttribute(
+            'transform',
+            `translate(200, ${starY.toFixed(2)}) rotate(${starRot.toFixed(2)}) scale(${starScale.toFixed(4)})`
+          );
+          el.starGlowCircle.setAttribute('opacity', glowOp.toFixed(3));
+        }
+
+        // 6) 7 颗金色微星粒子散开消隐 (1.33s - 2.25s)
+        microStars.forEach((ms) => {
+          const localT = t - (1.33 + ms.delay);
+          const dur = 0.82;
+          if (localT <= 0 || localT >= dur) {
+            ms.el.setAttribute('opacity', '0');
+            return;
+          }
+          const mp = localT / dur;
+          const travel = easeOutExpo(mp);
+          const x = 200 + Math.cos(ms.rad) * ms.dist * travel;
+          const y = 128 + Math.sin(ms.rad) * ms.dist * travel + 16 * mp * mp;
+          const rot = ms.rot * mp;
+          const twinkle = 0.85 + 0.25 * Math.sin(mp * Math.PI * 5);
+          const sc = ms.scale * (mp < 0.18 ? mp / 0.18 : 1 - (mp - 0.18) * 0.55) * twinkle;
+          const op = mp < 0.14 ? mp / 0.14 : clamp(1 - (mp - 0.32) / 0.68, 0, 1);
+
+          ms.el.setAttribute('opacity', op.toFixed(3));
+          ms.el.setAttribute(
+            'transform',
+            `translate(${x.toFixed(2)}, ${y.toFixed(2)}) rotate(${rot.toFixed(1)}) scale(${sc.toFixed(4)})`
+          );
+        });
+      }
+
+      // =========================================================
+      // 6. 悬停呼吸渲染（Idle）
+      // =========================================================
+      function renderIdle(idleT) {
+        clearTransientFX();
+
+        // 确保轨道与破壳蛋体稳定停留在完成态
+        orbits.forEach((o) => renderOrbitEntrance(o, 1));
+        el.eggGroup.setAttribute('opacity', '1');
+        el.eggGroup.setAttribute('transform', 'translate(200, 312) scale(1, 1) translate(-200, -312)');
+        el.eggTopCap.setAttribute('opacity', '0');
+        el.eggFillIntact.setAttribute('opacity', '0');
+        el.eggFillCracked.setAttribute('opacity', '1');
+        el.eggCrackLeft.style.opacity = '1';
+        el.eggCrackRight.style.opacity = '1';
+        el.eggCrackLeft.style.strokeDashoffset = '0';
+        el.eggCrackRight.style.strokeDashoffset = '0';
+        el.crackLeftGroup.setAttribute('transform', '');
+        el.crackRightGroup.setAttribute('transform', '');
+
+        // 星光轻柔上下浮动与微弱呼吸闪烁
+        const breath = Math.sin(idleT * 2.8);
+        const shimmer = Math.sin(idleT * 5.6) * 0.06;
+        const starY = 106 - 2.2 * breath;
+        const starScale = 1 + 0.032 * breath;
+        const glowOp = 0.46 + 0.22 * breath + shimmer;
+
+        el.mainStarGroup.setAttribute('opacity', '1');
+        el.mainStarGroup.setAttribute(
+          'transform',
+          `translate(200, ${starY.toFixed(2)}) scale(${starScale.toFixed(4)})`
+        );
+        el.starGlowCircle.setAttribute('opacity', clamp(glowOp, 0.2, 0.8).toFixed(3));
+      }
+
+      // =========================================================
+      // 7. 优雅镜像退场渲染（0.00s - 1.35s）
+      // =========================================================
+      function renderExit(t) {
+        burstRays.forEach((ray) => ray.el.setAttribute('opacity', '0'));
+        microStars.forEach((ms) => ms.el.setAttribute('opacity', '0'));
+        el.crackGlow.setAttribute('opacity', '0');
+
+        // 1) 四角星先轻微向上蓄力一顿，随后顺滑旋转收缩化作微光消散 (0.00s - 0.52s)
+        if (t < 0.14) {
+          const ap = easeOutCubic(t / 0.14);
+          const starY = lerp(106, 99, ap);
+          const starScale = lerp(1.0, 1.12, ap);
+          const starRot = lerp(0, -14, ap);
+          el.mainStarGroup.setAttribute('opacity', '1');
+          el.mainStarGroup.setAttribute(
+            'transform',
+            `translate(200, ${starY.toFixed(2)}) rotate(${starRot.toFixed(2)}) scale(${starScale.toFixed(4)})`
+          );
+          el.starGlowCircle.setAttribute('opacity', lerp(0.55, 0.78, ap).toFixed(3));
+          el.exitFlashCircle.setAttribute('opacity', '0');
+        } else if (t < 0.52) {
+          const cp = (t - 0.14) / 0.38;
+          const eased = easeInCubic(cp);
+          const starY = lerp(99, 104, eased);
+          const starScale = lerp(1.12, 0, eased);
+          const starRot = lerp(-14, 145, eased);
+          const starOp = cp < 0.72 ? 1 : clamp(1 - (cp - 0.72) / 0.28, 0, 1);
+
+          el.mainStarGroup.setAttribute('opacity', starOp.toFixed(3));
+          el.mainStarGroup.setAttribute(
+            'transform',
+            `translate(200, ${starY.toFixed(2)}) rotate(${starRot.toFixed(2)}) scale(${starScale.toFixed(4)})`
+          );
+          el.starGlowCircle.setAttribute('opacity', (0.78 * (1 - cp)).toFixed(3));
+
+          // 向心收束微光闪点 (0.34s - 0.54s)
+          if (t >= 0.34) {
+            const fp = clamp((t - 0.34) / 0.20, 0, 1);
+            const flashOp = fp < 0.35 ? fp / 0.35 : clamp(1 - (fp - 0.35) / 0.65, 0, 1);
+            const flashR = lerp(22, 4, easeOutCubic(fp));
+            el.exitFlashCircle.setAttribute('r', flashR.toFixed(2));
+            el.exitFlashCircle.setAttribute('opacity', (flashOp * 0.95).toFixed(3));
+          } else {
+            el.exitFlashCircle.setAttribute('opacity', '0');
+          }
+        } else {
+          el.mainStarGroup.setAttribute('opacity', '0');
+          el.starGlowCircle.setAttribute('opacity', '0');
+          el.exitFlashCircle.setAttribute('opacity', '0');
+        }
+
+        // 2) 三条轨道逆序（金 -> 对角蓝 -> 水平蓝）以 0.11s 时间差沿切线加速抽离 (0.12s - 0.72s)
+        orbits.forEach((o) => {
+          const p = clamp((t - o.outStart) / (o.outEnd - o.outStart), 0, 1);
+          renderOrbitExit(o, p);
+        });
+
+        // 3) 锯齿裂纹逆向收拢 -> 顶弧闪回闭合 -> 蛋体向心收缩并柔和下沉淡出 (0.22s - 0.96s)
+        if (t < 0.22) {
+          el.eggGroup.setAttribute('opacity', '1');
+          el.eggGroup.setAttribute('transform', 'translate(200, 312) scale(1, 1) translate(-200, -312)');
+          el.eggTopCap.setAttribute('opacity', '0');
+          el.eggFillIntact.setAttribute('opacity', '0');
+          el.eggFillCracked.setAttribute('opacity', '1');
+          el.eggCrackLeft.style.opacity = '1';
+          el.eggCrackRight.style.opacity = '1';
+          el.eggCrackLeft.style.strokeDashoffset = '0';
+          el.eggCrackRight.style.strokeDashoffset = '0';
+          el.crackLeftGroup.setAttribute('transform', '');
+          el.crackRightGroup.setAttribute('transform', '');
+        } else if (t < 0.44) {
+          // 锯齿裂纹快速逆向向上收拢
+          const cp = (t - 0.22) / 0.22;
+          const retract = easeInCubic(cp);
+          el.eggCrackLeft.style.opacity = '1';
+          el.eggCrackRight.style.opacity = '1';
+          el.eggCrackLeft.style.strokeDashoffset = `${crackLeftLen * retract}`;
+          el.eggCrackRight.style.strokeDashoffset = `${crackRightLen * retract}`;
+
+          // 壳缘微微向内合拢
+          const pinch = Math.sin(cp * Math.PI) * 2.5;
+          el.crackLeftGroup.setAttribute('transform', `rotate(${pinch.toFixed(2)} 201 196)`);
+          el.crackRightGroup.setAttribute('transform', `rotate(${(-pinch).toFixed(2)} 201 196)`);
+
+          // 临近收拢完成时顶弧柔和闪回闭合
+          const capOp = clamp((cp - 0.65) / 0.35, 0, 1);
+          el.eggTopCap.setAttribute('opacity', capOp.toFixed(3));
+          el.eggFillIntact.setAttribute('opacity', capOp > 0.4 ? '1' : '0');
+          el.eggFillCracked.setAttribute('opacity', capOp > 0.4 ? '0' : '1');
+
+          // 蛋体轻微向上预紧
+          const preScale = 1 + 0.02 * Math.sin(cp * Math.PI);
+          el.eggGroup.setAttribute('opacity', '1');
+          el.eggGroup.setAttribute(
+            'transform',
+            `translate(200, 312) scale(${preScale.toFixed(4)}, ${preScale.toFixed(4)}) translate(-200, -312)`
+          );
+        } else if (t < 0.96) {
+          // 闭合后的蛋体向心收缩并柔和下沉淡出
+          el.eggCrackLeft.style.opacity = '0';
+          el.eggCrackRight.style.opacity = '0';
+          el.eggTopCap.setAttribute('opacity', '1');
+          el.eggFillIntact.setAttribute('opacity', '1');
+          el.eggFillCracked.setAttribute('opacity', '0');
+
+          const dp = (t - 0.44) / 0.52;
+          const eased = easeInCubic(dp);
+          const sinkY = lerp(0, 28, eased);
+          const scX = lerp(1.0, 0.80, eased);
+          const scY = lerp(1.0, 0.78, eased);
+          const op = clamp(1 - easeInExpo(dp * 0.92), 0, 1);
+
+          el.eggGroup.setAttribute('opacity', op.toFixed(3));
+          el.eggGroup.setAttribute(
+            'transform',
+            `translate(200, ${(312 + sinkY).toFixed(2)}) scale(${scX.toFixed(4)}, ${scY.toFixed(4)}) translate(-200, -312)`
+          );
+        } else {
+          // 完全清空画面
+          renderCleared();
+        }
+      }
+
+      // 完全清空态（零残影）
+      function renderCleared() {
+        clearTransientFX();
+        orbits.forEach((o) => renderOrbitEntrance(o, 0));
+        el.eggGroup.setAttribute('opacity', '0');
+        el.mainStarGroup.setAttribute('opacity', '0');
+        el.starGlowCircle.setAttribute('opacity', '0');
+      }
+
+      // =========================================================
+      // 8. 播放状态机与 UI 同步
+      // =========================================================
+      const state = {
+        mode: 'demo',        // 'demo' | 'entrance' | 'exit'
+        phase: 'entrance',   // 'entrance' | 'idle' | 'exit' | 'pause' | 'exited'
+        phaseTime: 0,
+        autoLoop: true,
+        speed: 1.0,
+        lastTs: null,
+        rafId: null
+      };
+
+      function syncStatusUI() {
+        el.statusDot.className = 'status-dot';
+        el.progressFill.classList.remove('is-exit');
+
+        if (state.phase === 'entrance') {
+          el.statusDot.classList.add('state-entrance');
+          el.statusText.textContent = '出场中';
+          const pct = clamp((state.phaseTime / ENTRANCE_DURATION) * 100, 0, 100);
+          el.progressFill.style.width = `${pct.toFixed(1)}%`;
+          el.timeReadout.textContent = `${Math.min(state.phaseTime, ENTRANCE_DURATION).toFixed(2)}s / ${ENTRANCE_DURATION.toFixed(2)}s`;
+        } else if (state.phase === 'idle') {
+          el.statusDot.classList.add('state-idle');
+          el.statusText.textContent = '呼吸展示';
+          if (state.mode === 'demo' || state.autoLoop) {
+            const pct = clamp((state.phaseTime / IDLE_DEMO_DURATION) * 100, 0, 100);
+            el.progressFill.style.width = `${pct.toFixed(1)}%`;
+            el.timeReadout.textContent = `${Math.min(state.phaseTime, IDLE_DEMO_DURATION).toFixed(2)}s / ${IDLE_DEMO_DURATION.toFixed(2)}s`;
+          } else {
+            el.progressFill.style.width = '100%';
+            el.timeReadout.textContent = '持续呼吸中';
+          }
+        } else if (state.phase === 'exit') {
+          el.statusDot.classList.add('state-exit');
+          el.statusText.textContent = '退场中';
+          el.progressFill.classList.add('is-exit');
+          const pct = clamp((state.phaseTime / EXIT_DURATION) * 100, 0, 100);
+          el.progressFill.style.width = `${pct.toFixed(1)}%`;
+          el.timeReadout.textContent = `${Math.min(state.phaseTime, EXIT_DURATION).toFixed(2)}s / ${EXIT_DURATION.toFixed(2)}s`;
+        } else {
+          el.statusDot.classList.add('state-exited');
+          el.statusText.textContent = '已退场';
+          el.progressFill.classList.add('is-exit');
+          el.progressFill.style.width = '0%';
+          el.timeReadout.textContent = state.phase === 'pause' ? '即将重播...' : '画面已清空';
+        }
+      }
+
+      function syncButtonsUI() {
+        el.btnEntrance.classList.toggle('is-active', state.mode === 'entrance');
+        el.btnExit.classList.toggle('is-active', state.mode === 'exit');
+        el.loopToggleBtn.setAttribute('aria-checked', String(state.autoLoop));
+        el.speedBtns.forEach((btn) => {
+          btn.classList.toggle('active', Number(btn.dataset.speed) === state.speed);
+        });
+      }
+
+      function startMode(mode) {
+        state.mode = mode;
+        state.phaseTime = 0;
+        state.lastTs = null;
+
+        if (mode === 'demo' || mode === 'entrance') {
+          state.phase = 'entrance';
+          renderEntrance(0);
+        } else if (mode === 'exit') {
+          state.phase = 'exit';
+          renderExit(0);
+        }
+
+        syncButtonsUI();
+        syncStatusUI();
+      }
+
+      function tick(ts) {
+        if (state.lastTs === null) state.lastTs = ts;
+        // 限制单帧最大 dt，防止切后台回来产生大幅跳帧
+        const dt = Math.min((ts - state.lastTs) / 1000, 0.05) * state.speed;
+        state.lastTs = ts;
+        state.phaseTime += dt;
+
+        if (state.phase === 'entrance') {
+          if (state.phaseTime >= ENTRANCE_DURATION) {
+            state.phase = 'idle';
+            state.phaseTime = 0;
+            renderIdle(0);
+          } else {
+            renderEntrance(state.phaseTime);
+          }
+        } else if (state.phase === 'idle') {
+          renderIdle(state.phaseTime);
+          if ((state.mode === 'demo' || state.autoLoop) && state.phaseTime >= IDLE_DEMO_DURATION) {
+            state.phase = 'exit';
+            state.phaseTime = 0;
+            renderExit(0);
+          }
+        } else if (state.phase === 'exit') {
+          if (state.phaseTime >= EXIT_DURATION) {
+            renderCleared();
+            if (state.autoLoop) {
+              state.phase = 'pause';
+              state.phaseTime = 0;
+            } else {
+              state.phase = 'exited';
+              state.phaseTime = 0;
+            }
+          } else {
+            renderExit(state.phaseTime);
+          }
+        } else if (state.phase === 'pause') {
+          renderCleared();
+          if (!state.autoLoop) {
+            state.phase = 'exited';
+          } else if (state.phaseTime >= LOOP_PAUSE_DURATION) {
+            state.phase = 'entrance';
+            state.phaseTime = 0;
+            renderEntrance(0);
+          }
+        } else if (state.phase === 'exited') {
+          renderCleared();
+          if (state.autoLoop) {
+            state.phase = 'entrance';
+            state.phaseTime = 0;
+            renderEntrance(0);
+          }
+        }
+
+        syncStatusUI();
+        state.rafId = requestAnimationFrame(tick);
+      }
+
+      // =========================================================
+      // 9. 事件绑定与启动
+      // =========================================================
+      el.btnDemo.addEventListener('click', () => startMode('demo'));
+      el.btnEntrance.addEventListener('click', () => startMode('entrance'));
+      el.btnExit.addEventListener('click', () => startMode('exit'));
+
+      el.loopToggleBtn.addEventListener('click', () => {
+        state.autoLoop = !state.autoLoop;
+        syncButtonsUI();
+      });
+
+      el.speedBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          state.speed = Number(btn.dataset.speed);
+          syncButtonsUI();
+        });
+      });
+
+      window.addEventListener('load', () => {
+        startMode('demo');
+        state.rafId = requestAnimationFrame(tick);
+      });
+    })();
+  </script>
+</body>
+</html>

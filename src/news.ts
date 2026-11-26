@@ -24,6 +24,18 @@ const wideImage = (
   height: 1024,
 })
 
+const squareImage = (
+  name: string,
+  sizes = '(max-width: 767px) 92vw, (max-width: 1200px) 46vw, 420px',
+) => ({
+  src: `./images/news/${name}.jpg`,
+  avifSrcSet: `./images/news/${name}-640.avif 640w, ./images/news/${name}-900.avif 900w`,
+  webpSrcSet: `./images/news/${name}-640.webp 640w, ./images/news/${name}-900.webp 900w`,
+  sizes,
+  width: 900,
+  height: 900,
+})
+
 export type NewsBlock =
   | { type: 'p'; text: string }
   | { type: 'h2'; number: string; text: string; id: string }
@@ -53,6 +65,21 @@ export type NewsBlock =
       type: 'timeline'
       title: string
       items: { date: string; title: string; body: string; done?: boolean }[]
+    }
+  | {
+      type: 'archive'
+      title: string
+      note?: string
+      items: {
+        code: string
+        status: string
+        title: string
+        meta: string
+        body: string
+        image: NewsImage
+        reasons: { title: string; body: string }[]
+        demo: { href: string; label: string }
+      }[]
     }
 
 export type NewsArticle = {
@@ -346,9 +373,9 @@ export const logoNews: NewsArticle = {
   title: '第三届徽章发布：三轨环宇，破壳星芒',
   titleLines: ['第三届徽章发布', '三轨环宇，破壳星芒'],
   deck:
-    '第三届咯咯物理奇妙夜官方徽章完成设计。以蛋形为核、三轨为环、折光为破壳，把“致远咯咯”的吉祥物基因收进一枚可佩戴的圆形徽章。',
+    '第三届咯咯物理奇妙夜官方徽章完成设计。以蛋形为核、三轨为环、折光为破壳，把“致远咯咯”的吉祥物基因收进一枚可佩戴的圆形徽章。两个被放弃的早期方案一并归档。',
   byline: '致远物理咯咯 设计组',
-  readTime: '约 7 分钟',
+  readTime: '约 9 分钟',
   hero: {
     ...wideImage(
       'logo-hero',
@@ -362,6 +389,7 @@ export const logoNews: NewsArticle = {
   lead: [
     '11 月 26 日，第三届咯咯物理奇妙夜组委会公布本届官方徽章。徽章以圆形为制，午夜蓝为底、琥珀金为线；三条椭圆轨道环绕中央的蛋形核心，一道折光穿过蛋壳，在右上与四芒星相接。',
     '这是奇妙夜第一次为单届活动建立完整的徽章视觉。设计从“致远咯咯”的破壳小鸡出发，但不画具体的小鸡——只保留蛋形、破口与光。徽章图形目前已在会议官网使用，作为本届活动的视觉标识。',
+    '与徽章同时公开的，还有两个没有被采用的早期方案：一只被原子轨道围住的卡通小鸡，和一枚用锯齿裂纹破壳的抽象蛋。两稿的交互动效一并归档在本文中，可以打开查看。',
   ],
   keyFacts: [
     { label: '发布日期', value: '2026.11.26' },
@@ -482,6 +510,108 @@ export const logoNews: NewsArticle = {
     {
       type: 'h2',
       number: '05',
+      id: 'drafts',
+      text: '两枚没有走通的草稿',
+    },
+    {
+      type: 'p',
+      text:
+        '本届徽章不是一次画成的。在定稿之前，设计组完整地做出过两个方向：一只被原子轨道围住的卡通小鸡，和一枚用锯齿裂纹破壳、顶着一颗四角星的负形蛋。两个方向都做成了可交互的 SVG 动效，最终都没有被采用。',
+    },
+    {
+      type: 'p',
+      text:
+        '两个旧稿现已归档在本页。点击卡片可以在新窗口打开当时的动效演示，轨道、闪烁与出入场参数都保留了原样。它们没有成为官方徽章，但定稿里的许多决定，是在看过它们之后才做出的。',
+    },
+    {
+      type: 'archive',
+      title: 'Archive / 未采用方案',
+      items: [
+        {
+          code: '方案 A',
+          status: '未采用',
+          title: '原子蛋壳小鸡',
+          meta: '旧稿 · 插画方向',
+          body:
+            '把吉祥物直接放进原子模型：四层描边的天蓝轨道、两颗金色电子、七颗星与一弯月牙，围住一只戴蛋壳帽、张开翅膀的卡通小鸡。',
+          image: {
+            ...squareImage('archive-atomic-chick'),
+            alt: '旧稿方案 A：戴蛋壳帽的黄色卡通小鸡，被四条蓝色椭圆轨道环绕，周围散布金星与月牙',
+            caption: '方案 A 原始 SVG 截图。',
+            credit: '旧稿：致远物理咯咯设计组',
+          },
+          reasons: [
+            {
+              title: '元素太多，缩不小',
+              body: '眼睛、翅膀、脚、蛋壳帽，加上四条轨道、两颗电子、七颗星和月牙，各自都有意义；可当徽章缩到 25 毫米、头像缩到 24 像素，表情最先消失，最后只剩一团蓝色线。',
+            },
+            {
+              title: '卡通语言与场合不合',
+              body: '这枚图形要出现在胸卡、证书和屏幕开场里。张嘴笑的小鸡很亲切，却把一场学术夜谈说成了游园会。',
+            },
+            {
+              title: '多出第三种主色',
+              body: '天蓝 #1FA2E1 与金黄 #FFCB42 已经是一套完整的插画配色；再放进站点的午夜蓝与琥珀金，徽章就无法用两色珐琅或烤漆完成。',
+            },
+            {
+              title: '原子不等于奇妙夜',
+              body: '四条轨道加两颗电子是“物理”的通用符号，任何物理社团都能用；它说不出“第三届”，也说不出“咯咯”。',
+            },
+          ],
+          demo: { href: './designs/old-atomic-chick.html', label: '打开动效演示' },
+        },
+        {
+          code: '方案 B',
+          status: '未采用',
+          title: '星光破壳',
+          meta: '旧稿 · 抽象方向',
+          body:
+            '把形象彻底抽空，只留三条圆头轨道、一个用白色负形遮住轨道的蛋，以及蛋顶一道锯齿裂纹与一颗金色四角星。',
+          image: {
+            ...squareImage('archive-starlight-hatch'),
+            alt: '旧稿方案 B：白色蛋形上有一道锯齿裂纹，三条深蓝与金色轨道交叉环绕，蛋顶悬浮金色四角星',
+            caption: '方案 B 原始 SVG 截图。',
+            credit: '旧稿：致远物理咯咯设计组',
+          },
+          reasons: [
+            {
+              title: '白蛋只在白底成立',
+              body: '蛋体与轨道镂空都依赖纯白填充。换到深色胸卡、夜场屏幕或金属徽章上，白色负形会变成一块空洞，遮挡关系随之失效。',
+            },
+            {
+              title: '裂纹画得太具体',
+              body: '上五下六的锯齿在 800 像素时是细节，在 24 像素时就是脏点。定稿改用一条笔直的棱镜折线：破壳变成一个动作，而不是一排锯齿。',
+            },
+            {
+              title: '有交叉，没有前后',
+              body: '三条轨道粗细相同，只有一条换成金色，交叠处靠白色镂空硬切，放大后像断成几截。定稿把倾角定为 −24°、36°、96°，并让后半程压暗、前半程提亮。',
+            },
+            {
+              title: '没有外圈，就还不是徽章',
+              body: '它可以当网站图标，却盖不了章、做不了封印。最终方案补上 12 格刻度的外环，这枚图形才获得“徽章”的形制。',
+            },
+          ],
+          demo: {
+            href: './designs/old-starlight-hatch.html',
+            label: '打开动效演示',
+          },
+        },
+      ],
+      note: '两版均为当时的原始文件，动效由 JavaScript 驱动；点击卡片在新窗口打开。',
+    },
+    {
+      type: 'p',
+      text:
+        '回看两稿，问题其实相同：它们都把“破壳”画成了结论。方案 A 用表情和动作讲完故事，方案 B 用裂纹把故事钉死在蛋顶；而一枚要佩戴一整晚、还要印在纸上的徽章，需要的是可以被反复解读的结构，而不是一个瞬间。',
+    },
+    {
+      type: 'p',
+      text:
+        '定稿从方案 B 借走蛋、三轨与星，从方案 A 借走“吉祥物必须被抽象”这条教训，再补上两稿都没有的三件东西：外圈与刻度、三段有前后关系的轨道，以及一条从蛋壳里穿出、直抵星芒的折光线。',
+    },
+    {
+      type: 'h2',
+      number: '06',
       id: 'white-model',
       text: '白模：先把结构拆成五层',
     },
@@ -507,7 +637,7 @@ export const logoNews: NewsArticle = {
     },
     {
       type: 'h2',
-      number: '06',
+      number: '07',
       id: 'craft',
       text: '工艺：让金色在夜里发光',
     },
@@ -548,7 +678,7 @@ export const logoNews: NewsArticle = {
     },
     {
       type: 'h2',
-      number: '07',
+      number: '08',
       id: 'scenes',
       text: '从物料到屏幕',
     },
@@ -606,7 +736,7 @@ export const logoNews: NewsArticle = {
         '报名仍在进行，截止 12 月 4 日 20:00。三轨环宇，破壳星芒。',
     },
   ],
-  tags: ['设计', '徽章', '视觉识别', '第三届'],
+  tags: ['设计', '徽章', '视觉识别', '旧稿', '第三届'],
 }
 
 export const newsArticles: NewsArticle[] = [logoNews, registrationNews]
