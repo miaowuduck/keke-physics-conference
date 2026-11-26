@@ -330,8 +330,49 @@
   </style>
   <meta name="robots" content="noindex, follow" />
   <link rel="icon" href="../favicon.svg" />
+  <style>
+    /* 内嵌模式：只保留动效画布，隐藏演示外壳（?embed=1） */
+    html { height: 100%; }
+    body.embed {
+      height: 100%;
+      min-height: 0;
+      padding: 0;
+      display: flex;
+      align-items: stretch;
+      background: #FFFFFF;
+    }
+    body.embed main {
+      width: 100%;
+      max-width: none;
+      height: 100%;
+      border: 0;
+      border-radius: 0;
+      background: #FFFFFF;
+      box-shadow: none;
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+      display: flex;
+    }
+    body.embed header,
+    body.embed footer,
+    body.embed #toast { display: none; }
+    body.embed section {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      padding: 0;
+    }
+    body.embed section > div {
+      width: 100%;
+      height: 100%;
+      max-width: none;
+      aspect-ratio: auto;
+    }
+    body.embed svg { display: block; }
+  </style>
 </head>
 <body class="flex items-center justify-center p-4 sm:p-6 md:p-8">
+  <script>if (new URLSearchParams(location.search).has('embed')) document.body.classList.add('embed')</script>
 
   <main class="w-full max-w-2xl bg-white/90 backdrop-blur-md rounded-3xl shadow-[0_20px_60px_-15px_rgba(28,56,90,0.12)] border border-slate-200/80 overflow-hidden">
     <!-- 顶部标题栏 -->
@@ -1079,6 +1120,18 @@
       window.addEventListener('DOMContentLoaded', () => {
         playEntrance();
       });
+    })();
+  </script>
+  <script>
+    (function () {
+      if (!new URLSearchParams(location.search).has('embed')) return;
+      document.body.classList.add('embed');
+      function start() {
+        var play = document.getElementById('btn-enter');
+        if (play) play.click();
+      }
+      if (document.readyState === 'complete') start();
+      else window.addEventListener('load', start);
     })();
   </script>
 </body>

@@ -24,18 +24,6 @@ const wideImage = (
   height: 1024,
 })
 
-const squareImage = (
-  name: string,
-  sizes = '(max-width: 767px) 92vw, (max-width: 1200px) 46vw, 420px',
-) => ({
-  src: `./images/news/${name}.jpg`,
-  avifSrcSet: `./images/news/${name}-640.avif 640w, ./images/news/${name}-900.avif 900w`,
-  webpSrcSet: `./images/news/${name}-640.webp 640w, ./images/news/${name}-900.webp 900w`,
-  sizes,
-  width: 900,
-  height: 900,
-})
-
 export type NewsBlock =
   | { type: 'p'; text: string }
   | { type: 'h2'; number: string; text: string; id: string }
@@ -76,9 +64,8 @@ export type NewsBlock =
         title: string
         meta: string
         body: string
-        image: NewsImage
         reasons: { title: string; body: string }[]
-        demo: { href: string; label: string }
+        embed: { src: string; title: string }
       }[]
     }
 
@@ -389,7 +376,7 @@ export const logoNews: NewsArticle = {
   lead: [
     '11 月 26 日，第三届咯咯物理奇妙夜组委会公布本届官方徽章。徽章以圆形为制，午夜蓝为底、琥珀金为线；三条椭圆轨道环绕中央的蛋形核心，一道折光穿过蛋壳，在右上与四芒星相接。',
     '这是奇妙夜第一次为单届活动建立完整的徽章视觉。设计从“致远咯咯”的破壳小鸡出发，但不画具体的小鸡——只保留蛋形、破口与光。徽章图形目前已在会议官网使用，作为本届活动的视觉标识。',
-    '与徽章同时公开的，还有两个没有被采用的早期方案：一只被原子轨道围住的卡通小鸡，和一枚用锯齿裂纹破壳的抽象蛋。两稿的交互动效一并归档在本文中，可以打开查看。',
+    '与徽章同时公开的，还有两个没有被采用的早期方案：一只被原子轨道围住的卡通小鸡，和一枚用锯齿裂纹破壳的抽象蛋。两稿的原始动效直接嵌在本文中，可以边读边看。',
   ],
   keyFacts: [
     { label: '发布日期', value: '2026.11.26' },
@@ -521,7 +508,7 @@ export const logoNews: NewsArticle = {
     {
       type: 'p',
       text:
-        '两个旧稿现已归档在本页。点击卡片可以在新窗口打开当时的动效演示，轨道、闪烁与出入场参数都保留了原样。它们没有成为官方徽章，但定稿里的许多决定，是在看过它们之后才做出的。',
+        '两个旧稿的动效现在直接嵌在下面，不再是截图或链接：轨道、闪烁与出入场参数都保留了原样，进入视野后自动播放一次，然后停在自己的静止状态。它们没有成为官方徽章，但定稿里的许多决定，是在看过它们之后才做出的。',
     },
     {
       type: 'archive',
@@ -534,13 +521,12 @@ export const logoNews: NewsArticle = {
           meta: '旧稿 · 插画方向',
           body:
             '把吉祥物直接放进原子模型：四层描边的天蓝轨道、两颗金色电子、七颗星与一弯月牙，围住一只戴蛋壳帽、张开翅膀的卡通小鸡。',
-          image: {
-            ...squareImage('archive-atomic-chick'),
-            alt: '旧稿方案 A：戴蛋壳帽的黄色卡通小鸡，被四条蓝色椭圆轨道环绕，周围散布金星与月牙',
-            caption: '方案 A 原始 SVG 截图。',
-            credit: '旧稿：致远物理咯咯设计组',
+          embed: {
+            src: './designs/old-atomic-chick.html?embed=1',
+            title: '方案 A 动效演示：戴蛋壳帽的卡通小鸡被四条蓝色原子轨道环绕',
           },
           reasons: [
+
             {
               title: '元素太多，缩不小',
               body: '眼睛、翅膀、脚、蛋壳帽，加上四条轨道、两颗电子、七颗星和月牙，各自都有意义；可当徽章缩到 25 毫米、头像缩到 24 像素，表情最先消失，最后只剩一团蓝色线。',
@@ -558,7 +544,6 @@ export const logoNews: NewsArticle = {
               body: '四条轨道加两颗电子是“物理”的通用符号，任何物理社团都能用；它说不出“第三届”，也说不出“咯咯”。',
             },
           ],
-          demo: { href: './designs/old-atomic-chick.html', label: '打开动效演示' },
         },
         {
           code: '方案 B',
@@ -567,11 +552,9 @@ export const logoNews: NewsArticle = {
           meta: '旧稿 · 抽象方向',
           body:
             '把形象彻底抽空，只留三条圆头轨道、一个用白色负形遮住轨道的蛋，以及蛋顶一道锯齿裂纹与一颗金色四角星。',
-          image: {
-            ...squareImage('archive-starlight-hatch'),
-            alt: '旧稿方案 B：白色蛋形上有一道锯齿裂纹，三条深蓝与金色轨道交叉环绕，蛋顶悬浮金色四角星',
-            caption: '方案 B 原始 SVG 截图。',
-            credit: '旧稿：致远物理咯咯设计组',
+          embed: {
+            src: './designs/old-starlight-hatch.html?embed=1',
+            title: '方案 B 动效演示：白色蛋形上的锯齿裂纹与三条深蓝、金色轨道',
           },
           reasons: [
             {
@@ -591,13 +574,9 @@ export const logoNews: NewsArticle = {
               body: '它可以当网站图标，却盖不了章、做不了封印。最终方案补上 12 格刻度的外环，这枚图形才获得“徽章”的形制。',
             },
           ],
-          demo: {
-            href: './designs/old-starlight-hatch.html',
-            label: '打开动效演示',
-          },
         },
       ],
-      note: '两版均为当时的原始文件，动效由 JavaScript 驱动；点击卡片在新窗口打开。',
+      note: '两版均为当时的原始文件，动效由 JavaScript 驱动；进入视野后自动播放一次，卡片右上角的按钮可以重播。',
     },
     {
       type: 'p',

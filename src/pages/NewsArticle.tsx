@@ -1,10 +1,11 @@
+import { useState } from 'react'
 import {
   ArrowLeft,
   ArrowRight,
-  ArrowUpRight,
   CalendarDays,
   Mail,
   MapPin,
+  RotateCcw,
   Video,
 } from 'lucide-react'
 import { Header } from '../components/Header'
@@ -51,6 +52,77 @@ function Figure({
         )}
       </figcaption>
     </figure>
+  )
+}
+
+type ArchiveItem = Extract<NewsBlock, { type: 'archive' }>['items'][number]
+
+function ArchiveCard({ item }: { item: ArchiveItem }) {
+  const [playCount, setPlayCount] = useState(0)
+
+  return (
+    <article className="flex flex-col border-2 border-line bg-deep/40">
+      <div className="flex items-center justify-between gap-3 border-b-2 border-line px-4 py-2">
+        <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-gold">
+          {item.code}
+        </span>
+        <span className="flex items-center gap-2">
+          <span className="border border-line px-2 py-0.5 font-mono text-[9.5px] tracking-[0.14em] text-mute">
+            {item.status}
+          </span>
+          <button
+            type="button"
+            onClick={() => setPlayCount((count) => count + 1)}
+            aria-label={`重播${item.title}动效`}
+            title="重播动效"
+            className="inline-flex h-6 w-6 items-center justify-center border border-line text-mute transition-colors hover:border-gold hover:text-gold focus-visible:border-gold focus-visible:text-gold focus-visible:outline-none"
+          >
+            <RotateCcw size={12} strokeWidth={2} />
+          </button>
+        </span>
+      </div>
+
+      <div className="border-b-2 border-line bg-white">
+        <iframe
+          key={playCount}
+          src={item.embed.src}
+          title={item.embed.title}
+          loading="lazy"
+          className="block aspect-square w-full border-0"
+        />
+      </div>
+
+      <div className="flex flex-1 flex-col p-4">
+        <p className="font-mono text-[9.5px] uppercase tracking-[0.14em] text-mute">
+          {item.meta}
+        </p>
+        <h3 className="display mt-1.5 text-[19px] font-extrabold leading-tight">
+          {item.title}
+        </h3>
+        <p className="mt-2 text-[12.5px] leading-relaxed text-mute">
+          {item.body}
+        </p>
+
+        <p className="mt-4 border-t border-line pt-3 font-mono text-[9.5px] uppercase tracking-[0.16em] text-gold">
+          未采用的原因
+        </p>
+        <ol className="mt-2.5 space-y-2.5">
+          {item.reasons.map((reason, index) => (
+            <li key={reason.title} className="flex gap-2.5">
+              <span className="mt-[3px] font-mono text-[9.5px] text-gold">
+                {String(index + 1).padStart(2, '0')}
+              </span>
+              <p className="text-[12px] leading-relaxed text-mute">
+                <span className="font-semibold text-bone">
+                  {reason.title}。
+                </span>
+                {reason.body}
+              </p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </article>
   )
 }
 
@@ -223,81 +295,7 @@ function Block({ block }: { block: NewsBlock }) {
           </p>
           <div className="mt-4 grid grid-cols-1 gap-6 md:grid-cols-2">
             {block.items.map((item) => (
-              <article
-                key={item.code}
-                className="flex flex-col border-2 border-line bg-deep/40"
-              >
-                <div className="flex items-center justify-between gap-3 border-b-2 border-line px-4 py-2.5">
-                  <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-gold">
-                    {item.code}
-                  </span>
-                  <span className="border border-line px-2 py-0.5 font-mono text-[9.5px] tracking-[0.14em] text-mute">
-                    {item.status}
-                  </span>
-                </div>
-
-                <a
-                  href={item.demo.href}
-                  target="_blank"
-                  rel="noopener"
-                  className="group relative block border-b-2 border-line bg-[#f5f3ec] p-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold"
-                >
-                  <NewsPicture
-                    image={item.image}
-                    className="h-auto w-full select-none"
-                  />
-                  <span
-                    aria-hidden="true"
-                    className="pointer-events-none absolute inset-x-5 bottom-5 flex translate-y-1 items-center justify-between gap-2 bg-night/90 px-3 py-2 font-mono text-[10px] uppercase tracking-[0.14em] text-gold opacity-0 transition duration-200 group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100"
-                  >
-                    {item.demo.label}
-                    <ArrowUpRight size={13} strokeWidth={2} />
-                  </span>
-                  <span className="sr-only">（在新窗口打开）</span>
-                </a>
-
-                <div className="flex flex-1 flex-col p-4">
-                  <p className="font-mono text-[9.5px] uppercase tracking-[0.14em] text-mute">
-                    {item.meta}
-                  </p>
-                  <h3 className="display mt-1.5 text-[19px] font-extrabold leading-tight">
-                    {item.title}
-                  </h3>
-                  <p className="mt-2 text-[12.5px] leading-relaxed text-mute">
-                    {item.body}
-                  </p>
-
-                  <p className="mt-4 border-t border-line pt-3 font-mono text-[9.5px] uppercase tracking-[0.16em] text-gold">
-                    未采用的原因
-                  </p>
-                  <ol className="mt-2.5 space-y-2.5">
-                    {item.reasons.map((reason, index) => (
-                      <li key={reason.title} className="flex gap-2.5">
-                        <span className="mt-[3px] font-mono text-[9.5px] text-gold">
-                          {String(index + 1).padStart(2, '0')}
-                        </span>
-                        <p className="text-[12px] leading-relaxed text-mute">
-                          <span className="font-semibold text-bone">
-                            {reason.title}。
-                          </span>
-                          {reason.body}
-                        </p>
-                      </li>
-                    ))}
-                  </ol>
-
-                  <a
-                    href={item.demo.href}
-                    target="_blank"
-                    rel="noopener"
-                    className="mt-4 flex items-center justify-between border-t border-line pt-3 font-mono text-[10.5px] uppercase tracking-[0.12em] text-gold hover:text-bone"
-                  >
-                    {item.demo.label}
-                    <span className="sr-only">（在新窗口打开）</span>
-                    <ArrowUpRight size={14} strokeWidth={1.75} />
-                  </a>
-                </div>
-              </article>
+              <ArchiveCard key={item.code} item={item} />
             ))}
           </div>
           {block.note && (
