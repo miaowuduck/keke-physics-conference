@@ -85,18 +85,12 @@ export function TopicMark({
       <svg
         width={size}
         height={size}
-        viewBox={`0 0 ${size} ${size}`}
+        viewBox="0 0 100 100"
         aria-hidden="true"
         className={className}
       >
         <path
-          d={`M ${half} 0 L ${half + size * 0.16} ${half - size * 0.16} L ${size} ${half} L ${
-            half + size * 0.16
-          } ${half + size * 0.16} L ${half} ${size} L ${
-            half - size * 0.16
-          } ${half + size * 0.16} L 0 ${half} L ${
-            half - size * 0.16
-          } ${half - size * 0.16} Z`}
+          d="M 50 3 C 53.6 31.7, 68.3 46.4, 97 50 C 68.3 53.6, 53.6 68.3, 50 97 C 46.4 68.3, 31.7 53.6, 3 50 C 31.7 46.4, 46.4 31.7, 50 3 Z"
           fill={fill}
         />
       </svg>

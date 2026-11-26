@@ -1,5 +1,6 @@
 import { motion } from 'motion/react'
 import { useReducedMotion } from '../lib/useReducedMotion'
+import { LogoStar } from './LogoMark'
 
 type Props = {
   number: string
@@ -24,7 +25,8 @@ export function SectionHead({ number, title, eyebrow }: Props) {
         <h2 className="display text-[clamp(40px,6vw,88px)] font-extrabold leading-[0.95] tracking-[-0.01em]">
           {title}
         </h2>
-        <span className="mb-2 ml-auto hidden font-mono text-[11px] uppercase tracking-[0.2em] text-mute sm:block">
+        <span className="mb-2 ml-auto hidden items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-mute sm:flex">
+          <LogoStar size={10} className="text-gold" />
           {eyebrow}
         </span>
       </div>

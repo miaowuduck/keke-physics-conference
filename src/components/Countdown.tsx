@@ -3,6 +3,7 @@ import { CalendarPlus } from 'lucide-react'
 import { site } from '../content'
 import { pad2 } from '../lib/format'
 import { downloadIcs } from '../lib/ics'
+import { LogoOrbits, LogoStar } from './LogoMark'
 
 const EVENT_HOURS = 4
 
@@ -43,11 +44,18 @@ export function Countdown() {
   return (
     <section
       aria-label="活动倒计时"
-      className="border-y-2 border-line bg-deeper"
+      className="relative overflow-hidden border-y-2 border-line bg-deeper"
     >
-      <div className="poster-wrap flex flex-col gap-6 py-8 md:flex-row md:items-center md:justify-between">
-        <div>
-          <p className="eyebrow text-gold">COUNTDOWN</p>
+      <LogoOrbits
+        size={520}
+        className="pointer-events-none absolute -right-[6%] top-1/2 hidden -translate-y-1/2 text-gold opacity-[0.07] md:block"
+      />
+      <div className="poster-wrap relative flex flex-col gap-6 py-8 lg:flex-row lg:items-center lg:justify-between">
+        <div className="min-w-0">
+          <p className="eyebrow flex items-center gap-2 text-gold">
+            <LogoStar size={9} />
+            COUNTDOWN
+          </p>
           <p className="display mt-2 text-[26px] font-extrabold leading-none">
             {live
               ? '第三届奇妙夜，正在进行'
@@ -62,7 +70,7 @@ export function Countdown() {
 
         {!live && !ended && (
           <div
-            className="grid grid-cols-4 gap-2 sm:gap-4"
+            className="grid shrink-0 grid-cols-4 gap-2 sm:gap-4"
             aria-live="off"
             role="timer"
           >

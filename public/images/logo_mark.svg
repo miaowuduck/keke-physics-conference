@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-labelledby="lmTitle">
+  <title id="lmTitle">咯咯物理奇妙夜徽记</title>
+  <defs>
+    <clipPath id="lmInner"><circle cx="200" cy="200" r="155.5"/></clipPath>
+    <clipPath id="lmBackHalf"><rect x="-160" y="-160" width="320" height="162"/></clipPath>
+    <clipPath id="lmFrontHalf"><rect x="-160" y="-2" width="320" height="162"/></clipPath>
+    <clipPath id="lmCoreLeft"><path d="M 80 80 L 252 110 L 205 192 L 195 202 L 146 288 L 80 330 Z"/></clipPath>
+    <clipPath id="lmCoreRight"><path d="M 252 110 L 320 80 L 320 330 L 146 288 L 195 202 L 205 192 Z"/></clipPath>
+  </defs>
+
+  <circle cx="200" cy="200" r="164" fill="#F0CE7B"/>
+  <circle cx="200" cy="200" r="156" fill="#10162F"/>
+
+  <g clip-path="url(#lmInner)">
+    <circle cx="200" cy="200" r="147" fill="none" stroke="#F0CE7B" stroke-opacity=".34" stroke-width="1.1"/>
+    <g fill="#F0CE7B" stroke="#F0CE7B">
+      <circle cx="347" cy="200" r="2" stroke="none" opacity=".5"/>
+      <circle cx="200" cy="347" r="2" stroke="none" opacity=".5"/>
+      <circle cx="53" cy="200" r="2" stroke="none" opacity=".5"/>
+      <circle cx="200" cy="53" r="2" stroke="none" opacity=".5"/>
+      <g stroke-width="1.1" stroke-linecap="round" opacity=".42">
+        <line x1="200" y1="50.8" x2="200" y2="55.8" transform="rotate(30 200 200)"/>
+        <line x1="200" y1="50.8" x2="200" y2="55.8" transform="rotate(60 200 200)"/>
+        <line x1="200" y1="50.8" x2="200" y2="55.8" transform="rotate(120 200 200)"/>
+        <line x1="200" y1="50.8" x2="200" y2="55.8" transform="rotate(150 200 200)"/>
+        <line x1="200" y1="50.8" x2="200" y2="55.8" transform="rotate(210 200 200)"/>
+        <line x1="200" y1="50.8" x2="200" y2="55.8" transform="rotate(240 200 200)"/>
+        <line x1="200" y1="50.8" x2="200" y2="55.8" transform="rotate(300 200 200)"/>
+        <line x1="200" y1="50.8" x2="200" y2="55.8" transform="rotate(330 200 200)"/>
+      </g>
+    </g>
+
+    <!-- 三条椭圆轨道：后半弧 -->
+    <g fill="none" opacity=".5">
+      <g transform="translate(200 200) rotate(-24)">
+        <g clip-path="url(#lmBackHalf)"><ellipse rx="132" ry="43" stroke="#D9B45E" stroke-width="1.5"/></g>
+      </g>
+      <g transform="translate(200 200) rotate(36)">
+        <g clip-path="url(#lmBackHalf)"><ellipse rx="134" ry="45" stroke="#F0CE7B" stroke-width="1.7"/></g>
+      </g>
+      <g transform="translate(200 200) rotate(96)">
+        <g clip-path="url(#lmBackHalf)"><ellipse rx="130" ry="43" stroke="#F0CE7B" stroke-width="1.7"/></g>
+      </g>
+    </g>
+
+    <!-- 中心蛋形核心：斜向棱镜切口 -->
+    <path d="M 234 141 L 205 192 L 195 202 L 160 264" fill="none" stroke="#F0CE7B" stroke-width="8" stroke-opacity=".16" stroke-linecap="round"/>
+    <path d="M 232 144 L 205 192 L 195 202 L 162 260" fill="none" stroke="#E7E4D2" stroke-width="1.2" stroke-opacity=".55" stroke-linecap="round" stroke-linejoin="miter"/>
+    <g transform="translate(-4.64 -2.7)">
+      <g clip-path="url(#lmCoreLeft)">
+        <path d="M 200 116 C 235 116, 255 166, 255 220 C 255 267, 231 294, 200 294 C 169 294, 145 267, 145 220 C 145 166, 165 116, 200 116 Z" fill="#212A54" stroke="#F0CE7B" stroke-width="2.4"/>
+      </g>
+      <path d="M 233 143 L 205 192 L 195 202 L 159 266" fill="none" stroke="#F0CE7B" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="miter"/>
+    </g>
+    <g transform="translate(4.64 2.7)">
+      <g clip-path="url(#lmCoreRight)">
+        <path d="M 200 116 C 235 116, 255 166, 255 220 C 255 267, 231 294, 200 294 C 169 294, 145 267, 145 220 C 145 166, 165 116, 200 116 Z" fill="#212A54" stroke="#F0CE7B" stroke-width="2.4"/>
+      </g>
+      <path d="M 233 143 L 205 192 L 195 202 L 159 266" fill="none" stroke="#F0CE7B" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="miter"/>
+    </g>
+
+    <!-- 三条椭圆轨道：前半弧（带负空间隔离） -->
+    <g fill="none">
+      <g transform="translate(200 200) rotate(-24)">
+        <g clip-path="url(#lmFrontHalf)">
+          <ellipse rx="132" ry="43" stroke="#10162F" stroke-width="5.4"/>
+          <ellipse rx="132" ry="43" stroke="#D9B45E" stroke-width="1.5"/>
+        </g>
+      </g>
+      <g transform="translate(200 200) rotate(36)">
+        <g clip-path="url(#lmFrontHalf)">
+          <ellipse rx="134" ry="45" stroke="#10162F" stroke-width="5.8"/>
+          <ellipse rx="134" ry="45" stroke="#F0CE7B" stroke-width="1.7"/>
+        </g>
+      </g>
+      <g transform="translate(200 200) rotate(96)">
+        <g clip-path="url(#lmFrontHalf)">
+          <ellipse rx="130" ry="43" stroke="#10162F" stroke-width="5.8"/>
+          <ellipse rx="130" ry="43" stroke="#F0CE7B" stroke-width="1.7"/>
+        </g>
+      </g>
+    </g>
+
+    <!-- 金色四角星在切口上端负空间绽放 -->
+    <g transform="translate(231 144)">
+      <circle r="24" fill="#10162F"/>
+      <path d="M 0 -29 C 3.4 -10.5, 10.5 -3.4, 29 0 C 10.5 3.4, 3.4 10.5, 0 29 C -3.4 10.5, -10.5 3.4, -29 0 C -10.5 -3.4, -3.4 -10.5, 0 -29 Z" fill="#F0CE7B"/>
+      <circle r="3.4" fill="#E7E4D2"/>
+    </g>
+  </g>
+</svg>

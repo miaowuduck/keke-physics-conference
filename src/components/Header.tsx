@@ -4,9 +4,10 @@ import { Menu, X } from 'lucide-react'
 import { nav, site } from '../content'
 import { cn, externalLink } from '../lib/format'
 import { useReducedMotion } from '../lib/useReducedMotion'
+import { LogoMark } from './LogoMark'
 
 type Props = {
-  active?: 'home' | 'schedule'
+  active?: 'home' | 'schedule' | 'news'
 }
 
 export function Header({ active = 'home' }: Props) {
@@ -63,7 +64,7 @@ export function Header({ active = 'home' }: Props) {
             className="flex items-center gap-2.5"
             aria-label={`${site.nameZh} 首页`}
           >
-            <span className="h-3.5 w-3.5 bg-gold" aria-hidden="true" />
+            <LogoMark size={42} play="intro" />
             <span className="display text-[22px] font-black tracking-[0.02em]">
               KEKE
             </span>
@@ -74,8 +75,11 @@ export function Header({ active = 'home' }: Props) {
 
           <nav className="hidden items-center gap-6 lg:flex" aria-label="主导航">
             {nav.map((item) => {
+              const isNews = item.href.includes('news')
               const isSchedule = item.href.includes('schedule')
-              const isActive = isSchedule && active === 'schedule'
+              const isActive =
+                (isNews && active === 'news') ||
+                (isSchedule && active === 'schedule')
               return (
                 <a
                   key={item.label}
@@ -135,7 +139,10 @@ export function Header({ active = 'home' }: Props) {
             className="fixed inset-0 z-[60] flex flex-col bg-deeper"
           >
             <div className="poster-wrap flex h-16 shrink-0 items-center justify-between border-b-2 border-line">
-              <span className="display text-[22px] font-black">KEKE</span>
+              <div className="flex items-center gap-2.5">
+                <LogoMark size={40} play="intro" />
+                <span className="display text-[22px] font-black">KEKE</span>
+              </div>
               <button
                 type="button"
                 onClick={close}

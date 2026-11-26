@@ -191,6 +191,23 @@
   border-color: rgba(124, 196, 240, 0.18);
 }
 
+.cta-emblem {
+  position: absolute;
+  top: 50%;
+  right: 2%;
+  width: clamp(280px, 26vw, 380px);
+  height: auto;
+  transform: translateY(-50%);
+  pointer-events: none;
+  filter: drop-shadow(0 18px 36px rgba(16, 22, 47, 0.22));
+}
+
+@media (max-width: 1023px) {
+  .logo-mark.cta-emblem {
+    display: none;
+  }
+}
+
 .star {
   position: absolute;
   border-radius: 9999px;
@@ -262,14 +279,13 @@
 }
 
 .meteor-dot {
-  width: 6px;
-  height: 6px;
+  width: 11px;
+  height: 11px;
   flex: none;
-  border-radius: 9999px;
-  background: var(--gold);
-  box-shadow:
-    0 0 12px rgba(240, 206, 123, 0.95),
-    0 0 30px rgba(240, 206, 123, 0.6);
+  transform-origin: center;
+  color: var(--gold);
+  filter: drop-shadow(0 0 6px rgba(240, 206, 123, 0.95))
+    drop-shadow(0 0 18px rgba(240, 206, 123, 0.55));
   animation: meteor-dot-out 0.25s ease-out var(--shatter-at, 3s) forwards;
 }
 
@@ -351,11 +367,20 @@
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 3px;
-  height: 3px;
-  border-radius: 9999px;
+  width: 5px;
+  height: 5px;
   background: var(--gold);
-  box-shadow: 0 0 6px rgba(240, 206, 123, 0.8);
+  clip-path: polygon(
+    50% 0%,
+    62% 38%,
+    100% 50%,
+    62% 62%,
+    50% 100%,
+    38% 62%,
+    0% 50%,
+    38% 38%
+  );
+  filter: drop-shadow(0 0 4px rgba(240, 206, 123, 0.9));
   opacity: 0;
   animation: meteor-spark 0.8s ease-out var(--spark-delay, 3s) forwards;
 }
@@ -375,6 +400,249 @@
 }
 
 
+
+/* ---------- logo mark ---------- */
+
+.logo-mark {
+  display: block;
+  flex: none;
+  overflow: visible;
+}
+
+.logo-star {
+  display: block;
+  flex: none;
+}
+
+.logo-mark .lm-pop {
+  transform-box: view-box;
+  transform-origin: 200px 200px;
+}
+
+.logo-mark .lm-core-a {
+  transform: translate(-4.64px, -2.7px);
+}
+
+.logo-mark .lm-core-b {
+  transform: translate(4.64px, 2.7px);
+}
+
+.logo-mark .lm-star-body {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.logo-mark .lm-orbit-line {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+
+.logo-mark .lm-slash {
+  opacity: 0;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+
+/* 开场：徽章成形 → 星环充能 → 棱镜破壳 → 星芒聚能 */
+.logo-mark.is-intro .lm-pop {
+  animation: lm-pop-in 620ms cubic-bezier(0.2, 0.85, 0.3, 1.05) both;
+}
+
+.logo-mark.is-intro .lm-core {
+  animation: lm-fade-in 300ms ease-out 80ms both;
+}
+
+.logo-mark.is-intro .lm-core-a {
+  animation: lm-split-a 470ms cubic-bezier(0.2, 0.9, 0.25, 1.15) 420ms both;
+}
+
+.logo-mark.is-intro .lm-core-b {
+  animation: lm-split-b 470ms cubic-bezier(0.2, 0.9, 0.25, 1.15) 420ms both;
+}
+
+.logo-mark.is-intro .lm-orbit-line {
+  animation: lm-draw 680ms cubic-bezier(0.45, 0, 0.25, 1)
+    calc(170ms + var(--lm-delay, 0ms)) both;
+}
+
+.logo-mark.is-intro .lm-of {
+  animation: lm-fade-in 240ms ease-out calc(170ms + var(--lm-delay, 0ms)) both;
+}
+
+.logo-mark.is-intro .lm-cavity {
+  animation: lm-fade-in 180ms ease-out 500ms both;
+}
+
+.logo-mark.is-intro .lm-star-body {
+  animation: lm-star-in 640ms cubic-bezier(0.18, 0.9, 0.3, 1.2) 540ms both;
+}
+
+.logo-mark.is-intro .lm-slash {
+  animation: lm-slash 560ms cubic-bezier(0.3, 0.6, 0.3, 1) 360ms both;
+}
+
+/* 退场：星芒收束 → 核心吸合 → 星环抽离 → 徽章淡出 */
+.logo-mark.is-outro .lm-star-body {
+  animation: lm-star-out 320ms cubic-bezier(0.4, 0, 0.8, 0.4) both;
+}
+
+.logo-mark.is-outro .lm-cavity {
+  animation: lm-fade-out 220ms ease-in 60ms both;
+}
+
+.logo-mark.is-outro .lm-core-a {
+  animation: lm-close-a 340ms cubic-bezier(0.5, 0, 0.8, 0.4) 100ms both;
+}
+
+.logo-mark.is-outro .lm-core-b {
+  animation: lm-close-b 340ms cubic-bezier(0.5, 0, 0.8, 0.4) 100ms both;
+}
+
+.logo-mark.is-outro .lm-orbit-line {
+  animation: lm-undraw 440ms cubic-bezier(0.6, 0, 0.8, 0.4)
+    calc(120ms + var(--lm-delay, 0ms)) both;
+}
+
+.logo-mark.is-outro .lm-of {
+  animation: lm-fade-out 300ms ease-in calc(120ms + var(--lm-delay, 0ms)) both;
+}
+
+.logo-mark.is-outro .lm-pop {
+  animation: lm-pop-out 640ms cubic-bezier(0.5, 0, 0.75, 0.3) 320ms both;
+}
+
+@keyframes lm-pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.72);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes lm-pop-out {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.82);
+  }
+}
+
+@keyframes lm-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes lm-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes lm-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes lm-undraw {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: -1;
+  }
+}
+
+@keyframes lm-split-a {
+  from {
+    transform: translate(0px, 0px);
+  }
+  to {
+    transform: translate(-4.64px, -2.7px);
+  }
+}
+
+@keyframes lm-split-b {
+  from {
+    transform: translate(0px, 0px);
+  }
+  to {
+    transform: translate(4.64px, 2.7px);
+  }
+}
+
+@keyframes lm-close-a {
+  from {
+    transform: translate(-4.64px, -2.7px);
+  }
+  to {
+    transform: translate(0px, 0px);
+  }
+}
+
+@keyframes lm-close-b {
+  from {
+    transform: translate(4.64px, 2.7px);
+  }
+  to {
+    transform: translate(0px, 0px);
+  }
+}
+
+@keyframes lm-star-in {
+  0% {
+    opacity: 0;
+    transform: rotate(-72deg) scale(0.06);
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
+}
+
+@keyframes lm-star-out {
+  from {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: rotate(110deg) scale(0.05);
+  }
+}
+
+@keyframes lm-slash {
+  0% {
+    opacity: 0;
+    stroke-dashoffset: 1;
+  }
+  22% {
+    opacity: 0.95;
+  }
+  100% {
+    opacity: 0;
+    stroke-dashoffset: -0.35;
+  }
+}
 
 /* ---------- speaker portraits ---------- */
 

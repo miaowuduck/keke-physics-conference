@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
 import { questions } from '../content'
 import { useReducedMotion } from '../lib/useReducedMotion'
+import { LogoStar } from './LogoMark'
 
 type ShatterChar = {
   ch: string
@@ -140,7 +141,7 @@ export function MeteorQuestions() {
             } as CSSProperties
           }
         >
-          <span className="meteor-dot" />
+          <LogoStar size={11} className="meteor-dot" />
 
           <span className="meteor-text">
             <span

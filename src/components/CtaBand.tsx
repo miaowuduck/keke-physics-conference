@@ -3,17 +3,18 @@ import { ArrowRight } from 'lucide-react'
 import { cta } from '../content'
 import { externalLink } from '../lib/format'
 import { useReducedMotion } from '../lib/useReducedMotion'
+import { LogoMark } from './LogoMark'
 
 export function CtaBand() {
   const reduced = useReducedMotion()
   const letters = Array.from(cta.line)
 
   return (
-    <section className="relative overflow-hidden border-y-2 border-line bg-gold text-night">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -right-[12%] top-1/2 h-[42vw] w-[42vw] -translate-y-1/2 rounded-full bg-night opacity-90 mix-blend-multiply"
-      />
+    <section
+      id="cta"
+      className="relative overflow-hidden border-y-2 border-line bg-gold text-night"
+    >
+      <LogoMark size={420} playOnView className="cta-emblem" />
       <div className="poster-wrap relative py-[88px] md:py-[120px]">
         <h2 className="display max-w-5xl text-[clamp(44px,7vw,112px)] font-black uppercase leading-[0.92] tracking-[-0.01em]">
           {letters.map((letter, index) => (

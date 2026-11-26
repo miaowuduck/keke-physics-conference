@@ -10,6 +10,7 @@ import {
   Video,
 } from 'lucide-react'
 import { Header } from '../components/Header'
+import { LogoRing, LogoStar } from '../components/LogoMark'
 import { PosterHeadline } from '../components/PosterHeadline'
 import { Starfield } from '../components/Starfield'
 import { Countdown } from '../components/Countdown'
@@ -23,6 +24,7 @@ import { CtaBand } from '../components/CtaBand'
 import { Footer } from '../components/Footer'
 import { MeteorQuestions } from '../components/MeteorQuestions'
 import { RegistrationCountdown } from '../components/RegistrationCountdown'
+import { NewsTeaser } from '../components/NewsTeaser'
 import {
   about,
   attend,
@@ -89,7 +91,10 @@ function Hero() {
         </div>
 
         <div className="flex flex-1 flex-col justify-center py-10 sm:py-14">
-          <p className="eyebrow mb-4 text-center text-gold">{hero.kicker}</p>
+          <p className="eyebrow mb-4 flex items-center justify-center gap-2 text-gold">
+            <LogoStar size={10} />
+            {hero.kicker}
+          </p>
           {stacked ? (
             <div className="flex flex-col items-center">
               <PosterHeadline
@@ -412,9 +417,16 @@ function VenueSection() {
           </div>
 
           <div className="lg:col-span-7">
-            <div className="flex h-full min-h-[320px] flex-col justify-between border-2 border-line bg-deep p-6 md:p-8">
-              <div>
-                <p className="eyebrow text-gold">ROOM</p>
+            <div className="relative flex h-full min-h-[320px] flex-col justify-between overflow-hidden border-2 border-line bg-deep p-6 md:p-8">
+              <LogoRing
+                size={460}
+                className="pointer-events-none absolute -right-28 -top-28 text-gold opacity-[0.1]"
+              />
+              <div className="relative">
+                <p className="eyebrow flex items-center gap-2 text-gold">
+                  <LogoStar size={9} />
+                  ROOM
+                </p>
                 <p className="display mt-3 text-[clamp(80px,14vw,160px)] font-black leading-none text-gold">
                   {venue.room}
                 </p>
@@ -426,7 +438,7 @@ function VenueSection() {
                 </p>
               </div>
 
-              <div className="mt-8 border-t-2 border-line pt-4">
+              <div className="relative mt-8 border-t-2 border-line pt-4">
                 <p className="text-[13px] leading-relaxed text-mute">
                   地图链接会打开真实地图，搜索“上海交通大学致远学院”。校园较大，建议预留步行时间。
                 </p>
@@ -544,6 +556,7 @@ export function Home() {
         <VenueSection />
         <AttendSection />
         <FaqSection />
+        <NewsTeaser />
         <CtaBand />
       </main>
       <Footer />

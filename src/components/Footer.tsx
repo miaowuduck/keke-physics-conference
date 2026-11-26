@@ -1,4 +1,5 @@
 import { footer, site } from '../content'
+import { LogoMark, LogoStar } from './LogoMark'
 
 export function Footer() {
   return (
@@ -7,7 +8,7 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <div className="flex items-center gap-2.5">
-              <span className="h-3.5 w-3.5 bg-gold" aria-hidden="true" />
+              <LogoMark size={46} playOnView />
               <span className="display text-[24px] font-black tracking-[0.02em]">
                 KEKE
               </span>
@@ -54,7 +55,10 @@ export function Footer() {
         </div>
 
         <div className="mt-14 flex flex-col gap-3 border-t border-line/70 py-5 font-mono text-[11px] text-mute sm:flex-row sm:items-center sm:justify-between">
-          <p>{site.copyright}</p>
+          <p className="flex items-center gap-2">
+            <LogoStar size={9} className="text-gold" />
+            {site.copyright}
+          </p>
           <a
             href={footer.credit.href}
             target="_blank"

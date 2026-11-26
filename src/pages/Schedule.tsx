@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import { ArrowRight } from 'lucide-react'
 import { Header } from '../components/Header'
+import { LogoMark, LogoStar } from '../components/LogoMark'
 import { PosterHeadline } from '../components/PosterHeadline'
 import { TopicMark } from '../components/TopicMark'
 import { CtaBand } from '../components/CtaBand'
@@ -178,11 +179,15 @@ export function Schedule() {
             </div>
 
             <div className="relative mt-8">
-              <span
-                aria-hidden="true"
-                className="absolute right-0 top-0 hidden h-16 w-16 bg-gold sm:block"
+              <LogoMark
+                size={76}
+                play="intro"
+                className="absolute right-0 top-0 hidden sm:block"
               />
-              <p className="eyebrow mb-4 text-gold">{schedulePage.kicker}</p>
+              <p className="eyebrow mb-4 flex items-center gap-2 text-gold">
+                <LogoStar size={10} />
+                {schedulePage.kicker}
+              </p>
               <PosterHeadline
                 word={schedulePage.word}
                 maxFontSize={320}

@@ -28,6 +28,9 @@ npm run preview  # 预览生产构建
 
 - `/index.html` — 首页
 - `/schedule.html` — 三年议程（2027 / 2026 / 2024）
+- `/news.html` — 新闻与动态
+- `/news-2026-11-25.html` — 新闻详情（报名启动预热）
+- `/news-2026-11-26.html` — 新闻详情（第三届徽章发布）
 
 ## 改内容
 
@@ -73,16 +76,21 @@ npm run preview  # 预览生产构建
 ## 待确认 / 占位
 
 - 2027 腾讯会议号与密码
+- **新闻**：内容集中在 `src/news.ts`。每条新闻需要：一篇独立 HTML 入口（或复用现有入口）、在 `newsArticles` 中登记、并在 `vite.config.ts` 的 `rollupOptions.input` 里加入对应 HTML。
+- **新闻图片**：`public/images/news/` 使用 AVIF / WebP / JPEG 三套格式与多尺寸 `srcset`，并优先加载首屏图；新增图片请一并生成压缩版本。
 - 2027 议程与讲者
 - 公众号二维码、照片直播链接（原素材未存档）
 
 ## 目录
 
 ```
-index.html / schedule.html      两个入口
-src/content.ts                  全部内容与数据
+index.html / schedule.html / news*.html   页面入口
+src/content.ts                  会议内容与数据
+src/news.ts                     新闻内容与图片数据
 src/pages/Home.tsx              首页
 src/pages/Schedule.tsx          议程页
+src/pages/News.tsx              新闻列表
+src/pages/NewsArticle.tsx       新闻详情
 src/components/                 导航、标题、星野、问题流星、倒计时、讲者、场地卡、报名、FAQ…
 src/styles.css                  配色、字体、组件类、动效
 public/                         favicon、logo、重定向页、robots、sitemap

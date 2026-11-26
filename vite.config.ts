@@ -10,6 +10,9 @@ export default defineConfig({
       input: {
         main: 'index.html',
         schedule: 'schedule.html',
+        news: 'news.html',
+        newsArticle: 'news-2026-11-25.html',
+        newsLogo: 'news-2026-11-26.html',
       },
     },
   },

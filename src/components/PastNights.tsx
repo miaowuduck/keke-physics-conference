@@ -111,12 +111,27 @@ export function PastNights() {
               </div>
               <div className="flex items-center gap-3">
                 {edition.id === '2026' && (
-                  <img
-                    src="./images/logo_main.svg"
-                    alt="第二届咯咯物理奇妙夜徽记"
-                    className="h-16 w-16 rounded-full border-2 border-gold object-cover"
-                    loading="lazy"
-                  />
+                  <picture>
+                    <source
+                      type="image/avif"
+                      srcSet="./images/logo_2026-128.avif 128w, ./images/logo_2026-192.avif 192w"
+                      sizes="64px"
+                    />
+                    <source
+                      type="image/webp"
+                      srcSet="./images/logo_2026-128.webp 128w, ./images/logo_2026-192.webp 192w"
+                      sizes="64px"
+                    />
+                    <img
+                      src="./images/logo_2026-128.png"
+                      alt="第二届咯咯物理奇妙夜徽记"
+                      width={128}
+                      height={128}
+                      className="h-16 w-16 rounded-full border-2 border-gold object-cover"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </picture>
                 )}
                 <ArrowUpRight
                   className="h-7 w-7 text-mute transition-all duration-200 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-gold"

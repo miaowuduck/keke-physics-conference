@@ -129,6 +129,7 @@ export const nav = [
   { label: '往届', href: './index.html#archive' },
   { label: '地点', href: './index.html#venue' },
   { label: '问答', href: './index.html#faq' },
+  { label: '新闻', href: './news.html' },
   { label: '议程', href: './schedule.html' },
 ]
 
@@ -884,6 +885,7 @@ export const footer = {
         { label: '本届', href: './index.html#this-year' },
         { label: '讲者', href: './index.html#speakers' },
         { label: '往届', href: './index.html#archive' },
+        { label: '新闻', href: './news.html' },
         { label: '议程', href: './schedule.html' },
       ],
     },

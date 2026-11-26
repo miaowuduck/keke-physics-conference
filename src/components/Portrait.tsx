@@ -27,12 +27,17 @@ function mulberry32(seed: number) {
 }
 
 function starPath(cx: number, cy: number, radius: number) {
-  const inner = radius * 0.28
-  return `M ${cx} ${cy - radius} L ${cx + inner} ${cy - inner} L ${
-    cx + radius
-  } ${cy} L ${cx + inner} ${cy + inner} L ${cx} ${cy + radius} L ${
-    cx - inner
-  } ${cy + inner} L ${cx - radius} ${cy} L ${cx - inner} ${cy - inner} Z`
+  const bend = radius * 0.36
+  const tip = radius * 0.117
+  return `M ${cx} ${cy - radius} C ${cx + tip} ${cy - bend}, ${cx + bend} ${
+    cy - tip
+  }, ${cx + radius} ${cy} C ${cx + bend} ${cy + tip}, ${cx + tip} ${
+    cy + bend
+  }, ${cx} ${cy + radius} C ${cx - tip} ${cy + bend}, ${cx - bend} ${
+    cy + tip
+  }, ${cx - radius} ${cy} C ${cx - bend} ${cy - tip}, ${cx - tip} ${
+    cy - bend
+  }, ${cx} ${cy - radius} Z`
 }
 
 type MotifProps = { random: () => number }

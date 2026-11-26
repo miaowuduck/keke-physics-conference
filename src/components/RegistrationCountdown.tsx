@@ -2,6 +2,7 @@ import { ArrowRight } from 'lucide-react'
 import { site } from '../content'
 import { pad2 } from '../lib/format'
 import { useCountdown } from '../lib/useCountdown'
+import { LogoStar } from './LogoMark'
 
 export function RegistrationCountdown() {
   const { cells, closed } = useCountdown(site.registrationDeadlineISO)
@@ -10,7 +11,10 @@ export function RegistrationCountdown() {
     <div className="relative border-2 border-gold bg-deep p-5 md:p-6">
       <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
         <div>
-          <p className="eyebrow text-gold">REGISTRATION DEADLINE</p>
+          <p className="eyebrow flex items-center gap-2 text-gold">
+            <LogoStar size={9} />
+            REGISTRATION DEADLINE
+          </p>
           <p className="display mt-2 text-[24px] font-extrabold leading-tight">
             {closed ? '问卷已截止' : '问卷收集倒计时'}
           </p>
