@@ -522,7 +522,7 @@ export const logoNews: NewsArticle = {
           body:
             '把吉祥物直接放进原子模型：四层描边的天蓝轨道、两颗金色电子、七颗星与一弯月牙，围住一只戴蛋壳帽、张开翅膀的卡通小鸡。',
           embed: {
-            src: './designs/old-atomic-chick.html?embed=1&v=3',
+            src: './designs/old-atomic-chick.html?embed=1',
             title: '方案 A 动效演示：戴蛋壳帽的卡通小鸡被四条蓝色原子轨道环绕',
           },
           reasons: [
@@ -553,7 +553,7 @@ export const logoNews: NewsArticle = {
           body:
             '把形象彻底抽空，只留三条圆头轨道、一个用白色负形遮住轨道的蛋，以及蛋顶一道锯齿裂纹与一颗金色四角星。',
           embed: {
-            src: './designs/old-starlight-hatch.html?embed=1&v=3',
+            src: './designs/old-starlight-hatch.html?embed=1',
             title: '方案 B 动效演示：白色蛋形上的锯齿裂纹与三条深蓝、金色轨道',
           },
           reasons: [
